@@ -1,3 +1,4 @@
+// Title
 
 function sayHello() {
     console.time("f1");
@@ -11,9 +12,13 @@ function sayHello() {
     console.timeEnd("f1");
 }
 
+// NB From Me :  
 
 function resetCount() {
     console.countReset("submited");
+    alert("Button Submitted Ke reset");
+    console.info("Button Reset Berhasil");
+    
 }
 
 
@@ -26,12 +31,15 @@ let userData = [
     { userId: "user45678", loginStatus: "inactive 001", lastLogin: "2024-03-15" },
 ];
 
-console.table(userData);
 
 console.group('API Response Debug');
+console.table(userData);
 console.log('Status Code:', "Successfull");
 console.log('Response Time:', "Successfull");
 console.log('Payload Size:', "Successfull");
 console.groupEnd();
+
+// console.info("Test Log Info");
+
 
 
