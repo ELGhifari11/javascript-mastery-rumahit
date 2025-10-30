@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Quran</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .app-container {
+            background-color: #fff;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            color: #333;
+        }
+
+        .content {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background-color: #e7f7f4;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 48%;
+        }
+
+        .label {
+            font-size: 1rem;
+            color: #888;
+            margin-bottom: 8px;
+        }
+
+        .value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2d6a4f;
+        }
+
+        .button-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: space-between;
+        }
+
+        .button {
+            background-color: #2d6a4f;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #1d4d3e;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div class="header">
+            <h1>Quran App</h1>
+        </div>
+        <div class="content">
+            <!-- Juz Section -->
+            <div class="card">
+                <p class="label">Juz</p>
+                <div class="button-container">
+                    <!-- Juz Buttons -->
+                    <p  id="juz"></p>
+                    
+                </div>
+            </div>
+            
+            <!-- Surat Section -->
+            <div class="card">
+                <p class="label">Surat</p>
+                <p id="surat" class="value"></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="object.js"></script>
+</body>
+</html>

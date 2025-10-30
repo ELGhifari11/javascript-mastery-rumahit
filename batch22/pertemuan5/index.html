@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .terminal {
+            background: #2d2d2d;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        .terminal-header {
+            background: #3f3f3f;
+            padding: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .terminal-buttons {
+            display: flex;
+            gap: 8px;
+            margin-right: 1rem;
+        }
+
+        .terminal-buttons span {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .close { background: #ff5f56; }
+        .minimize { background: #ffbd2e; }
+        .maximize { background: #27c93f; }
+
+        .terminal-title {
+            color: #ddd;
+            font-size: 0.9rem;
+            font-family: monospace;
+        }
+
+        .terminal-content {
+            padding: 1.5rem;
+        }
+
+        .title {
+            color: #fff;
+            margin-bottom: 1rem;
+            margin-left: 1rem;
+            font-size: 1.1rem;
+            font-family: monospace;
+        }
+
+        .text {
+            color: #b4b4b4;
+            line-height: 1.6;
+            font-family: monospace;
+        }
+        .button1 {
+            background-color: #4CAF50; /* Green */
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            border-radius: 50px;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+        .button1:hover {
+            background-color: #45a049;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="container">
+        <div class="terminal">
+            <div class="terminal-header">
+                <div class="terminal-buttons">
+                    <span class="close"></span>
+                    <span class="minimize"></span>
+                    <span class="maximize"></span>
+                </div>
+                <div class="terminal-title">Terminal</div>
+            </div>
+            <div class="terminal-content">
+
+                <h5 id="tag1" class="title"></h5>
+                <h1 id="tag2" class="title"></h1>
+                <h1 id="tag3" class="title"></h1>
+                <h1 id="tag4" class="title"></h1>
+                <h1 id="tag5" class="title"></h1>
+                <h1 id="tag6" class="title"></h1>
+                <h1 id="tag7" class="title"></h1>
+                <h1 id="tag8" class="title"></h1>
+                <h1 id="tag9" class="title"></h1>
+                <h1 id="tag10" class="title"></h1>
+
+                <p id="description" class="text"></p>
+                <button class="button1" onclick="messageManager.sendMessage(prompt('Pesan'))">WA</button>
+            </div>
+        </div>
+
+    <script src="sendwa.js"></script>
+</body>
+</html>

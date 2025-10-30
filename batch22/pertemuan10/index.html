@@ -1,0 +1,186 @@
+
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Perpustakaan Digital</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <h1>📚 Sistem Perpustakaan Digital</h1>
+            <p>Pembelajaran JavaScript: Object, Array & DOM Manipulation</p>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <button onclick="tampilkanSection('info')" class="nav-btn active" id="btn-info">Info Perpustakaan</button>
+            <button onclick="tampilkanSection('buku')" class="nav-btn" id="btn-buku">Kelola Buku</button>
+            <button onclick="tampilkanSection('pengunjung')" class="nav-btn" id="btn-pengunjung">Kelola Pengunjung</button>
+            <button onclick="tampilkanSection('latihan')" class="nav-btn" id="btn-latihan">Latihan Konsep</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Section 1: Info Perpustakaan -->
+        <section id="section-info" class="section active">
+            <div class="card">
+                <h2>🏢 Informasi Perpustakaan</h2>
+                
+                <!-- Form untuk mengatur info perpustakaan -->
+                <div class="form-group">
+                    <label>Nama Perpustakaan:</label>
+                    <input type="text" id="input-nama" placeholder="Masukkan nama perpustakaan">
+                    <button onclick="updateNamaPerpustakaan()">Update Nama</button>
+                </div>
+
+                <div class="form-group">
+                    <label>Alamat:</label>
+                    <input type="text" id="input-alamat" placeholder="Masukkan alamat">
+                    <button onclick="updateAlamatPerpustakaan()">Update Alamat</button>
+                </div>
+
+                <!-- Tampilan info lengkap -->
+                <div id="info-lengkap" class="info-display">
+                    <!-- Info akan dimunculkan di sini menggunakan innerHTML -->
+                </div>
+
+                <button onclick="tampilkanInfoLengkap()" class="btn-primary">Tampilkan Info Lengkap</button>
+            </div>
+        </section>
+
+        <!-- Section 2: Kelola Buku -->
+        <section id="section-buku" class="section">
+            <div class="card">
+                <h2>📖 Kelola Koleksi Buku</h2>
+                
+                <!-- Form tambah buku -->
+                <div class="form-section">
+                    <h3>Tambah Buku Baru</h3>
+                    <div class="form-group">
+                        <input type="text" id="input-judul" placeholder="Judul Buku">
+                        <input type="text" id="input-pengarang" placeholder="Nama Pengarang">
+                        <select id="input-kategori">
+                            <option value="Fiksi">Fiksi</option>
+                            <option value="Non-Fiksi">Non-Fiksi</option>
+                            <option value="Sains">Sains</option>
+                            <option value="Sejarah">Sejarah</option>
+                            <option value="Biografi">Biografi</option>
+                        </select>
+                        <button onclick="tambahBuku()" class="btn-primary">Tambah Buku</button>
+                    </div>
+                </div>
+
+                <!-- Form cari buku -->
+                <div class="form-section">
+                    <h3>Cari Buku</h3>
+                    <div class="form-group">
+                        <input type="text" id="input-cari" placeholder="Masukkan judul atau pengarang">
+                        <button onclick="cariBuku()" class="btn-secondary">Cari</button>
+                        <button onclick="tampilkanSemuaBuku()" class="btn-secondary">Tampilkan Semua</button>
+                    </div>
+                </div>
+
+                <!-- Hasil pencarian dan daftar buku -->
+                <div id="hasil-pencarian" class="result-display">
+                    <!-- Hasil akan dimunculkan di sini -->
+                </div>
+
+                <!-- Daftar lengkap buku -->
+                <div id="daftar-buku" class="book-list">
+                    <!-- Daftar buku akan dimunculkan di sini -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Kelola Pengunjung -->
+        <section id="section-pengunjung" class="section">
+            <div class="card">
+                <h2>👥 Kelola Pengunjung</h2>
+                
+                <!-- Form tambah pengunjung -->
+                <div class="form-section">
+                    <h3>Tambah Pengunjung</h3>
+                    <div class="form-group">
+                        <input type="text" id="input-nama-pengunjung" placeholder="Nama Pengunjung">
+                        <select id="input-jenis-keanggotaan">
+                            <option value="Reguler">Reguler</option>
+                            <option value="Premium">Premium</option>
+                            <option value="Student">Student</option>
+                        </select>
+                        <button onclick="tambahPengunjung()" class="btn-primary">Tambah Pengunjung</button>
+                    </div>
+                </div>
+
+                <!-- Statistik pengunjung -->
+                <div id="statistik-pengunjung" class="stats-display">
+                    <!-- Statistik akan dimunculkan di sini -->
+                </div>
+
+                <!-- Daftar pengunjung -->
+                <div id="daftar-pengunjung" class="visitor-list">
+                    <!-- Daftar pengunjung akan dimunculkan di sini -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Latihan Konsep -->
+        <section id="section-latihan" class="section">
+            <div class="card">
+                <h2>🎯 Latihan Konsep JavaScript</h2>
+                
+                <!-- Latihan Array Methods -->
+                <div class="exercise-section">
+                    <h3>Array Methods Practice</h3>
+                    <button onclick="demoArrayMethods()" class="btn-secondary">Demo Array Methods</button>
+                    <div id="demo-array" class="demo-display">
+                        <!-- Demo hasil akan muncul di sini -->
+                    </div>
+                </div>
+
+                <!-- Latihan Object Manipulation -->
+                <div class="exercise-section">
+                    <h3>Object Manipulation Practice</h3>
+                    <button onclick="demoObjectManipulation()" class="btn-secondary">Demo Object Methods</button>
+                    <div id="demo-object" class="demo-display">
+                        <!-- Demo hasil akan muncul di sini -->
+                    </div>
+                </div>
+
+                <!-- Latihan Destructuring -->
+                <div class="exercise-section">
+                    <h3>Destructuring & Spread Operator</h3>
+                    <button onclick="demoDestructuring()" class="btn-secondary">Demo Destructuring</button>
+                    <div id="demo-destructuring" class="demo-display">
+                        <!-- Demo hasil akan muncul di sini -->
+                    </div>
+                </div>
+
+                <!-- Console Log Display -->
+                <div class="console-section">
+                    <h3>Console Output</h3>
+                    <div id="console-output" class="console-display">
+                        <!-- Console log akan ditampilkan di sini -->
+                    </div>
+                    <button onclick="clearConsole()" class="btn-secondary">Clear Console</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Sistem Perpustakaan Digital - Pembelajaran JavaScript</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
