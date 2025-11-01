@@ -1,4 +1,8 @@
 
+
+// EXAMPLE OF >>>>>>> IF STATEMENTS
+
+
 function login(){
 
     let email = prompt("Masukan Email")
@@ -17,11 +21,10 @@ function login(){
 
 function cekAksesPengguna() {
     let statusPengguna = prompt("Apa Status Pengguna Anda")
-    let levelAkses = prompt("Apa Level akses Anda")
+    let levelAkses = prompt("Apa Level Anda")
 
     if (statusPengguna === 'aktif') {
         console.log("Pengguna aktif terdeteksi");
-        
         if (levelAkses === 'admin') {
             console.log("Akses diberikan: Admin memiliki semua hak akses");
         } else if (levelAkses === 'moderator') {
@@ -52,8 +55,32 @@ function cekAksesPengguna() {
     }
 }
 
-// Contoh pemanggilan fungsi
-// cekAksesPengguna('aktif', 'admin');
-// cekAksesPengguna('nonaktif', 'moderator');
-// cekAksesPengguna('banned', 'user');
-// cekAksesPengguna('guest', 'user');
+//EXAMPLE OF SWITCH 
+
+function listMenu() {
+    
+    if( confirm("Anda mau makan ?")) {
+        let menu = prompt('Menu Nomer Berapa anda Pilih ? \n Pilih Menu di Bawah ini: \n 1. Mie Ayam : Rp15.000 \n 2. Bakso : Rp.10.000 \n 3. Soto : Rp5.000')
+
+        switch (menu) {
+            case "1":
+                console.log("Anda Pilih Mie Ayam : Rp15.000");
+                break;
+            case "2":
+                console.log("Anda Pilih Bakso : Rp.10.000");
+                break;
+            case "3":
+                console.log("Anda Pilih Soto : Rp5.000");
+                break;
+            default:
+                console.log("Menu Tidak Tersedia");
+                break;
+        }
+    }
+
+
+    
+
+
+}
+
