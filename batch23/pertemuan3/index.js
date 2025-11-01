@@ -3,12 +3,12 @@
 // EXAMPLE OF >>>>>>> IF STATEMENTS
 
 
-function login(){
+function login() {
 
     let email = prompt("Masukan Email")
     let pw = prompt("Masukan Password")
 
-    if(!email || !pw) {
+    if (!email || !pw) {
         alert("Email atau Password Belom Di isi")
         console.log("Login Gagal")
     } else if (email == "saya@email.com" && pw == "112233445566") {
@@ -58,10 +58,8 @@ function cekAksesPengguna() {
 //EXAMPLE OF SWITCH 
 
 function listMenu() {
-    
-    if( confirm("Anda mau makan ?")) {
+    if (confirm("Anda mau makan ?")) {
         let menu = prompt('Menu Nomer Berapa anda Pilih ? \n Pilih Menu di Bawah ini: \n 1. Mie Ayam : Rp15.000 \n 2. Bakso : Rp.10.000 \n 3. Soto : Rp5.000')
-
         switch (menu) {
             case "1":
                 console.log("Anda Pilih Mie Ayam : Rp15.000");
@@ -77,10 +75,22 @@ function listMenu() {
                 break;
         }
     }
-
-
-    
-
-
 }
+
+
+function f1() {
+    
+    let condition = 13
+    let anotherConditon = 35
+
+    if (condition) {
+        /// TRUE
+    } else if (anotherConditon) {
+        // TRUE
+    } else {
+        // FALSE
+    }
+}
+
+
 
