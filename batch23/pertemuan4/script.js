@@ -8,7 +8,7 @@ document.getElementById("F1").addEventListener("submit", function (e) {
     const operator = document.getElementById("operator").value;
 
     if (!firstNumber || !secondNumber || !operator) {
-        console.log("Masukan Angka / Opeator");
+        alert("Masukan Angka / Opeator");
     } else {
         f1(firstNumber, secondNumber, operator)
     }
@@ -83,9 +83,6 @@ function f1(angkaPertama, angkaKedua, operator) {
 
     if (isNaN(a) || isNaN(b) && !a || !b) {
         console.log("Input harus berupa angka");
-        console.log(typeof a);
-        console.log(typeof b);
-
         return;
     }
 
@@ -96,51 +93,54 @@ function f1(angkaPertama, angkaKedua, operator) {
         case "+":
             result = a + b;
             break;
+        case "/":
+            result = a / b;
+            break;
         default:
             console.log("Operator tidak valid");
             return;
     }
 
     const output = document.getElementById("outputBox");
-    output.innerText += `Hasil dari ${angkaPertama} ${operator} ${angkaKedua} = ${result}`;
+    output.innerText += `F1: Hasil dari ${angkaPertama} ${operator} ${angkaKedua} = ${result}`;
     togglePopup("1");
     return result;
 }
 
 // Ekpresif
-const f1 = function (angkaPertama, angkaKedua, operator) {
-    togglePopup("1");
-    let result;
-    const a = Number(angkaPertama);
-    const b = Number(angkaKedua);
+// const f1 = function (angkaPertama, angkaKedua, operator) {
+//     togglePopup("1");
+//     let result;
+//     const a = Number(angkaPertama);
+//     const b = Number(angkaKedua);
 
-    if (isNaN(a) || isNaN(b) && !a || !b) {
-        console.log("Input harus berupa angka");
-        console.log(typeof a);
-        console.log(typeof b);
+//     if (isNaN(a) || isNaN(b) && !a || !b) {
+//         console.log("Input harus berupa angka");
+//         console.log(typeof a);
+//         console.log(typeof b);
 
-        return;
-    }
+//         return;
+//     }
 
-    switch (operator) {
-        case "*":
-            result = a * b;
-            break;
-        case "+":
-            result = a + b;
-            break;
-        default:
-            console.log("Operator tidak valid");
-            return;
-    }
+//     switch (operator) {
+//         case "*":
+//             result = a * b;
+//             break;
+//         case "+":
+//             result = a + b;
+//             break;
+//         default:
+//             console.log("Operator tidak valid");
+//             return;
+//     }
 
-    const output = document.getElementById("outputBox");
-    output.innerText += `Hasil dari ${angkaPertama} ${operator} ${angkaKedua} = ${result}`;
-    togglePopup("1");
-    return result;
-}
+//     const output = document.getElementById("outputBox");
+//     output.innerText += `Hasil dari ${angkaPertama} ${operator} ${angkaKedua} = ${result}`;
+//     togglePopup("1");
+//     return result;
+// }
 // arrow function
-const funct1 =  (angkaPertama, angkaKedua,) => angkaPertama * angkaKedua;
+// const funct1 =  (angkaPertama, angkaKedua,) => angkaPertama * angkaKedua;
 
 
 
