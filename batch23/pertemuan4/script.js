@@ -1,20 +1,4 @@
 
-// FORM F1
-document.getElementById("F1").addEventListener("submit", function (e) {
-    e.preventDefault();
-    togglePopup("1")
-    const firstNumber = document.getElementById("firstNumber").value;
-    const secondNumber = document.getElementById("secondNumber").value;
-    const operator = document.getElementById("operator").value;
-
-    if (!firstNumber || !secondNumber || !operator) {
-        alert("Masukan Angka / Opeator");
-    } else {
-        f1(firstNumber, secondNumber, operator)
-    }
-
-});
-
 
 // Default Notification
 function togglePopup(no) {
@@ -73,6 +57,23 @@ function logggingNama(nama, alamat, rek) {
 
 
 // =======================================
+
+
+// >>>>>>>>>>>>>>>>>>>>>   FORM F1
+document.getElementById("F1").addEventListener("submit", function (e) {
+    e.preventDefault();
+    togglePopup("1")
+    const firstNumber = document.getElementById("firstNumber").value;
+    const secondNumber = document.getElementById("secondNumber").value;
+    const operator = document.getElementById("operator").value;
+
+    if (!firstNumber || !secondNumber || !operator) {
+        alert("Masukan Angka / Opeator");
+    } else {
+        f1(firstNumber, secondNumber, operator)
+    }
+
+});
 
 // Deklartif
 function f1(angkaPertama, angkaKedua, operator) {
@@ -139,10 +140,11 @@ function f1(angkaPertama, angkaKedua, operator) {
 //     togglePopup("1");
 //     return result;
 // }
+
 // arrow function
 // const funct1 =  (angkaPertama, angkaKedua,) => angkaPertama * angkaKedua;
 
-
+// =============================================================
 
 
 // LOOPING 
@@ -160,4 +162,34 @@ function f3(data) {
 // f3(dataSantri2)
 // console.log(`\n ========== \n`);
 // f3(dataSantri)
+
+
+document.getElementById("F2").addEventListener("submit", function (e) {
+    e.preventDefault();
+    togglePopup("2")
+    const nama = document.getElementById("nama").value;
+
+    if (!nama) {
+        alert("Silahkan masukan nama");
+        togglePopup("2")
+    } else {
+        salamCheckReligi(nama)
+        togglePopup("2")
+
+    }
+
+});
+
+let tagOutput = document.getElementById('outputBox');
+
+function salamCheckReligi(nama) {
+    togglePopup("2")
+    if(nama.includes("muhammad")){
+        tagOutput.innerText += `Hello ${nama} Assalamualaikum Brother`;
+        return `Hello ${nama} Assalamualaikum Brtoher`
+    } else {
+        tagOutput.innerText += `Hello ${nama} Ada yang bisa di bantu \n`;
+        return `Hello ${nama} Brtoher`
+    }
+}
 
