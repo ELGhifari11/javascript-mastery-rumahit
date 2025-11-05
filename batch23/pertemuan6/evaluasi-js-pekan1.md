@@ -59,7 +59,7 @@ Please organize your files as follows:
 
 ***
 
-## <span style="font-family: 'Helvetica', sans-serif;">EVALUASI MINGGUAN JAVASCRIPT - PEKAN 2</span>
+## <span style="font-family: 'Helvetica', sans-serif;">EVALUASI MINGGUAN JAVASCRIPT - PEKAN 1</span>
 
 **Batas Waktu:** Rabu 7 November 11:30
 
