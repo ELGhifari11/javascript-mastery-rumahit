@@ -93,7 +93,7 @@ Please organize your files as follows:
 **Tugas 5:** => "Apa yang anda tidak pahami dari berbagai metode metode sintaks yang sudah kita pelajari sejauh ini coba jelaskan secara mendetail dan gamblang"
 
 ***
-# 🌟 <span style="font-family: 'Traditional Arabic', serif;">مَعَ النَّجَاح فِى الْاِمْتِحَانِ مِنْكُمْ<Q/span> 🌟
+# 🌟 <span style="font-family: 'Traditional Arabic', serif;">مَعَ النَّجَاح فِى الْاِمْتِحَانِ مِنْكُمْ</span> 🌟
 ***
 
 </div>
