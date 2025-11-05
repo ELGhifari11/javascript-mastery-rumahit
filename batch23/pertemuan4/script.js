@@ -174,22 +174,22 @@ document.getElementById("F2").addEventListener("submit", function (e) {
         togglePopup("2")
     } else {
         salamCheckReligi(nama)
-        togglePopup("2")
-
     }
 
 });
 
-let tagOutput = document.getElementById('outputBox');
+let dataNamaIslami = ["muhammad, abdullah, umar, utsman,ali,hafidz"]
 
 function salamCheckReligi(nama) {
+    let tagOutput = document.getElementById('outputBox');
     togglePopup("2")
-    if(nama.includes("muhammad")){
+    if(nama.includes('muhammad')){
         tagOutput.innerText += `Hello ${nama} Assalamualaikum Brother`;
+        togglePopup("2")
         return `Hello ${nama} Assalamualaikum Brtoher`
     } else {
         tagOutput.innerText += `Hello ${nama} Ada yang bisa di bantu \n`;
+        togglePopup("2")
         return `Hello ${nama} Brtoher`
     }
 }
-
