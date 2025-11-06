@@ -1,5 +1,4 @@
 
-
 // Default Notification
 function togglePopup(no) {
     document.getElementById(`popupModal${no}`).classList.toggle("hidden");
@@ -7,8 +6,9 @@ function togglePopup(no) {
 
 // Closure - Switch - IF with Operator - Hoisting - Comparasion & Logical - Looping - 
 
-
+// ================================================
 // EXAMPLE OF AN ARRAY OBJECT
+// ================================================
 
 let f1 = function () {
     return "INI F1"
@@ -16,10 +16,10 @@ let f1 = function () {
 
 let arr = ['String 1', 100]
 
+arr[1] = "Edit" // Cara Edit Spesifik pada element Array
+
 let arr2 = ['String', 10, true, f1(), arr, ["Array1", "Array2"]] // 
 let arr3 = ['Fulan PIT', 'Andi', "Bambang PIT", "Asep", "Udin PIT"] // 
-
-
 
 
 function f2(namaData) {
@@ -51,6 +51,27 @@ function deleteLastArray() {
     output.innerText = dataSantri
 }
 
+
+document.getElementById("F2").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const index = document.getElementById("index").value;
+    const newData = document.getElementById('new-data').value;
+    
+    if (!index || !newData) {
+        alert("Salah satu Data Belum Ke Input");
+    } else {
+        edit(index,newData)
+    }
+});
+
+
+function edit(index,newData) {
+    dataSantri[index] = newData
+    output.innerText = dataSantri
+    togglePopup("2")
+    
+}
+
 document.getElementById("F1").addEventListener("submit", function (e) {
     e.preventDefault();
     togglePopup("1")
@@ -59,7 +80,7 @@ document.getElementById("F1").addEventListener("submit", function (e) {
     const option = document.getElementById('option').value;
 
     if (!name || !option) {
-        alert("Sa;ah satu Data Belum Ke Input");
+        alert("Salah satu Data Belum Ke Input");
     } else {
         manipulationElementArray(name, option)
     }
@@ -73,7 +94,7 @@ function manipulationElementArray(data, option) {
                 output.innerText = dataSantri
             break;
         case "unshift":
-            dataSantri.unshift(data), // >>>>>> SHIFT() (Add New Element in Fisrt Index)
+            dataSantri.unshift(data), // >>>>>> UNSHIFT() (Add New Element in Fisrt Index)
                 output.innerText = dataSantri
             break;
         default:
