@@ -1,10 +1,15 @@
 
+// Closure - Switch - IF with Operator - Hoisting - Comparasion & Logical - Looping
+
 // Default Notification
 function togglePopup(no) {
-    document.getElementById(`popupModal${no}`).classList.toggle("hidden");
+     if (dataSantri.length == 0 && no == 2) {
+        output.innerText = "ARRAY MASIH KOSONG"
+    } else {
+        document.getElementById(`popupModal${no}`).classList.toggle("hidden");
+    }
 }
 
-// Closure - Switch - IF with Operator - Hoisting - Comparasion & Logical - Looping - 
 
 // ================================================
 // EXAMPLE OF AN ARRAY OBJECT
@@ -51,25 +56,22 @@ function deleteLastArray() {
     output.innerText = dataSantri
 }
 
-
 document.getElementById("F2").addEventListener("submit", function (e) {
     e.preventDefault();
     const index = document.getElementById("index").value;
     const newData = document.getElementById('new-data').value;
-    
+
     if (!index || !newData) {
         alert("Salah satu Data Belum Ke Input");
     } else {
-        edit(index,newData)
+        edit(index, newData)
     }
 });
 
-
-function edit(index,newData) {
-    dataSantri[index] = newData
-    output.innerText = dataSantri
-    togglePopup("2")
-    
+function edit(index, newData) {
+        dataSantri[index] = newData
+        output.innerText = dataSantri
+        togglePopup("2")
 }
 
 document.getElementById("F1").addEventListener("submit", function (e) {
