@@ -18,12 +18,13 @@
 
     <!-- ===== MAIN CONTENT ===== -->
     <main class="container">
-        
+
         <!-- === BUTTONS AREA === -->
         <section class="box" id="buttons-section">
             <h2>Function Trigger Buttons</h2>
-            <button class="icon-btn icon" onclick="clearOutput()" title="Clear Output">🗑️</button>
-            <button class="icon-btn icon" onclick="addNewPharaghraph()" title="Add New Line">➕</button>
+            <button class="icon-btn icon" onclick="deleteFisrtArray()" title="Clear Output">🗑️</button>
+            <button class="icon-btn icon" onclick="togglePopup('1')" title="Add New Line">➕</button>
+            <button class="icon-btn icon" onclick="deleteLastArray()" title="Clear Output">🗑️</button>
             <!-- Tambahkan tombol lainnya sesuai materi -->
             <br><br>
 
@@ -43,13 +44,13 @@
 
     <!-- ===== FOOTER ===== -->
     <footer>
-        <p>Made for Programming Classs Batch 23  | EL Course &copy; 2025</p>
+        <p>Made for Programming Classs Batch 23 | EL Course &copy; 2025</p>
     </footer>
 
 
 
     <!-- ===== MODAL / NOTIFICATION POPUP ===== -->
-    
+
     <div id="popupModal1" class="modal hidden">
 
         <div class="modal-content">
@@ -60,6 +61,11 @@
 
                     <label for="name">Data Nama Santri:</label>
                     <input type="text" id="name" name="name" placeholder="Masukkan Nama santri" required />
+                    <select name="option" id="option" required>
+                        <option value="pop">Pop()</option>
+                        <option value="unshift">Unshift()</option>
+                    </select>
+                    <br>
 
                     <button type="submit">Submit</button>
 
