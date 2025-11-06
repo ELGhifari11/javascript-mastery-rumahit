@@ -23,7 +23,7 @@
         <section class="box" id="buttons-section">
             <h2>Function Trigger Buttons</h2>
             <button class="icon-btn icon" onclick="deleteFisrtArray()" title="Clear Output">🗑️</button>
-            <button class="icon-btn icon" onclick="togglePopup('1')" title="Add New Line">➕</button>
+            <button class="icon-btn icon" onclick="togglePopup('2')" title="Add New Line">➕</button>
             <button class="icon-btn icon" onclick="deleteLastArray()" title="Clear Output">🗑️</button>
             <!-- Tambahkan tombol lainnya sesuai materi -->
             <br><br>
@@ -65,6 +65,31 @@
                         <option value="pop">Pop()</option>
                         <option value="unshift">Unshift()</option>
                     </select>
+                    <br>
+
+                    <button type="submit">Submit</button>
+
+                </form>
+            </section>
+        </div>
+    </div>
+
+
+    <!-- ============ FORM F2 ================ -->
+
+    <div id="popupModal2" class="modal hidden">
+
+        <div class="modal-content">
+            <span class="close-btn" onclick="togglePopup('2')">&times;</span>
+            <section id="form-section">
+                <h2>Input Data</h2>
+                <form id="F2">
+
+                    <label for="index">No Index:</label>
+                    <input type="number" id="index" name="index" placeholder="Masukkan Index Array Yang mau Di Edit" required />
+                    <label for="new-data">New Data:</label>
+                    <input type="text" id="new-data" name="index" placeholder="Masukkan New Data Yang mau Di Add" required />
+                   
                     <br>
 
                     <button type="submit">Submit</button>
