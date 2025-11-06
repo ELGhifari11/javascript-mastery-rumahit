@@ -26,7 +26,7 @@ function f2(namaData) {
     console.log(`Oke Array "${namaData}" Akan Di Eksekusi`);
     return function (arr) {
         for (let i = 0; i < arr.length; i++) {
-            console.log(`Hasil Array "${namaData}" pada Loop ke ${i+1}`);   
+            console.log(`Hasil Array "${namaData}" pada Loop ke ${i + 1}`);
             console.log(`${i + 1}. ${arr[i]}`);
         }
     }
@@ -35,28 +35,52 @@ function f2(namaData) {
 
 
 // ================================================
-// FUNCTION ADD DATA TO ARRAY
+// FUNCTION MANIPULATION DATA TO ARRAY
 // ================================================
 
-const dataSantri = ['Bambang']
+let dataSantri = []
 const output = document.getElementById('outputBox');
+
+function deleteFisrtArray() {
+    dataSantri.shift() // >>> SHIFT() (Delete Only First Element in Array)
+    output.innerText = dataSantri
+}
+
+function deleteLastArray() {
+    dataSantri.pop() // >>> POP() (Delete only Last Element in Array)
+    output.innerText = dataSantri
+}
 
 document.getElementById("F1").addEventListener("submit", function (e) {
     e.preventDefault();
     togglePopup("1")
+
     const name = document.getElementById("name").value;
-    if (!name) {
-        alert("Data Belum Ke Input");
+    const option = document.getElementById('option').value;
+
+    if (!name || !option) {
+        alert("Sa;ah satu Data Belum Ke Input");
     } else {
-        manipulationElementArray(name)
+        manipulationElementArray(name, option)
     }
 });
 
-function manipulationElementArray(data) {
+function manipulationElementArray(data, option) {
     togglePopup('1')
-    dataSantri.push(data), // PUSH()
-    output.innerText = dataSantri
-    console.log(`Data ${data} berhasil Di tambahkan ...`);
+    switch (option) {
+        case "pop":
+            dataSantri.push(data), // >>>>>> PUSH() (Add New Element in Last Index)
+                output.innerText = dataSantri
+            break;
+        case "unshift":
+            dataSantri.unshift(data), // >>>>>> SHIFT() (Add New Element in Fisrt Index)
+                output.innerText = dataSantri
+            break;
+        default:
+            break;
+    }
+    console.log(`Data "${data}" berhasil Di tambahkan dengan metode "${option}" ....`);
+    console.log(dataSantri);
     togglePopup('1')
 }
 
