@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Live Coding JS – Edu Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header>
+        <h1>JavaScript Mastery By Rumah IT</h1>
+        <p>PAKSA - TERBIASA - BISA - LUARBIASA </p>
+    </header>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="container">
+
+        <!-- === BUTTONS AREA === -->
+        <section class="box" id="buttons-section">
+            <h2>Function Trigger Buttons</h2>
+            <button class="icon-btn icon" onclick="deleteFisrtArray()" title="Clear Output">🗑️</button>
+            <button class="icon-btn icon" onclick="togglePopup('2')" title="Add New Line">➖</button>
+            <button class="icon-btn icon" onclick="deleteLastArray()" title="Clear Output">🗑️</button>
+            <!-- Tambahkan tombol lainnya sesuai materi -->
+            <br><br>
+
+            <div>
+                <button class="icon-btn" onclick="togglePopup('1')" title="Penjumlahan">F1</button>
+                <!-- Tambahkan tombol lainnya sesuai materi -->
+            </div>
+        </section>
+
+        <!-- === OUTPUT AREA === -->
+        <section class="box" id="output-section">
+            <h2>Output / Result</h2>
+            <div id="outputBox"></div>
+        </section>
+
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <p>Made for Programming Classs Batch 23 | EL Course &copy; 2025</p>
+    </footer>
+
+
+
+    <!-- ===== MODAL / NOTIFICATION POPUP ===== -->
+
+    <div id="popupModal1" class="modal hidden">
+
+        <div class="modal-content">
+            <span class="close-btn" onclick="togglePopup('1')">&times;</span>
+            <section id="form-section">
+                <h2>Input Data</h2>
+                <form id="F1">
+
+                    <label for="name">Data Nama Santri:</label>
+                    <input type="text" id="name" name="name" placeholder="Masukkan Nama santri" required />
+                    <select name="option" id="option" required>
+                        <option value="pop">Pop()</option>
+                        <option value="unshift">Unshift()</option>
+                    </select>
+                    <br>
+
+                    <button type="submit">Submit</button>
+
+                </form>
+            </section>
+        </div>
+    </div>
+
+
+    <!-- ============ FORM F2 ================ -->
+
+    <div id="popupModal2" class="modal hidden">
+
+        <div class="modal-content">
+            <span class="close-btn" onclick="togglePopup('2')">&times;</span>
+            <section id="form-section">
+                <h2>Input Data</h2>
+                <form id="F2">
+
+                    <label for="index">No Index:</label>
+                    <input type="number" id="index" name="index" placeholder="Masukkan Index Array Yang mau Di Edit" required />
+                    <label for="new-data">New Data:</label>
+                    <input type="text" id="new-data" name="index" placeholder="Masukkan New Data Yang mau Di Add" required />
+                   
+                    <br>
+
+                    <button type="submit">Submit</button>
+
+                </form>
+            </section>
+        </div>
+    </div>
+
+    <!-- ===== JAVASCRIPT ===== -->
+
+    <script src="script.js"></script>
+</body>
+
+</html>
