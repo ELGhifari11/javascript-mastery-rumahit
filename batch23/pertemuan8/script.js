@@ -91,19 +91,29 @@ let hasilMap = namaIslami.map((v,i,a)=>{
 })
 
 
-// let rit = hasilMap.map((v,i,a)=>{
-//     if(i % 2 == 0) {
-//      return v 
-//    } else {
-//     return ;
-//    }
-// })
+let rit = hasilMap.filter((v)=>{
+    return v.includes("RIT");
+})
+
+let pit = hasilMap.filter((v)=>{
+    return v.includes("PIT");
+})
 
 
-
+console.group("TABLE DATA ARRAY AWAL");
 console.table(namaIslami);
+console.groupEnd();
 
+console.group("TABLE DATA ARRAY HASIL MODIFIKASI MAP() ");
 console.table(hasilMap);
+console.groupEnd();
+console.group("TABLE DATA ARRAY HASIL MODIFIKASI FILTER() RIT ");
+console.table(rit);
+console.groupEnd();
+console.group("TABLE DATA ARRAY HASIL MODIFIKASI FILTER() PIT ");
+console.table(pit);
+console.groupEnd();
+
 
 
 
