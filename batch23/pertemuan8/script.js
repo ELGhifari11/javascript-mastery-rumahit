@@ -1,6 +1,7 @@
 /// RECAL SPLICE 
 
 let  arr = ['Array1','Array2','array3','array4']
+
 // console.log(arr); // LENGHT MASIH 4
 
 let hasilSplice = arr.splice(1,1,'JIJI',"909090","9009","data Baru")
@@ -109,6 +110,25 @@ let hasilMap = namaIslami.map((v,i,a)=>{
    } 
 })
 
+let nilai = [10,20,30,40,50,60,70,80,90,100,99,88,77,66,55,44,33,22,11]
+
+let lulus = nilai.filter((v)=>{
+    return v >= 70
+})
+
+let totalNilaiLulus = lulus.reduce((a,b,c,d)=>{
+    return a + b
+})
+
+let addTextLulus = lulus.map((v)=>{
+    return `Nilai ${v} (Lulus)`
+})
+
+console.table(lulus)
+console.table(`Nilai Total Yang Lulus: ${totalNilaiLulus}`)
+// console.log(70+ 80 +90 +100 +99 +88 +77);
+console.table(addTextLulus)
+
 // ==================================================
 // MANIPULATION ARRAY WITH FILTER() 
 // ==================================================
@@ -132,10 +152,10 @@ let pit = hasilMap.filter((v)=>{
 // console.group("TABLE DATA ARRAY HASIL MODIFIKASI FILTER() RIT ");
 // console.table(rit);
 // console.groupEnd();
-
-console.group("TABLE DATA ARRAY HASIL MODIFIKASI FILTER() PIT ");
-console.table(pit);
-console.groupEnd();
+//
+// console.group("TABLE DATA ARRAY HASIL MODIFIKASI FILTER() PIT ");
+// console.table(pit);
+// console.groupEnd();
 
 
  // ==================================================
@@ -156,7 +176,7 @@ function searcName(name) {
 }
 
 // SOLVE BAGIAN INI MENJADI FUNGSI YANG BERJALAN
-searcName('amir')
+// searcName('amir')
 
 
 
