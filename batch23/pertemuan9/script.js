@@ -55,6 +55,15 @@ const santri = {
   hobi: ["Membaca", "Ngoding", "Olahraga"]
 };
 
+santri.nilaiRataRata = 100
+santri["nilaiRataRata"] = 95
+santri['namaAyah'] = "Bambang"
+delete santri.jenisKelamin
+
+if(santri['nilaiRataRata'] > 75 ) {
+    santri['status'] = "Lulus"
+} 
+
 // console.log(santri["nilaiRataRata"]);
 
 for (let key in santri) {
