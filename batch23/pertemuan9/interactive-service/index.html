@@ -3,65 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rencana Santri Harian</title>
+    <title>Koperasi Santri POS</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header class="kepala">
-        <h1>Rencana Santri Harian</h1>
-        <p>Catat hafalan, ibadah, dan renungan singkatmu hari ini.</p>
+        <h1>Koperasi Santri POS</h1>
+        <p>Catat penjualan harian dengan langkah sederhana dan rapi.</p>
     </header>
 
     <main class="konten">
-        <section class="kartu">
-            <h2>Identitas Santri</h2>
-            <div class="form-grup">
-                <label for="namaSantri">Nama lengkap</label>
-                <input type="text" id="namaSantri" placeholder="contoh: Ahmad Fajar">
-            </div>
-            <div class="form-grup">
-                <label for="targetHafalan">Target hafalan hari ini</label>
-                <input type="text" id="targetHafalan" placeholder="contoh: Surah Al-Mulk ayat 1-5">
-            </div>
-            <button id="simpanIdentitas" onclick="simpanIdentitas()">Simpan identitas</button>
-            <p class="pesan" id="pesanIdentitas"></p>
+        <section class="kartu" id="bagianKasir">
+            <h2>Identitas Kasir</h2>
+            <label for="namaKasir" class="label">Nama kasir</label>
+            <input type="text" id="namaKasir" placeholder="contoh: Zahra">
+            <button onclick="simpanKasir()">Simpan nama</button>
+            <p id="pesanKasir" class="pesan"></p>
         </section>
 
-        <section class="kartu">
-            <h2>Catatan Hafalan</h2>
-            <div class="form-grup">
-                <label for="ayatBaru">Ayat atau hadits yang dihafal</label>
-                <input type="text" id="ayatBaru" placeholder="contoh: Hadits tentang niat">
-            </div>
-            <div class="form-grup">
-                <label for="kesanBaru">Kesan singkat</label>
-                <input type="text" id="kesanBaru" placeholder="contoh: Menguatkan niat belajar">
-            </div>
-            <button id="tambahCatatan" onclick="tambahCatatan()">Tambah catatan</button>
-            <p class="pesan" id="pesanCatatan"></p>
-            <div class="daftar" id="daftarCatatan"></div>
+        <section class="kartu" id="bagianProduk">
+            <h2>Daftar Produk</h2>
+            <p class="catatan">Klik tombol tambah untuk memasukkan produk ke keranjang.</p>
+            <div id="daftarProduk" class="daftar"></div>
         </section>
 
-        <section class="kartu">
-            <h2>Amalan Sunnah</h2>
-            <p>Pilih amalan sunnah yang sudah dilakukan hari ini.</p>
-            <div class="daftar tombol" id="daftarAmalan"></div>
-            <p class="pesan" id="ringkasanAmalan"></p>
+        <section class="kartu" id="bagianKeranjang">
+            <h2>Keranjang Penjualan</h2>
+            <div id="ringkasanKeranjang" class="daftar"></div>
+            <p id="totalBelanja" class="total"></p>
+            <div class="tombol-ganda">
+                <button onclick="kosongkanKeranjang()">Kosongkan</button>
+                <button onclick="simpanRingkasan()">Simpan ringkasan</button>
+            </div>
+            <p id="pesanRingkasan" class="pesan"></p>
         </section>
 
-        <section class="kartu">
-            <h2>Renungan Malam</h2>
-            <div class="form-grup">
-                <label for="renunganSantri">Apa pelajaran berharga hari ini?</label>
-                <textarea id="renunganSantri" rows="4" placeholder="contoh: Pentingnya menjaga wudhu sepanjang hari"></textarea>
-            </div>
-            <button id="simpanRenungan" onclick="simpanRenungan()">Simpan renungan</button>
-            <div class="ringkasan" id="ringkasanRenungan"></div>
+        <section class="kartu" id="bagianPembayaran">
+            <h2>Pembayaran</h2>
+            <label for="uangBayar" class="label">Uang diterima (Rp)</label>
+            <input type="number" id="uangBayar" placeholder="contoh: 20000">
+            <button onclick="prosesPembayaran()">Hitung kembalian</button>
+            <p id="pesanPembayaran" class="pesan"></p>
+          <div id="strukPembelian" class="ringkasan"></div>
         </section>
     </main>
 
     <footer class="kaki">
-        <p>Belajar JavaScript dasar untuk membantu aktivitas santri setiap hari.</p>
+        <p>Belajar logika POS menggunakan JavaScript dasar untuk pelayanan santri.</p>
     </footer>
 
     <script src="script.js"></script>
