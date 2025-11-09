@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rencana Santri Harian</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="kepala">
+        <h1>Rencana Santri Harian</h1>
+        <p>Catat hafalan, ibadah, dan renungan singkatmu hari ini.</p>
+    </header>
+
+    <main class="konten">
+        <section class="kartu">
+            <h2>Identitas Santri</h2>
+            <div class="form-grup">
+                <label for="namaSantri">Nama lengkap</label>
+                <input type="text" id="namaSantri" placeholder="contoh: Ahmad Fajar">
+            </div>
+            <div class="form-grup">
+                <label for="targetHafalan">Target hafalan hari ini</label>
+                <input type="text" id="targetHafalan" placeholder="contoh: Surah Al-Mulk ayat 1-5">
+            </div>
+            <button id="simpanIdentitas" onclick="simpanIdentitas()">Simpan identitas</button>
+            <p class="pesan" id="pesanIdentitas"></p>
+        </section>
+
+        <section class="kartu">
+            <h2>Catatan Hafalan</h2>
+            <div class="form-grup">
+                <label for="ayatBaru">Ayat atau hadits yang dihafal</label>
+                <input type="text" id="ayatBaru" placeholder="contoh: Hadits tentang niat">
+            </div>
+            <div class="form-grup">
+                <label for="kesanBaru">Kesan singkat</label>
+                <input type="text" id="kesanBaru" placeholder="contoh: Menguatkan niat belajar">
+            </div>
+            <button id="tambahCatatan" onclick="tambahCatatan()">Tambah catatan</button>
+            <p class="pesan" id="pesanCatatan"></p>
+            <div class="daftar" id="daftarCatatan"></div>
+        </section>
+
+        <section class="kartu">
+            <h2>Amalan Sunnah</h2>
+            <p>Pilih amalan sunnah yang sudah dilakukan hari ini.</p>
+            <div class="daftar tombol" id="daftarAmalan"></div>
+            <p class="pesan" id="ringkasanAmalan"></p>
+        </section>
+
+        <section class="kartu">
+            <h2>Renungan Malam</h2>
+            <div class="form-grup">
+                <label for="renunganSantri">Apa pelajaran berharga hari ini?</label>
+                <textarea id="renunganSantri" rows="4" placeholder="contoh: Pentingnya menjaga wudhu sepanjang hari"></textarea>
+            </div>
+            <button id="simpanRenungan" onclick="simpanRenungan()">Simpan renungan</button>
+            <div class="ringkasan" id="ringkasanRenungan"></div>
+        </section>
+    </main>
+
+    <footer class="kaki">
+        <p>Belajar JavaScript dasar untuk membantu aktivitas santri setiap hari.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
