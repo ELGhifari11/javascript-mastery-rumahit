@@ -1,0 +1,162 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background: linear-gradient(180deg, #f0f5ff 0%, #e6f7f2 100%);
+    color: #1b3c35;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.kepala {
+    text-align: center;
+    padding: 2.5rem 1rem 1.5rem;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(6px);
+    border-bottom: 2px solid #c8e6d4;
+}
+
+.kepala h1 {
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.kepala p {
+    font-size: 1rem;
+    color: #3c6058;
+}
+
+.konten {
+    width: min(960px, 92%);
+    margin: 1.5rem auto;
+    display: grid;
+    gap: 1.5rem;
+}
+
+.kartu {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 12px 24px rgba(55, 118, 94, 0.12);
+    border: 1px solid #d5efe3;
+}
+
+.kartu h2 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    color: #0f332d;
+}
+
+.form-grup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+label {
+    font-weight: 600;
+}
+
+input,
+textarea,
+button {
+    font-size: 1rem;
+    padding: 0.75rem;
+    border-radius: 10px;
+    border: 1px solid #b6e0ce;
+}
+
+input:focus,
+textarea:focus {
+    outline: 2px solid #5bb195;
+    border-color: #5bb195;
+}
+
+button {
+    background: linear-gradient(90deg, #3c9b7b, #4fbb95);
+    color: white;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(60, 155, 123, 0.2);
+}
+
+.pesan {
+    margin-top: 0.75rem;
+    color: #2f6f57;
+    font-weight: 500;
+}
+
+.daftar {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.daftar .item {
+    background: #f6fffb;
+    border: 1px solid #bfe9d6;
+    border-radius: 12px;
+    padding: 0.85rem;
+    line-height: 1.4;
+}
+
+.daftar.tombol {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.daftar.tombol button {
+    flex: 1 1 140px;
+    background: white;
+    color: #2c705a;
+    border: 1px solid #9dd8c1;
+}
+
+.daftar.tombol button.aktif {
+    background: #44b48a;
+    color: white;
+    border-color: #44b48a;
+}
+
+.ringkasan {
+    margin-top: 1rem;
+    background: #f1f9f6;
+    border-radius: 12px;
+    padding: 1rem;
+    border: 1px solid #c2ead9;
+    min-height: 60px;
+}
+
+.kaki {
+    text-align: center;
+    padding: 1.5rem 1rem 2rem;
+    margin-top: auto;
+    color: #366d59;
+    font-size: 0.95rem;
+}
+
+@media (min-width: 880px) {
+    .konten {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .konten .kartu:nth-child(3) {
+        grid-column: span 2;
+    }
+}
