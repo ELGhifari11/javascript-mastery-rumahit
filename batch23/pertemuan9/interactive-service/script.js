@@ -8,12 +8,14 @@ const inputUangBayar = document.getElementById("uangBayar");
 const pesanPembayaran = document.getElementById("pesanPembayaran");
 const strukPembelian = document.getElementById("strukPembelian");
 
+const teksStrukKosong = "<p>Belum ada struk penjualan.</p>";
+
 pesanKasir.innerText = "Tuliskan nama kasir agar pelayanan tercatat.";
 ringkasanKeranjang.innerHTML = "<p>Keranjang masih kosong.</p>";
 totalBelanjaElemen.innerText = "Total: Rp 0";
 pesanRingkasan.innerText = "Belum ada ringkasan yang disimpan.";
 pesanPembayaran.innerText = "Masukkan jumlah uang yang diterima.";
-strukPembelian.innerHTML = "";
+strukPembelian.innerHTML = teksStrukKosong;
 
 const kasir = {
     nama: ""
@@ -148,21 +150,21 @@ function prosesPembayaran() {
     const total = hitungTotal();
     if (keranjang.length === 0) {
         pesanPembayaran.innerText = "Tambahkan produk terlebih dahulu.";
-        strukPembelian.innerHTML = "";
+        strukPembelian.innerHTML = teksStrukKosong;
         return;
     }
 
     const uangMasuk = parseInt(inputUangBayar.value, 10);
     if (isNaN(uangMasuk)) {
         pesanPembayaran.innerText = "Masukkan angka uang yang diterima.";
-        strukPembelian.innerHTML = "";
+        strukPembelian.innerHTML = teksStrukKosong;
         return;
     }
 
     if (uangMasuk < total) {
         const selisih = total - uangMasuk;
         pesanPembayaran.innerText = "Uang kurang Rp " + formatRupiah(selisih) + ".";
-        strukPembelian.innerHTML = "";
+        strukPembelian.innerHTML = teksStrukKosong;
         return;
     }
 

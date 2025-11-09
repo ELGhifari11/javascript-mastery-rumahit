@@ -8,19 +8,19 @@
 </head>
 <body>
     <header class="kepala">
-        <h1>Koperasi Santri POS</h1>
-        <p>Catat penjualan harian dengan langkah sederhana dan rapi.</p>
-    </header>
-
-    <main class="konten">
-        <section class="kartu" id="bagianKasir">
-            <h2>Identitas Kasir</h2>
+        <div class="kepala-teks">
+            <h1>Koperasi Santri POS</h1>
+            <p>Catat transaksi koperasi dengan rapi agar layanan santri lebih tertib.</p>
+        </div>
+        <div class="identitas-kasir">
             <label for="namaKasir" class="label">Nama kasir</label>
             <input type="text" id="namaKasir" placeholder="contoh: Zahra">
             <button onclick="simpanKasir()">Simpan nama</button>
             <p id="pesanKasir" class="pesan"></p>
-        </section>
+        </div>
+    </header>
 
+    <main class="konten">
         <section class="kartu" id="bagianProduk">
             <h2>Daftar Produk</h2>
             <p class="catatan">Klik tombol tambah untuk memasukkan produk ke keranjang.</p>
@@ -35,7 +35,6 @@
                 <button onclick="kosongkanKeranjang()">Kosongkan</button>
                 <button onclick="simpanRingkasan()">Simpan ringkasan</button>
             </div>
-            <p id="pesanRingkasan" class="pesan"></p>
         </section>
 
         <section class="kartu" id="bagianPembayaran">
@@ -44,7 +43,12 @@
             <input type="number" id="uangBayar" placeholder="contoh: 20000">
             <button onclick="prosesPembayaran()">Hitung kembalian</button>
             <p id="pesanPembayaran" class="pesan"></p>
-          <div id="strukPembelian" class="ringkasan"></div>
+        </section>
+
+        <section class="kartu" id="bagianRingkasan">
+            <h2>Ringkasan &amp; Struk</h2>
+            <p id="pesanRingkasan" class="pesan"></p>
+            <div id="strukPembelian" class="ringkasan"></div>
         </section>
     </main>
 
