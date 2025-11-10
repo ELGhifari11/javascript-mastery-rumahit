@@ -66,7 +66,23 @@ if(santri['nilaiRataRata'] > 75 ) {
 
 // console.log(santri["nilaiRataRata"]);
 
-for (let key in santri) {
-    console.log(`Pada Key => "${key}" Valuenya => "${santri[key]}"`);
-    
-}
+// ==================================================
+// ==================================================
+
+const listSantri = [
+  { id: 102, nama: "Siti Nurhaliza", usia: 16, jenisKelamin: "Perempuan", asalDaerah: "Solo", program: "Fullstack Web Development", nilaiRataRata: 91, aktif: true, tanggalDaftar: "2025-02-16", hobi: ["Menulis", "Memasak"] },
+  { id: 103, nama: "Budi Santoso", usia: 18, jenisKelamin: "Laki-laki", asalDaerah: "Magelang", program: "Fullstack Web Development", nilaiRataRata: 85, aktif: true, tanggalDaftar: "2025-02-17", hobi: ["Fotografi", "Traveling"] }
+];
+
+const output = document.getElementById('outputBox');
+let content = '';
+
+listSantri.forEach((s, idx) => {
+  content += `=== Santri ke-${idx + 1} ===\n`;
+  for (let key in s) {
+    content += `${key} : ${s[key]}\n`;
+  }
+  content += '\n';
+});
+
+output.innerText = content;
