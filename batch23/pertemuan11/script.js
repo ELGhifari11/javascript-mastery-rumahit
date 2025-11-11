@@ -8,6 +8,12 @@ const tagDaftarProduk = document.getElementById('daftarProduk')
 const inputProductId = document.getElementById('productId')
 const inputProductName = document.getElementById('productName')
 const inputProductHarga = document.getElementById('productPrice')
+const tagRingkasanKeranjang = document.getElementById("ringkasanKeranjang")     
+const tagTotalBelanja = document.getElementById("totalBelanja")  
+const tagPesanRingkasan = document.getElementById("pesanRingkasan");
+
+
+helloKasir.innerText = "📝✨ Tuliskan nama Anda sebagai kasir agar pelayanan tercatat."
 
 const daftarProduk = [
     { id: "001", nama: "Beras 1kg", harga: 15000 },
@@ -30,9 +36,17 @@ const kasir = {
     nama: ""
 };
 
+const keranjang = []
+
+function kosongkanKeranjang() {
+    keranjang.length = 0;
+    tampilkanKeranjang();
+    tagPesanRingkasan.innerText = "Keranjang dikosongkan. Siap melayani pelanggan berikutnya.";
+}
+
 /// ==========================================
 
-function simpanKasir() {
+function simpanNamaKasir() {
     // Masukan Value Ke Variabel dari Element HTML pada ID Tertentu
     let namaKasir = inputNamaKasir.value.trim()
     // Validasi Kalau Kosong Value dari namaKasir di Kasih Peringatan
@@ -72,7 +86,83 @@ function hapusProduk(itemId) {
 }
 
 function tambahKeranjang(itemId) {
-    console.log(itemId);
+    let ditemukan = false;
+    for (let i = 0; i < keranjang.length; i++) {
+        if (keranjang[i].id === itemId) {
+            keranjang[i].jumlah += 1;
+            ditemukan = true;
+            console.table(keranjang);
+
+        }
+    }
+    if (!ditemukan) {
+        for (let j = 0; j < daftarProduk.length; j++) {
+            if (daftarProduk[j].id === itemId) {
+                keranjang.push({
+                    id: daftarProduk[j].id,
+                    nama: daftarProduk[j].nama,
+                    harga: daftarProduk[j].harga,
+                    jumlah: 1
+                });
+            }
+        }
+        console.table(keranjang);
+    }
+    tampilkanKeranjang();
+}
+
+function hitungTotal() {
+    let total = 0;
+    for (let i = 0; i < keranjang.length; i++) {
+        total += keranjang[i].harga * keranjang[i].jumlah;
+    }
+    return total;
+}
+
+function ubahJumlah(idProduk, aksi) {
+    for (let i = 0; i < keranjang.length; i++) {
+        if (keranjang[i].id === idProduk) {
+            if (aksi === "tambah") {
+                keranjang[i].jumlah += 1;
+            } else if (aksi === "kurang") {
+                keranjang[i].jumlah -= 1;
+                if (keranjang[i].jumlah <= 0) {
+                    keranjang.splice(i, 1);
+                }
+            }
+        }
+    }
+    tampilkanKeranjang();
+}
+
+
+function tampilkanKeranjang(){
+     if (keranjang.length === 0) {
+        tagRingkasanKeranjang.innerHTML = "<p>Keranjang masih kosong.</p>";
+        tagTotalBelanja.innerText = "Total: Rp 0";
+        return;
+    }
+
+    let isi = "";
+    for (let i = 0; i < keranjang.length; i++) {
+        const item = keranjang[i];
+        const subtotal = item.harga * item.jumlah;
+        isi += '<div class="item-keranjang">';
+        isi += '<strong>' + item.nama + '</strong>';
+        isi += '<span>Jumlah: ' + item.jumlah + ' x Rp ' + formatRupiah(item.harga) + '</span>';
+        isi += '<p>Subtotal: Rp ' + formatRupiah(subtotal) + '</p>';
+        isi += '<div class="kontrol">';
+        isi += '<button class="button-kontrol" onclick="ubahJumlah(\'' + item.id + '\', \'tambah\')">+</button>';
+        isi += '<button class="button-kontrol" onclick="ubahJumlah(\'' + item.id + '\', \'kurang\')">-</button>';
+        isi += '</div>';
+        isi += '</div>';
+    }
+
+    tagRingkasanKeranjang.innerHTML = isi;
+    const total = hitungTotal();
+
+    tagTotalBelanja.innerText = "Total: " + formatRupiah(total);
+
 }
 
 function addProduct(){
@@ -98,5 +188,6 @@ function addProduct(){
 }
 
 tampilkanProduk()
+tampilkanKeranjang()
 
 
