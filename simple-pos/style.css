@@ -1,0 +1,295 @@
+:root {
+  --base-dark: #1b1b1f;       /* warna dasar latar */
+  --base-mid: #24262b;        /* permukaan menengah */
+  --base-light: #30333a;      /* highlight lembut */
+  --accent: #4fd1a1;          /* warna aksen utama (teal lembut) */
+  --accent-hover: #68f0c0;
+  --text-main: #f1f1f1;
+  --text-soft: #a3a3a3;
+  --shadow-dark: rgba(0, 0, 0, 0.55);
+  --shadow-light: rgba(255, 255, 255, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--base-dark);
+  color: var(--text-main);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  padding: 48px 64px;
+}
+
+/* === HEADER === */
+.kepala {
+  width: 100%;
+  max-width: 1640px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 32px;
+  padding: 28px 32px;
+  background: var(--base-mid);
+  border-radius: 24px;
+  box-shadow: 9px 9px 18px var(--shadow-dark),
+              -9px -9px 18px var(--shadow-light);
+}
+
+.kepala-teks h1 {
+  font-size: 2.4rem;
+  color: var(--accent);
+}
+
+.kepala-teks p {
+  max-width: 520px;
+  line-height: 1.5;
+  color: var(--text-soft);
+}
+
+/* === IDENTITAS KASIR === */
+.identitas-kasir {
+  min-width: 280px;
+  max-width: 320px;
+  padding: 16px 20px;
+  border-radius: 20px;
+  background: var(--base-mid);
+  box-shadow: inset 4px 4px 8px var(--shadow-dark),
+              inset -4px -4px 8px var(--shadow-light);
+  display: grid;
+  gap: 10px;
+}
+
+.label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text-main);
+}
+
+/* === INPUT === */
+input[type="text"],
+input[type="number"] {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: none;
+  background: var(--base-dark);
+  color: var(--text-main);
+  font-size: 1rem;
+  box-shadow: inset 3px 3px 6px var(--shadow-dark),
+              inset -3px -3px 6px var(--shadow-light);
+  transition: all 0.2s ease;
+}
+
+input:focus {
+  outline: none;
+  box-shadow: inset 2px 2px 4px var(--shadow-dark),
+              inset -2px -2px 4px var(--accent);
+}
+
+/* === BUTTON === */
+button {
+  background: var(--accent);
+  border: none;
+  color: #0d0d0d;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  box-shadow: 5px 5px 10px var(--shadow-dark),
+              -5px -5px 10px var(--shadow-light);
+  transition: all 0.25s ease-in-out;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  background: var(--accent-hover);
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.4),
+              inset -2px -2px 5px rgba(255, 255, 255, 0.2);
+}
+
+/* === KONTEN === */
+.konten {
+  width: 100%;
+  max-width: 1640px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+/* === KARTU PRODUK === */
+.kartu {
+  background: var(--base-mid);
+  border-radius: 22px;
+  padding: 24px;
+  box-shadow: 8px 8px 16px var(--shadow-dark),
+              -8px -8px 16px var(--shadow-light);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.kartu h2 {
+  font-size: 1.3rem;
+  color: var(--accent);
+}
+
+.catatan {
+  font-size: 0.9rem;
+  color: var(--text-soft);
+}
+
+/* === ITEM PRODUK === */
+.item-produk {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 14px;
+  padding: 14px 18px;
+  background: var(--base-dark);
+  box-shadow: inset 3px 3px 6px var(--shadow-dark),
+              inset -3px -3px 6px var(--shadow-light);
+}
+
+.item-produk h3 {
+  font-size: 1.05rem;
+  color: var(--text-main);
+}
+
+.item-produk p {
+  font-size: 0.9rem;
+  color: var(--text-soft);
+}
+
+/* === ITEM KERANJANG === */
+.item-keranjang {
+  border-radius: 14px;
+  padding: 14px 16px;
+  background: var(--base-dark);
+  box-shadow: inset 3px 3px 6px var(--shadow-dark),
+              inset -3px -3px 6px var(--shadow-light);
+}
+
+.item-keranjang strong {
+  display: block;
+  font-size: 1.05rem;
+  margin-bottom: 6px;
+  color: var(--text-main);
+}
+
+.item-keranjang .kontrol {
+  margin-top: 10px;
+  display: flex;
+  gap: 8px;
+}
+
+/* === BUTTON KONTROL === */
+.button-kontrol {
+  background: var(--base-mid);
+  border: none;
+  color: var(--accent);
+  padding: 3px 10px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  box-shadow: 4px 4px 8px var(--shadow-dark),
+              -4px -4px 8px var(--shadow-light);
+  transition: all 0.2s ease;
+}
+
+.button-kontrol:hover {
+  box-shadow: inset 3px 3px 6px var(--shadow-dark),
+              inset -3px -3px 6px var(--shadow-light);
+}
+
+/* === RINGKASAN & PESAN === */
+.total {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.pesan {
+  color: var(--text-soft);
+  line-height: 1.4;
+}
+
+.ringkasan {
+  margin-top: 6px;
+  background: var(--base-mid);
+  padding: 14px 16px;
+  border-radius: 14px;
+  box-shadow: inset 5px 5px 10px var(--shadow-dark),
+              inset -5px -5px 10px var(--shadow-light);
+  display: grid;
+  gap: 6px;
+}
+
+/* === FOOTER === */
+.kaki {
+  display: flex;
+  justify-content: center;
+  color: var(--accent);
+  width: 100%;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 1100px) {
+  .konten {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .kepala {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .identitas-kasir {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+/* === MODAL === */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(15, 15, 15, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal-content {
+  background: var(--base-mid);
+  border-radius: 20px;
+  padding: 2rem;
+  min-width: 400px;
+  box-shadow: 12px 12px 24px var(--shadow-dark),
+              -12px -12px 24px var(--shadow-light);
+  position: relative;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.close-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 1rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text-soft);
+}
