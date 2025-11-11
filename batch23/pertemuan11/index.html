@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Koperasi Santri POS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header class="kepala">
+        <div class="kepala-teks">
+            <h1>Simple POS (Point Of Sales)</h1>
+            <h2 id="pesanKasir" class="pesan"></h2>
+        </div>
+        <div class="identitas-kasir">
+            <label for="namaKasir" class="label">Nama kasir</label>
+            <input type="text" id="namaKasir" placeholder="contoh: Zahra">
+            <button onclick="simpanKasir()">Simpan nama</button>
+        </div>
+    </header>
+
+
+    <main class="konten">
+
+        <section class="kartu" id="bagianProduk">
+            <h2>Daftar Produk</h2>
+            <p class="catatan">Klik tombol tambah untuk memasukkan produk ke keranjang.</p>
+            <div class="tombol-ganda">
+                <button class="button-kontrol" onclick="togglePopup('1')">Add Product</button>
+            </div>
+            <div id="daftarProduk" class="daftar"></div>
+        </section>
+
+        <section class="kartu" id="bagianKeranjang">
+            <h2>Keranjang Penjualan</h2>
+            <div id="ringkasanKeranjang" class="daftar"></div>
+            <p id="totalBelanja" class="total"></p>
+            <div class="tombol-ganda">
+                <button onclick="kosongkanKeranjang()">Kosongkan</button>
+                <!-- <button onclick="simpanRingkasan()">Simpan ringkasan</button> -->
+            </div>
+        </section>
+
+        <section class="kartu" id="bagianPembayaran">
+            <h2>Pembayaran</h2>
+            <label for="uangBayar" class="label">Uang diterima (Rp)</label>
+            <input type="number" id="uangBayar" placeholder="contoh: 20000">
+            <button onclick="prosesPembayaran()">Hitung kembalian</button>
+            <p id="pesanPembayaran" class="pesan"></p>
+        </section>
+
+
+        <section class="kartu" id="bagianRingkasan">
+            <h2>Invoice</h2>
+            <p id="pesanRingkasan" class="pesan"></p>
+            <div id="strukPembelian" class="ringkasan"></div>
+        </section>
+
+    </main>
+
+    <footer class="kepala">
+        <div class="kaki">
+            <h2>💪 Paksa - Terbiasa - Bisa - Luarbiasa : Juara 🏆</h2>
+        </div>
+    </footer>
+
+    <!------------ POPUP FORM MODAL ---------->
+    <div id="popupModal1" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-btn" onclick="togglePopup('1')">&times;</span>
+            <section>
+                <h2>Add Product</h2>
+                <br>
+                <label for="productId">ID Produk</label>
+                <input type="text" id="productId" placeholder="Masukkan ID produk" required />
+                <br>
+                <br>
+                <label for="productName">Nama Produk</label>
+                <input type="text" id="productName" placeholder="Masukkan nama produk" required />
+                <br>
+                <br>
+                <label for="productPrice">Harga (Rp)</label>
+                <input type="number" id="productPrice" placeholder="Masukkan harga produk" required />
+                <br>
+                <br>
+                <button onclick="addProduct()">Submit</button>
+            </section>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script> -->
+
+</body>
+
+</html>
