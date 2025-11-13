@@ -154,6 +154,7 @@ button:hover {
   justify-content: space-between;
   align-items: center;
   border-radius: 14px;
+  margin-top: 12px;
   padding: 14px 18px;
   background: var(--base-dark);
   box-shadow: inset 3px 3px 6px var(--shadow-dark),
@@ -174,6 +175,7 @@ button:hover {
 .item-keranjang {
   border-radius: 14px;
   padding: 14px 16px;
+  margin: 5px;
   background: var(--base-dark);
   box-shadow: inset 3px 3px 6px var(--shadow-dark),
               inset -3px -3px 6px var(--shadow-light);
@@ -207,8 +209,9 @@ button:hover {
 }
 
 .button-kontrol:hover {
-  box-shadow: inset 3px 3px 6px var(--shadow-dark),
-              inset -3px -3px 6px var(--shadow-light);
+  background: rgba(79, 209, 161, 0.2);
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 /* === RINGKASAN & PESAN === */
@@ -238,6 +241,42 @@ button:hover {
   padding: 0;
 }
 
+.daftar-produk {
+  padding: 0;
+  display: grid;
+}
+
+@media (max-width: 1700px){
+  .daftar-produk {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 1400px) {
+  .daftar-produk {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+
+@media (max-width: 1100px) {
+  .daftar-produk {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .daftar-produk {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .konten {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}
+
 /* === FOOTER === */
 .kaki {
   display: flex;
@@ -249,7 +288,7 @@ button:hover {
 /* === RESPONSIVE === */
 .stat-cards {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 14px;
 }
 
@@ -486,6 +525,7 @@ button:hover {
 }
 
 .item-produk {
+  margin: 5px;
   background: var(--base-light);
   border: 1px solid var(--glass-border);
 }
@@ -564,12 +604,21 @@ button:hover {
 .log-card-actions {
   display: flex;
   justify-content: flex-end;
-  margin-top: 6px;
+  margin-top: 15px;
 }
 
 .btn-download-log {
   font-size: 0.8rem;
+  margin-left: 6px;
   padding: 4px 8px;
+}
+
+@media (max-width: 2000px) {
+  .ringkasan-log { grid-template-columns: repeat(7, minmax(180px, 1fr)); }
+}
+
+@media (max-width: 1700px) {
+  .ringkasan-log { grid-template-columns: repeat(6, minmax(180px, 1fr)); }
 }
 
 @media (max-width: 1400px) {
@@ -581,7 +630,7 @@ button:hover {
 }
 
 @media (max-width: 720px) {
-  .ringkasan-log { grid-template-columns: repeat(2, minmax(160px, 1fr)); }
+  .ringkasan-log { grid-template-columns: repeat(3, minmax(160px, 1fr)); }
 }
 #logFilters.filters-bar {
   display: grid;
