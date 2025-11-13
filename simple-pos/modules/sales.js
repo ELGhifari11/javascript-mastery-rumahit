@@ -101,30 +101,46 @@ const kosongkanKeranjang = () => {
 
 const updateStatsUI = () => {
   const s = hitungStatistik();
-  const topKasir = s.topKasir.map(x => `<p>- ${x.kasir} (${x.count} transaksi)</p>`).join("");
-  const topPelanggan = s.topPelanggan.map(x => `<p>- ${x.pelanggan} (${x.count} transaksi)</p>`).join("");
-  const topProdukChips = s.topProduk.slice(0, 3).map(x => `<span class="chip">${x.produk}<span class="chip-qty">${x.jumlah}</span></span>`).join("");
+  const produkList = s.topProduk.map((x, idx) => `
+      <li class="stat-item">
+        <span class="stat-rank">${idx + 1}.</span>
+        <span class="stat-item-name">${x.produk}</span>
+        <span class="stat-meta">${x.jumlah} pcs</span>
+      </li>
+    `).join("");
+  const pelangganList = s.topPelanggan.map((x, idx) => `
+      <li class="stat-item">
+        <span class="stat-rank">${idx + 1}.</span>
+        <span class="stat-item-name">${x.pelanggan}</span>
+        <span class="stat-meta">${x.count}x</span>
+      </li>
+    `).join("");
+  const kasir = s.topKasir[0];
+  const kasirHighlight = kasir ? `
+      <div class="cashier-highlight">
+        <span class="stat-badge">${kasir.totalRingkas}</span>
+        <p class="cashier-name">${kasir.kasir}</p>
+        <p class="cashier-meta">${kasir.count} transaksi</p>
+        <p class="cashier-omzet">Total omzet <span>${utils.formatRupiah(kasir.total)}</span></p>
+      </div>
+    ` : '<p class="stat-empty">Belum ada data</p>';
   ui.refs.statsContainer.innerHTML = `
-    <div class="stat-cards">
-      <div class="stat-card">
+    <div class="stats-grid">
+      <div class="stat-card stat-card--omzet">
         <span class="stat-label">Total Omzet</span>
         <div class="stat-value">${utils.formatRupiah(s.totalOmzet)}</div>
       </div>
-      <div class="stat-card">
+      <div class="stat-card stat-card--produk">
         <span class="stat-label">Produk Terlaris</span>
-        <div class="chip-list">${topProdukChips || '<span class="chip">-</span>'}</div>
+        <ul class="stat-list">${produkList || '<li class="stat-item stat-empty">Belum ada data</li>'}</ul>
       </div>
-    </div>
-    <div class="mini-stats">
-      <div>
-        <br>
-        <strong>Kasir Teraktif</strong>
-        ${topKasir || '<p>-</p>'}
+      <div class="stat-card stat-card--pelanggan">
+        <span class="stat-label">Pelanggan Setia</span>
+        <ul class="stat-list">${pelangganList || '<li class="stat-item stat-empty">Belum ada data</li>'}</ul>
       </div>
-      <div>
-      <br>
-        <strong>Pelanggan Setia</strong>
-        ${topPelanggan || '<p>-</p>'}
+      <div class="stat-card stat-card--kasir">
+        <span class="stat-label">Kasir Teraktif</span>
+        ${kasirHighlight}
       </div>
     </div>
   `;
@@ -192,29 +208,49 @@ const getFilters = () => {
 };
 
 const hitungStatistik = () => {
-  const countBy = (arr, key) => {
-    const map = new Map();
-    for (let i = 0; i < arr.length; i++) {
-      const k = arr[i][key] || "-";
-      map.set(k, (map.get(k) || 0) + 1);
-    }
-    return Array.from(map.entries()).map(([k, v]) => ({ key: k, count: v }));
+  const ringkasTotal = (nilai) => {
+    if (!nilai || nilai < 100000) return "<100k";
+    const dibulatkan = Math.floor(nilai / 100000) * 100000;
+    const formatter = new Intl.NumberFormat("en-US", { notation: "compact", maximumFractionDigits: 1 });
+    let teks = formatter.format(dibulatkan);
+    teks = teks.replace(/K$/, "k").replace(/M$/, "M").replace(/B$/, "B").replace(/T$/, "T");
+    return `${teks}+`;
   };
-  const kasirCounts = countBy(state.dataPenjualan, "kasir").sort((a, b) => b.count - a.count).map(x => ({ kasir: x.key, count: x.count }));
-  const pelangganCounts = countBy(state.dataPenjualan, "pelanggan").sort((a, b) => b.count - a.count).map(x => ({ pelanggan: x.key, count: x.count }));
+  const kasirMap = new Map();
+  const pelangganMap = new Map();
   const produkMap = new Map();
+  let totalOmzet = 0;
   for (let i = 0; i < state.dataPenjualan.length; i++) {
-    const penj = state.dataPenjualan[i].penjualan || [];
+    const data = state.dataPenjualan[i];
+    const kasirKey = data.kasir || "-";
+    const pelangganKey = data.pelanggan || "-";
+    const total = data.total || 0;
+    totalOmzet += total;
+    const kasirData = kasirMap.get(kasirKey) || { kasir: kasirKey, count: 0, total: 0 };
+    kasirData.count += 1;
+    kasirData.total += total;
+    kasirMap.set(kasirKey, kasirData);
+    pelangganMap.set(pelangganKey, (pelangganMap.get(pelangganKey) || 0) + 1);
+    const penj = data.penjualan || [];
     for (let j = 0; j < penj.length; j++) {
       const p = penj[j];
       const curr = produkMap.get(p.item) || 0;
-      produkMap.set(p.item, curr + p.jumlah);
+      produkMap.set(p.item, curr + (p.jumlah || 0));
     }
   }
-  const topProduk = Array.from(produkMap.entries()).map(([produk, jumlah]) => ({ produk, jumlah })).sort((a, b) => b.jumlah - a.jumlah);
-  let totalOmzet = 0;
-  for (let i = 0; i < state.dataPenjualan.length; i++) totalOmzet += state.dataPenjualan[i].total || 0;
-  return { topKasir: kasirCounts, topPelanggan: pelangganCounts, topProduk, totalOmzet };
+  const topKasir = Array.from(kasirMap.values())
+    .sort((a, b) => b.count === a.count ? b.total - a.total : b.count - a.count)
+    .map(item => ({ ...item, totalRingkas: ringkasTotal(item.total) }))
+    .slice(0, 1);
+  const topPelanggan = Array.from(pelangganMap.entries())
+    .map(([pelanggan, count]) => ({ pelanggan, count }))
+    .sort((a, b) => b.count === a.count ? a.pelanggan.localeCompare(b.pelanggan) : b.count - a.count)
+    .slice(0, 3);
+  const topProduk = Array.from(produkMap.entries())
+    .map(([produk, jumlah]) => ({ produk, jumlah }))
+    .sort((a, b) => b.jumlah === a.jumlah ? a.produk.localeCompare(b.produk) : b.jumlah - a.jumlah)
+    .slice(0, 5);
+  return { topKasir, topPelanggan, topProduk, totalOmzet };
 };
 
 const prosesPembayaran = () => {
