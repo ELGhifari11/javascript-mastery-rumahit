@@ -101,9 +101,9 @@ const kosongkanKeranjang = () => {
 
 const updateStatsUI = () => {
   const s = hitungStatistik();
-  const topKasir = s.topKasir.map(x => `<p>- ${x.kasir} (${x.count} transaksi)</p>`).join("");
-  const topPelanggan = s.topPelanggan.map(x => `<p>- ${x.pelanggan} (${x.count} transaksi)</p>`).join("");
-  const topProdukChips = s.topProduk.slice(0, 3).map(x => `<span class="chip">${x.produk}<span class="chip-qty">${x.jumlah}</span></span>`).join("");
+  const topKasir = s.topKasir.slice(0, 1).map(x => `<span class="chip">${x.kasir}<span class="chip-qty">${x.count}x - ${ x.total || 0}</span></span>`).join("");
+  const topPelanggan = s.topPelanggan.slice(0, 1).map(x => `<span class="chip">${x.pelanggan}<span class="chip-qty">${x.count}x - ${ x.total || 0}</span></span>`).join("");
+  const topProdukChips = s.topProduk.slice(0, 2).map(x => `<span class="chip">${x.produk}<span class="chip-qty">${x.jumlah}</span></span>`).join("");
   ui.refs.statsContainer.innerHTML = `
     <div class="stat-cards">
       <div class="stat-card">
@@ -114,22 +114,19 @@ const updateStatsUI = () => {
         <span class="stat-label">Produk Terlaris</span>
         <div class="chip-list">${topProdukChips || '<span class="chip">-</span>'}</div>
       </div>
-    </div>
-    <div class="mini-stats">
-      <div>
-        <br>
-        <strong>Kasir Teraktif</strong>
-        ${topKasir || '<p>-</p>'}
+      <div class="stat-card">
+        <span class="stat-label">Top Pelanggan</span>
+        <div class="chip-list">${topPelanggan || '<span class="chip">-</span>'}</div>
       </div>
-      <div>
-      <br>
-        <strong>Pelanggan Setia</strong>
-        ${topPelanggan || '<p>-</p>'}
+      <div class="stat-card">
+        <span class="stat-label">Top Kasir</span>
+        <div class="chip-list">${topKasir || '<span class="chip">-</span>'}</div>
       </div>
     </div>
   `;
   updateFilterOptions();
   const filters = getFilters();
+  
   const list = state.dataPenjualan.filter((d) => {
     const byKasir = !filters.kasir || filters.kasir === "__ALL__" || d.kasir === filters.kasir;
     const byPel = !filters.pelanggan || filters.pelanggan === "__ALL__" || d.pelanggan === filters.pelanggan;
@@ -138,21 +135,22 @@ const updateStatsUI = () => {
     const inText = !q || (d.kasir || "").toLowerCase().includes(q) || (d.pelanggan || "").toLowerCase().includes(q) || (d.penjualan || []).some(it => (it.item || "").toLowerCase().includes(q));
     return byKasir && byPel && byMetode && inText;
   });
+
   const isiLog = list.map((d, i) => {
     const itemsShort = (d.penjualan || []).slice(0, 2).map(it => `${it.item} (${it.jumlah})`).join(", ");
     return `
       <div class="log-card">
-        <div class="log-card-header">${d.date} ${d.time}</div>
+        <div >${d.date}</div>
+        <div class="log-card-header">Jam: <span style="color: white;">${d.time}</span></div>
         <div class="log-card-body">
-          <p>Kasir: ${d.kasir}</p>
-          <p>Pelanggan: ${d.pelanggan}</p>
-          <p>Metode: ${d.payment}</p>
-          <p>Total: ${utils.formatRupiah(d.total)}</p>
-          <p>Items: ${itemsShort}${(d.penjualan || []).length > 2 ? '...' : ''}</p>
+          <p style="color: gray;">Kasir: <span style="color: white;">${d.kasir}</span></p>
+          <p style="color: gray;">Pelanggan: <span style="color: white;">${d.pelanggan}</span></p>
+          <p style="color: gray;">Metode: <span style="color: white;">${d.payment}</span></p>
+          <p style="color: gray;">Total: <span style="color: white;">${utils.formatRupiah(d.total)}</span></p>
         </div>
         <div class="log-card-actions">
-          <button class="button-kontrol btn-detail-log" data-idx="${state.dataPenjualan.indexOf(d)}">Detail</button>
-          <button class="button-kontrol btn-download-log" data-idx="${state.dataPenjualan.indexOf(d)}">PDF</button>
+          <button class="button-kontrol btn-detail-log" data-idx="${state.dataPenjualan.indexOf(d)}">🔎</button>
+          <button class="button-kontrol btn-download-log" data-idx="${state.dataPenjualan.indexOf(d)}">💾</button>
         </div>
       </div>
     `;
@@ -200,8 +198,9 @@ const hitungStatistik = () => {
     }
     return Array.from(map.entries()).map(([k, v]) => ({ key: k, count: v }));
   };
-  const kasirCounts = countBy(state.dataPenjualan, "kasir").sort((a, b) => b.count - a.count).map(x => ({ kasir: x.key, count: x.count }));
-  const pelangganCounts = countBy(state.dataPenjualan, "pelanggan").sort((a, b) => b.count - a.count).map(x => ({ pelanggan: x.key, count: x.count }));
+  const kasirCounts = countBy(state.dataPenjualan, "kasir").sort((a, b) => b.count - a.count).map(x => ({ kasir: x.key, count: x.count, total: state.dataPenjualan.filter(d => d.kasir === x.key).reduce((acc, d) => acc + (d.total || 0), 0) }));
+  const pelangganCounts = countBy(state.dataPenjualan, "pelanggan").sort((a, b) => b.count - a.count).map(x => ({ pelanggan: x.key, count: x.count, total: state.dataPenjualan.filter(d => d.pelanggan === x.key).reduce((acc, d) => acc + (d.total || 0), 0) }));
+  
   const produkMap = new Map();
   for (let i = 0; i < state.dataPenjualan.length; i++) {
     const penj = state.dataPenjualan[i].penjualan || [];
@@ -271,6 +270,7 @@ const prosesPembayaran = () => {
   const btnDownload = document.createElement("button");
   btnDownload.innerText = "Download PDF";
   btnDownload.style.marginTop = "10px";
+
   btnDownload.onclick = () => {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
