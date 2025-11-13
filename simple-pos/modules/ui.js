@@ -39,7 +39,7 @@ const renderProduk = () => {
     const produk = state.daftarProduk[i];
     isi += '<div class="item-produk">';
     isi += '<button class="button-kontrol btn-hapus-produk" data-id="' + produk.id + '">-</button>';
-    isi += '<div><h3>' + produk.nama + '</h3><p>' + utils.formatRupiah(produk.harga) + '</p></div>';
+    isi += '<div><h5>' + produk.nama + '</h5><p style="font-size: 12px;">' + utils.formatRupiah(produk.harga) + '</p></div>';
     isi += '<button class="button-kontrol btn-tambah-keranjang" data-id="' + produk.id + '">>></button>';
     isi += '</div>';
   }
