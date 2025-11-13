@@ -1,15 +1,15 @@
-import {add} from './modules/script1.js'
-import {multiply} from './modules/script2.js'
-import {min} from './modules/script3.js'
+import {add as tambah,text as kata} from './modules/script1.js'
+import {multiply as kali} from './modules/script2.js'
+import {min as kurang} from './modules/script3.js'
 
 const tagDiv1 = document.getElementById('tagDiv1')
 
 function mengisiTag(a,b) {
     let isi = ''
 
-    let resultAdd = add(a,b);
-    let resultmultiply = multiply(a,b);
-    let resultMin = min(a,b);
+    let resultAdd = tambah(a,b);
+    let resultmultiply = kali(a,b);
+    let resultMin = kurang(a,b);
 
     // console.log(`hasil: ${a} + ${b} = ${resultAdd}`);
     // console.log(`hasil: ${a} x ${b} = ${resultmultiply}`);
@@ -23,6 +23,9 @@ function mengisiTag(a,b) {
 
     return isi
 }
+
+console.log(kata);
+
 
 tagDiv1.innerHTML +=  mengisiTag(100,900)
 tagDiv1.innerHTML +=  mengisiTag(100,800)
