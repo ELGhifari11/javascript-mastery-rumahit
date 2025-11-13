@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Koperasi Santri POS</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <header class="kepala">
         <div class="kepala-teks">
@@ -15,18 +17,23 @@
         <div class="identitas-kasir">
             <label for="namaKasir" class="label">Nama kasir</label>
             <input type="text" id="namaKasir" placeholder="contoh: Zahra">
-            <button onclick="simpanKasir()">Simpan nama</button>
+            <button id="btnSimpanKasir">Simpan nama</button>
         </div>
     </header>
 
-    
+    <section class="kartu kartu-stats-top" id="bagianStatistik">
+        <h2>Statistik Penjualan</h2>
+        <div id="statistikContainer" class="daftar"></div>
+    </section>
+
     <main class="konten">
+
+
 
         <section class="kartu" id="bagianProduk">
             <h2>Daftar Produk</h2>
-            <p class="catatan">Klik tombol tambah untuk memasukkan produk ke keranjang.</p>
             <div class="tombol-ganda">
-                <button class="button-kontrol" onclick="togglePopup('1')">Add Product</button>
+                <button class="button-kontrol" id="btnOpenAddProduct">Add Product</button>
                 <!-- <button class="button-kontrol" onclick="togglePopup('1')">+</button> -->
             </div>
             <div id="daftarProduk" class="daftar"></div>
@@ -37,26 +44,42 @@
             <div id="ringkasanKeranjang" class="daftar"></div>
             <p id="totalBelanja" class="total"></p>
             <div class="tombol-ganda">
-                <button onclick="kosongkanKeranjang()">Kosongkan</button>
+                <button id="btnKosongkanKeranjang">Kosongkan</button>
                 <!-- <button onclick="simpanRingkasan()">Simpan ringkasan</button> -->
             </div>
         </section>
 
         <section class="kartu" id="bagianPembayaran">
             <h2>Pembayaran</h2>
-            <label for="uangBayar" class="label">Uang diterima (Rp)</label>
-            <input type="number" id="uangBayar" placeholder="contoh: 20000">
-            <button onclick="prosesPembayaran()">Hitung kembalian</button>
+            <label for="namaPelanggan" class="label">Nama Pelanggan</label>
+            <input type="text" id="namaPelanggan" placeholder="contoh: Rafi">
+            <label for="metodeBayar" class="label">Metode Pembayaran</label>
+            <select id="metodeBayar">
+                <option value="Tunai">Tunai</option>
+                <option value="QRIS">QRIS</option>
+                <option value="Transfer Bank">Transfer Bank</option>
+            </select>
+            <div id="inputUangBayar">
+                <label for="uangBayar" class="label">Uang diterima (Rp)</label>
+                <input type="number" id="uangBayar" placeholder="contoh: 20000">
+            </div>
+            <button id="btnProsesPembayaran">Hitung kembalian</button>
             <p id="pesanPembayaran" class="pesan"></p>
         </section>
 
-
-        <section class="kartu" id="bagianRingkasan">
-            <h2>Ringkasan &amp; Struk</h2>
-            <p id="pesanRingkasan" class="pesan"></p>
-            <div id="strukPembelian" class="ringkasan"></div>
+        <section class="kartu" id="bagianLog">
+            <h2>Log Penjualan</h2>
+            <div id="logFilters" class="filters-bar">
+                <select id="filterKasir"></select>
+                <select id="filterPelanggan"></select>
+                <select id="filterMetode"></select>
+                <input type="text" id="filterSearch" placeholder="Cari kasir/pelanggan/produk" />
+                <button class="button-kontrol" id="filterReset">Reset</button>
+            </div>
+            <div id="logContainer" class="ringkasan ringkasan-log"></div>
         </section>
-        
+
+
     </main>
 
     <footer class="kepala">
@@ -68,7 +91,7 @@
 
     <div id="popupModal1" class="modal hidden">
         <div class="modal-content">
-            <span class="close-btn" onclick="togglePopup('1')">&times;</span>
+            <span class="close-btn" data-target="1">&times;</span>
             <section>
                 <h2>Add Product</h2>
                 <br>
@@ -84,13 +107,37 @@
                 <input type="number" id="productPrice" placeholder="Masukkan harga produk" required />
                 <br>
                 <br>
-                <button onclick="addProduct()">Submit</button>
+                <button id="btnSubmitProduct">Submit</button>
             </section>
         </div>
     </div>
 
-    <script src="script.js"></script>
+
+
+    <div id="notifModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-btn" data-target="notif">&times;</span>
+            <p id="notifMessage" class="pesan"></p>
+        </div>
+    </div>
+    <div id="invoiceModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-btn" data-target="invoice">&times;</span>
+            <div id="invoiceContent" class="ringkasan"></div>
+        </div>
+    </div>
+    <div id="detailModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-btn" data-target="detail">&times;</span>
+            <div id="detailContent" class="ringkasan"></div>
+        </div>
+    </div>
+    <div id="toast" class="toast hidden"></div>
+
+    
+    <script type="module" src="main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 </body>
+
 </html>
