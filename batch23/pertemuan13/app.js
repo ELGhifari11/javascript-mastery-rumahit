@@ -1,8 +1,14 @@
 import {add as tambah,text as kata} from './modules/script1.js'
-import {multiply as kali} from './modules/script2.js'
+import namaBebasDariDeafult, {multiply as kali,textScript2A} from './modules/script2.js'
 import {min as kurang} from './modules/script3.js'
+import * as script4 from './modules/script4.js'
 
 const tagDiv1 = document.getElementById('tagDiv1')
+
+console.log(kata);
+console.log(namaBebasDariDeafult());
+console.log(textScript2A());
+console.log(script4.d);
 
 function mengisiTag(a,b) {
     let isi = ''
@@ -24,7 +30,6 @@ function mengisiTag(a,b) {
     return isi
 }
 
-console.log(kata);
 
 
 tagDiv1.innerHTML +=  mengisiTag(100,900)
