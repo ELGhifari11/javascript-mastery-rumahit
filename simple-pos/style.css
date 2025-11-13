@@ -67,6 +67,40 @@ body {
   gap: 10px;
 }
 
+@media (max-width: 768px) {
+  .kepala {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+
+  .kepala-teks h1 {
+    font-size: 1.6rem;
+  }
+
+  .identitas-kasir {
+    width: 100%;
+  }
+
+  .kartu h2 {
+    font-size: 1.2rem;
+  }
+}
+
+
+@media (max-width: 480px) {
+  body {
+    padding: 24px 16px;
+  }
+  .modal-content {
+    max-width: 95vw;
+  }
+  input, select, button {
+    font-size: 0.9rem;
+  }
+}
+
+
 .label {
   font-weight: 600;
   font-size: 0.95rem;
@@ -119,11 +153,12 @@ button:hover {
 
 /* === KONTEN === */
 .konten {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 24px;
   width: 100%;
   max-width: 1640px;
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 18px;
+  margin: 0 auto;
 }
 
 /* === KARTU PRODUK === */
@@ -647,3 +682,12 @@ button:hover {
   padding: 8px 10px;
   border-radius: 10px;
 }
+
+/* .tombol-ganda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 8px;
+} */
+
