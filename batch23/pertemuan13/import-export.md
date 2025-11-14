@@ -110,7 +110,6 @@ say.salam('Dani');
 say.pamit('Dani');
 ```
 
-
 ***
 
 ### 8. Export Default Class
@@ -127,7 +126,6 @@ const u = new User('Indra');
 console.log(u.name); // Indra
 ```
 
-
 ***
 
 ### 9. Re-Export dari Modul Lain
@@ -143,7 +141,6 @@ export { login, logout } from './helpers.js';
 // app.js
 import { login, logout } from './index.js';
 ```
-
 
 ***
 
