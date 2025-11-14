@@ -11,3 +11,7 @@ export function textScript2A(){
     return `INI FUNCTION DARI SCRIPT 2 AA`
  }
 
+ export function judul(judul){
+    return judul
+ }
+
