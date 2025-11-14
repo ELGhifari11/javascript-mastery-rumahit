@@ -101,9 +101,9 @@ const kosongkanKeranjang = () => {
 
 const updateStatsUI = () => {
   const s = hitungStatistik();
-  const topKasir = s.topKasir.slice(0, 1).map(x => `<span class="chip">${x.kasir}<span class="chip-qty">${x.count}x - ${ x.total || 0}</span></span>`).join("");
-  const topPelanggan = s.topPelanggan.slice(0, 1).map(x => `<span class="chip">${x.pelanggan}<span class="chip-qty">${x.count}x - ${ x.total || 0}</span></span>`).join("");
-  const topProdukChips = s.topProduk.slice(0, 2).map(x => `<span class="chip">${x.produk}<span class="chip-qty">${x.jumlah}</span></span>`).join("");
+  const topKasir = s.topKasir.slice(0, 3).map(x => `<span class="chip">${x.kasir}<span class="chip-qty">${x.count}x - ${ x.total || 0}</span></span>`).join("");
+  const topPelanggan = s.topPelanggan.slice(0, 3).map(x => `<span class="chip">${x.pelanggan}<span class="chip-qty">${x.count}x - ${ x.total || 0}</span></span>`).join("");
+  const topProdukChips = s.topProduk.slice(0, 3).map(x => `<span class="chip">${x.produk}<span class="chip-qty">${x.jumlah}</span></span>`).join("");
   ui.refs.statsContainer.innerHTML = `
     <div class="stat-cards">
       <div class="stat-card">
