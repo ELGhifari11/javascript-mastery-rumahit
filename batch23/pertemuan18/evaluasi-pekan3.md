@@ -756,7 +756,7 @@ Tidak wajib, tapi akan jadi **nilai plus** yang signifikan.
 * Endpoint yang ditentukan digunakan dengan benar
 * Data dari API tampil dan cocok dengan posisi UI yang seharusnya
 
-**3) Manipulasi DOM & UX (25%)**
+**3) Manipulasi UI & UX (25%)**
 
 * Elemen UI terisi dinamis dari data API
 * Interaksi dasar (klik tombol, input kota, refresh acak) berjalan baik
