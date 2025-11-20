@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>MyQuran Daily Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="app">
+        <!-- HEADER -->
+        <header class="app-header">
+            <div class="brand">
+                <div class="brand-logo">M</div>
+                <div class="brand-text">
+                    <h1>Muslim Daily Dashboard</h1>
+                    <p>Jadwal sholat & inspirasi harian berbasis API</p>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="today-info">
+                    <div class="date">Hari, 00 Bulan 0000</div>
+                    <div class="location">Lokasi: <strong>KOTA SAYA</strong></div>
+                </div>
+                <div class="badge">Live API Ready</div>
+            </div>
+        </header>
+
+        <!-- LAYOUT: 2 panel, masing-masing 1 line full width -->
+        <div class="layout">
+            <!-- CARD 1: Jadwal Sholat (full width) -->
+            <section class="panel">
+                <div class="panel-header">
+                    <div>
+                        <div class="panel-title">Jadwal Sholat</div>
+                    </div>
+                </div>
+
+                <!-- Search Row -->
+                <div class="search-row">
+                    <div class="input-group">
+                        <span>🔍</span>
+                        <input type="text" placeholder="Cari kota (contoh: Kediri)…" aria-label="Cari kota" />
+                    </div>
+                    <button class="btn">
+                        <span class="icon">📍</span>
+                        Pilih Lokasi
+                    </button>
+                </div>
+
+                <!-- Jadwal Harian -->
+                <div class="prayer-header">
+                    <div>
+                        <div class="prayer-header-main">Hari ini • 00/00/0000</div>
+                        <div class="prayer-header-sub">
+                            KOTA SAYA — PROVINSI SAYA • Jadwal harian
+                        </div>
+                    </div>
+                    <div class="pill"> <h2>Sholat berikutnya: Dzuhur dalam 00:00:00</h2></div>
+                    <div class="pill"> Source: /sholat/jadwal/:kota/:date</div>
+                </div>
+
+                <div class="prayer-list">
+                    <!-- TODO: isi value dari API /sholat/jadwal/:kota/:date -->
+                    <div class="prayer-item">
+                        <div class="prayer-label">Imsak</div>
+                        <div class="prayer-time">00:00</div>
+                        <div class="prayer-extra">Persiapan puasa</div>
+                    </div>
+
+                    <div class="prayer-item">
+                        <div class="prayer-label">Subuh</div>
+                        <div class="prayer-time">00:00</div>
+                        <div class="prayer-extra">Waktu sholat</div>
+                    </div>
+
+                    <div class="prayer-item">
+                        <div class="prayer-label">Terbit</div>
+                        <div class="prayer-time">00:00</div>
+                        <div class="prayer-extra">Matahari terbit</div>
+                    </div>
+
+                    <div class="prayer-item">
+                        <div class="prayer-label">Dhuha</div>
+                        <div class="prayer-time">00:00</div>
+                        <div class="prayer-extra">Sholat dhuha</div>
+                    </div>
+
+                    <div class="prayer-item highlight">
+                        <span class="prayer-pill">Next Sholat</span>
+                        <div class="prayer-label">Dzuhur</div>
+                        <div class="prayer-time">00:00</div>
+                        <div class="prayer-extra">Waktu berikutnya</div>
+                    </div>
+
+                    <div class="prayer-item">
+                        <div class="prayer-label">Ashar</div>
+                        <div class="prayer-time">00:00</div>
+                        <div class="prayer-extra">Jangan sampai lewat</div>
+                    </div>
+
+                    <div class="prayer-item">
+                        <div class="prayer-label">Maghrib</div>
+                        <div class="prayer-time">00:00</div>
+                        <div class="prayer-extra">Waktu berbuka</div>
+                    </div>
+
+                    <div class="prayer-item">
+                        <div class="prayer-label">Isya</div>
+                        <div class="prayer-time">00:00</div>
+                        <div class="prayer-extra">Sholat & tidur awal</div>
+                    </div>
+                </div>
+
+                <!-- Jadwal Bulanan (preview) -->
+                <div class="prayer-header" style="margin-top: 14px;">
+                    <div>
+                        <div class="prayer-header-main">Jadwal Bulan A di Minggu 1</div>
+                    </div>
+                </div>
+
+                <div class="month-list">
+                    <div class="month-row header">
+                        <div>Tanggal</div>
+                        <div>Subuh</div>
+                        <div>Dzuhur</div>
+                        <div>Ashar</div>
+                        <div>Maghrib</div>
+                        <div>Isya</div>
+                    </div>
+
+                    <!-- TODO: looping dari /sholat/jadwal/:kota/:tahun/:bulan -->
+                    <div class="month-row">
+                        <div class="month-date">Hari, 00 Bulan</div>
+                        <div class="month-time">00:00</div>
+                        <div class="month-time">00:00</div>
+                        <div class="month-time">00:00</div>
+                        <div class="month-time">00:00</div>
+                        <div class="month-time">00:00</div>
+                    </div>
+                    <div class="month-row">
+                        <div class="month-date">Hari, 00 Bulan</div>
+                        <div class="month-time">00:00</div>
+                        <div class="month-time">00:00</div>
+                        <div class="month-time">00:00</div>
+                        <div class="month-time">00:00</div>
+                        <div class="month-time">00:00</div>
+                    </div>
+                    <div class="month-row">
+                        <div class="month-date">Hari, 00 Bulan</div>
+                        <div class="month-time">00:00</div>
+                        <div class="month-time">00:00</div>
+                        <div class="month-time">00:00</div>
+                        <div class="month-time">00:00</div>
+                        <div class="month-time">00:00</div>
+                    </div>
+                    <div class="month-row">
+                        <div class="month-date">Lanjut sampai 1 minggu </div>
+                        <div class="month-time">00:00</div>
+                        <div class="month-time">00:00</div>
+                        <div class="month-time">00:00</div>
+                        <div class="month-time">00:00</div>
+                        <div class="month-time">00:00</div>
+                    </div>
+                    <!-- Tambah baris sesuai kebutuhan -->
+                </div>
+                <h5 class="month-title">Bikin 4 Table untuk 4 Minggu Berdasarkan Bulan Terkini</h5>
+            </section>
+
+            <!-- CARD 2: Inspirasi Ibadah Harian (full width) -->
+            <section class="panel">
+                <div class="panel-header">
+                    <div>
+                        <div class="panel-title">Inspirasi Ibadah Harian</div>
+                        <div class="panel-subtitle">
+                            Ayat, hadits, doa & Asmaul Husna acak dari API
+                        </div>
+                    </div>
+                    <button class="btn">Refresh ACAK</button>
+                </div>
+
+                <div class="cards-grid">
+                    <!-- Ayat Acak -->
+                    <article class="card card-accent-indigo">
+                        <div class="card-blur-orb"></div>
+                        <div class="card-tag">Ayat Hari Ini</div>
+                        <div class="card-title">NAMA SURAT • NO AYAT</div>
+                        <div class="card-meta">Source: /quran/ayat/acak</div>
+                        <div class="card-arabic">
+                            DATA ARABNYA DI SINI
+                        </div>
+                        <div class="card-content">
+                            DATA ARTINYA DI SINI </div>
+                        <div class="card-footer">
+                            <button class="btn-xs">▶️ Putar Audio</button>
+                            <span>NO JUZ • NO HALAMAN</span>
+                        </div>
+                    </article>
+
+                    <!-- Hadits Arbain Acak -->
+                    <article class="card card-accent-amber">
+                        <div class="card-blur-orb orange"></div>
+                        <div class="card-tag">Hadits Arbain</div>
+                        <div class="card-title">JUDUL • NO HADITS</div>
+                        <div class="card-meta">Source • /hadits/arbain/acak</div>
+                        <div class="card-arabic" style="font-size: 16px;">
+                            DATA TEXT ARAB DISINI
+                        </div>
+                        <div class="card-content">
+                            DATA TERJEMAH DISINI
+                        </div>
+                        <div class="card-footer">
+                            <span class="pill">Kaedah besar dalam muamalah</span>
+                            <button class="btn-xs">Lihat penjelasan</button>
+                        </div>
+                    </article>
+
+                    <!-- Doa Acak -->
+                    <article class="card card-accent-green">
+                        <div class="card-blur-orb"></div>
+                        <div class="card-tag">Doa Hari Ini</div>
+                        <div class="card-title">JUDUL</div>
+                        <div class="card-meta">Source: /doa/acak</div>
+                        <div class="card-arabic">
+                            DATA ARAB DISINI
+                        </div>
+                        <div class="card-content">
+                            DATA INDO DISINI
+                        </div>
+                        <div class="card-footer">
+                            <span class="pill">Sumber: Al-Qur'an</span>
+                            <button class="btn-xs">Salin teks</button>
+                        </div>
+                    </article>
+
+                    <!-- Asmaul Husna Acak -->
+                    <article class="card">
+                        <div class="card-blur-orb"></div>
+                        <div class="card-tag">Asmaul Husna</div>
+                        <div class="card-title">ARAB • LATIN</div>
+                        <div class="card-meta">source • /husna/acak</div>
+                        <div class="card-arabic" style="font-size: 26px;">
+                            DATA ARAB DISINI
+                        </div>
+                        <div class="card-content">
+                            DATA INDO DI SINI
+                        </div>
+                        <div class="card-footer">
+                            <span class="pill">Refleksi harian</span>
+                            <button class="btn-xs">Tandai favorit</button>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </div>
+
+        <footer class="app-footer">
+            Ujian Evaluasi JavaScript Mastery Batch 23 pada Pekan ke-3.
+        </footer>
+    </div>
+</body>
+
+</html>
