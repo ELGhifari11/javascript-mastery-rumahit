@@ -22,8 +22,8 @@
             </div>
             <div class="header-right">
                 <div class="today-info">
-                    <div class="date">Hari, 00 Bulan 0000</div>
-                    <div class="location">Lokasi: <strong>KOTA SAYA</strong></div>
+                    <div class="date" id="header-tanggal-atas">Hari, 00 Bulan 0000</div>
+                    <div class="location">Lokasi: <strong id="header-lokasi-atas">KOTA SAYA</strong></div>
                 </div>
                 <div class="badge">Live API Ready</div>
             </div>
@@ -43,9 +43,10 @@
                 <div class="search-row">
                     <div class="input-group">
                         <span>🔍</span>
-                        <input type="text" placeholder="Cari kota (contoh: Kediri)…" aria-label="Cari kota" />
+                        <input id="input-kota" type="text" placeholder="Cari kota (contoh: Kediri)…"
+                            aria-label="Cari kota" />
                     </div>
-                    <button class="btn">
+                    <button class="btn" id="btn-pilih-lokasi">
                         <span class="icon">📍</span>
                         Pilih Lokasi
                     </button>
@@ -54,12 +55,14 @@
                 <!-- Jadwal Harian -->
                 <div class="prayer-header">
                     <div>
-                        <div class="prayer-header-main">Hari ini • 00/00/0000</div>
-                        <div class="prayer-header-sub">
+                        <div class="prayer-header-main" id="header-tanggal-bawah">Hari ini • 00/00/0000</div>
+                        <div class="prayer-header-sub" id="header-lokasi-bawah">
                             KOTA SAYA — PROVINSI SAYA • Jadwal harian
                         </div>
                     </div>
-                    <div class="pill"> <h2>Sholat berikutnya: Dzuhur dalam 00:00:00</h2></div>
+                    <div class="pill">
+                        <h2 id="next-prayer-text">Sholat berikutnya: Dzuhur dalam 00:00:00</h2>
+                    </div>
                     <div class="pill"> Source: /sholat/jadwal/:kota/:date</div>
                 </div>
 
@@ -260,6 +263,8 @@
         <footer class="app-footer">
             Ujian Evaluasi JavaScript Mastery Batch 23 pada Pekan ke-3.
         </footer>
+
+        <script type="module" src="./main.js"></script>
     </div>
 </body>
 
