@@ -25,3 +25,5 @@ let obj1 = {key1:"1"}
 obj1['key1'] = "VALUE"
 
 console.log(obj1);
+
+
