@@ -1,0 +1,136 @@
+ body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      padding: 24px;
+      padding-left: 170px;
+      padding-right: 170px;
+      color: #333;
+    }
+
+    h1 {
+      margin-bottom: 16px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+
+    .inline-group {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    /* Style spesifik per ID */
+
+    /* 1. Text */
+    #input-nama {
+      border-color: #4a90e2;
+    }
+
+    #input-err {
+        border-color: #e24a4a;
+    }
+
+    /* 2. Email */
+    #input-email {
+      border-color: #7b61ff;
+      background-color: #f8f7ff;
+    }
+
+    /* 3. Password */
+    #input-password {
+      border-color: #ff8a65;
+    }
+
+    /* 4. Number */
+    #input-umur {
+      width: 150px;
+      text-align: center;
+    }
+
+    /* 5. Date */
+    #input-tanggal {
+      width: 200px;
+    }
+
+    /* 6. Time */
+    #input-jam {
+      width: 150px;
+    }
+
+    /* 7. Checkbox */
+    #input-setuju {
+      width: auto;
+      box-shadow: none;
+    }
+
+    /* 8. Radio */
+    #radio-laki,
+    #radio-perempuan {
+      width: auto;
+      box-shadow: none;
+    }
+
+    /* 9. File */
+    #input-file {
+      border: 1px dashed #999;
+      padding: 6px;
+      background-color: #fff;
+    }
+
+    /* 10. Textarea */
+    #input-pesan {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    /* 11. Select */
+    #select-pekerjaan {
+      border-color: #26a69a;
+    }
+
+    /* 12. Range */
+    #input-range {
+      width: 100%;
+    }
+
+    /* 13. Color */
+    #input-warna {
+      width: 60px;
+      padding: 0;
+      border: none;
+      background: transparent;
+    }
+
+    /* 14. Tombol */
+    #btn-submit {
+      background: #4a90e2;
+      color: #fff;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    #btn-submit:hover {
+      background: #3b7ac0;
+    }
