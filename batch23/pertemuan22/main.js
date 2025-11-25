@@ -74,16 +74,16 @@ function loadSession(key) {
 
 // STUDY CASE 1 
 
-function saveUser(dataUser) {
-    if(!dataUser){
+function saveUser(name) {
+    if(!name){
        return alert("Data belom di isi")
     } else {
         save('users',saveObjToDb({
-            "nama" : dataUser,
+            "nama" : name,
             "date-create" : `${getTimeStr()} ${getDateStr()} `
         }))
         resetInput(inputNama)
-        displayMessage(tagMessage1,`Oke Data "${dataUser}" Tersimpan`,"green")
+        displayMessage(tagMessage1,`Oke Data "${name}" Tersimpan`,"green")
     }
 }
 
