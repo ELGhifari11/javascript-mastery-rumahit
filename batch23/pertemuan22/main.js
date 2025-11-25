@@ -64,7 +64,7 @@ function saveUser(dataUser) {
         saveToDb("nama",dataUser)
         save('users',database)
         resetInput(inputNama)
-        displayMessage(tagMessage1,"Oke Data Tersimpan","green")
+        displayMessage(tagMessage1,`Oke Data ${dataUser} Tersimpan`,"green")
     }
 }
 
