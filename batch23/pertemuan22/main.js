@@ -3,7 +3,7 @@ const inputNama = document.getElementById('input-nama')
 const tagButton1 = document.getElementById("btn-submit")
 const tagMessage1 = document.getElementById("err-msg-name")
 
-// const database = []
+const database = []
 
 /// ================== DEFAULT FUNCTION
 
@@ -18,11 +18,17 @@ function displayMessage(namaId,message,color){
 
 /// LOCAL
 
-function saveToDb(key,v){
+function saveToDb(k,v){
+
+    // PARADIGM 1
+    // let obj = {};
+    // obj[k] = v;
+
+    // PARADIGM 2
     let obj = {
-        "key" : v
+        [k]: v   // ← pakai [] supaya nama key-nya dari isi variabel k
     }
-    database.unshift({})
+    database.unshift(obj)
 }
 
 function save(key, value) {
@@ -55,8 +61,8 @@ function saveUser(dataUser) {
     if(!dataUser){
        return alert("Data belom di isi")
     } else {
-        // saveToDb("user",dataUser)
-        save('users',dataUser)
+        saveToDb("nama",dataUser)
+        save('users',database)
         resetInput(inputNama)
         displayMessage(tagMessage1,"Oke Data Tersimpan","green")
     }
