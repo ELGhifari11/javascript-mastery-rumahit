@@ -1,7 +1,7 @@
 const tagDiv = document.getElementById('app');
 const inputNama = document.getElementById('input-nama')
 const tagButton1 = document.getElementById("btn-submit")
-const tagMessage1 = document.getElementById("err-msg-name")
+const tagMessage1 = document.getElementById("msg-name")
 
 const database = []
 
@@ -16,6 +16,10 @@ function displayMessage(namaId,message,color){
     namaId.style.color = color
 }
 
+const getDateStr = () => new Date().toLocaleDateString("id-ID", { day: "2-digit", month:'2-digit', year:'numeric' });
+const getTimeStr = () => new Date().toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" });
+
+
 /// LOCAL
 
 function saveToDb(k,v){
@@ -29,6 +33,19 @@ function saveToDb(k,v){
         [k]: v   // ← pakai [] supaya nama key-nya dari isi variabel k
     }
     database.unshift(obj)
+}
+
+function saveObjToDb(obj) {
+    try {
+        if (typeof obj !== "object" || obj === null) {
+            throw new TypeError("Data yang diberikan harus berupa objek yang valid.");
+        }
+        database.unshift(obj);
+    } catch (error) {
+        console.error("Gagal menyimpan objek ke database:", error.message);
+    }
+
+    return database
 }
 
 function save(key, value) {
@@ -61,10 +78,12 @@ function saveUser(dataUser) {
     if(!dataUser){
        return alert("Data belom di isi")
     } else {
-        saveToDb("nama",dataUser)
-        save('users',database)
+        save('users',saveObjToDb({
+            "nama" : dataUser,
+            "date-create" : `${getTimeStr()} ${getDateStr()} `
+        }))
         resetInput(inputNama)
-        displayMessage(tagMessage1,`Oke Data ${dataUser} Tersimpan`,"green")
+        displayMessage(tagMessage1,`Oke Data "${dataUser}" Tersimpan`,"green")
     }
 }
 
