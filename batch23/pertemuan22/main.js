@@ -11,8 +11,9 @@ function resetInput(namaInput){
     return namaInput.value = ""
 }
 
-function displayMessage(){
-
+function displayMessage(namaId,message,color){
+    namaId.textContent = message
+    namaId.style.color = color
 }
 
 /// LOCAL
@@ -57,9 +58,7 @@ function saveUser(dataUser) {
         // saveToDb("user",dataUser)
         save('users',dataUser)
         resetInput(inputNama)
-        tagMessage1.textContent = "Oke Data Tersimpan"
-        tagMessage1.style.color = "green"
-        
+        displayMessage(tagMessage1,"Oke Data Tersimpan","green")
     }
 }
 
