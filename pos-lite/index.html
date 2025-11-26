@@ -109,6 +109,43 @@
         </div>
     </div>
 
+    <!-- PRODUCT MODAL (Add/Edit) -->
+    <div id="product-modal" class="modal-overlay hidden">
+        <div class="modal-box">
+            <div class="modal-header-mini">
+                <h3 id="product-modal-title">Add New Product</h3>
+                <button class="btn-icon-close" id="btn-close-product-modal">&times;</button>
+            </div>
+            <form id="form-product" class="form-clean">
+                <input type="hidden" id="prod-id">
+                <div class="input-group">
+                    <label>Product Name</label>
+                    <input type="text" id="prod-name" required>
+                </div>
+                <div class="input-group">
+                    <label>Category</label>
+                    <input type="text" id="prod-category" required>
+                </div>
+                <div class="input-group">
+                    <label>Image URL (optional)</label>
+                    <input type="url" id="prod-image" placeholder="https://example.com/image.jpg">
+                </div>
+                <div class="input-group">
+                    <label>Price (Rp)</label>
+                    <input type="number" id="prod-price" min="0" required>
+                </div>
+                <div class="input-group">
+                    <label>Stock</label>
+                    <input type="number" id="prod-stock" min="0" required>
+                </div>
+                <div class="form-actions-inline" style="justify-content: flex-end; margin-top: 20px;">
+                    <button type="button" id="btn-cancel-product" class="btn-secondary">Cancel</button>
+                    <button type="submit" class="btn-primary">Save Product</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- MAIN APP -->
     <div id="app-main" class="hidden">
 
@@ -173,40 +210,6 @@
                             <button id="btn-import-products" class="btn-secondary">Import Demo</button>
                             <button id="btn-add-product" class="btn-primary">Add Product</button>
                         </div>
-                    </div>
-
-                    <!-- Product Form (Hidden by default) -->
-                    <div id="product-form-container" class="form-card hidden">
-                        <h3 id="product-form-title">Add New Product</h3>
-                        <form id="form-product" class="form-inline">
-                            <input type="hidden" id="prod-id">
-                            <div class="form-grid">
-                                <div class="input-group">
-                                    <label>Product Name</label>
-                                    <input type="text" id="prod-name" required>
-                                </div>
-                                <div class="input-group">
-                                    <label>Category</label>
-                                    <input type="text" id="prod-category" required>
-                                </div>
-                                <div class="input-group">
-                                    <label>Image URL (optional)</label>
-                                    <input type="url" id="prod-image" placeholder="https://example.com/image.jpg">
-                                </div>
-                                <div class="input-group">
-                                    <label>Price (Rp)</label>
-                                    <input type="number" id="prod-price" min="0" required>
-                                </div>
-                                <div class="input-group">
-                                    <label>Stock</label>
-                                    <input type="number" id="prod-stock" min="0" required>
-                                </div>
-                            </div>
-                            <div class="form-actions-inline">
-                                <button type="submit" class="btn-primary">Save Product</button>
-                                <button type="button" id="btn-cancel-product" class="btn-text">Cancel</button>
-                            </div>
-                        </form>
                     </div>
 
                     <!-- Product Table -->
