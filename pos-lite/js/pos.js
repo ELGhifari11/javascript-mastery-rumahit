@@ -31,17 +31,26 @@ let keranjangBelanja = [];
  * Fungsi utama yang dipanggil saat Dashboard dimuat.
  * Menyiapkan segala sesuatu agar siap digunakan.
  */
-export function inisialisasiAplikasiPOS() {
+export async function inisialisasiAplikasiPOS() {
     // 1. Siapkan navigasi (pindah-pindah tab)
     aturNavigasi();
 
-    // 2. Tampilkan data statistik di halaman Overview
+    // 2. Cek apakah data produk kosong? Jika ya, muat data demo otomatis
+    const daftarProduk = Penyimpanan.ambilSemuaProduk();
+    if (daftarProduk.length === 0) {
+        await muatProdukDemoOtomatis();
+    }
+
+    // 2.1 Refresh data produk
+    tampilkanTabelProduk();
+
+    // 3. Tampilkan data statistik di halaman Overview
     muatRingkasanDashboard();
 
-    // 3. Siapkan tombol-tombol di halaman Produk
+    // 4. Siapkan tombol-tombol di halaman Produk
     aturEventProduk();
 
-    // 4. Siapkan tombol-tombol di halaman Kasir (POS)
+    // 5. Siapkan tombol-tombol di halaman Kasir (POS)
     aturEventKeranjang();
 }
 
@@ -259,6 +268,34 @@ async function prosesImportProduk() {
     Utilitas.tampilkanNotifikasi(`Berhasil import ${jumlahImport} produk!`, 'success');
     tampilkanTabelProduk();
     muatRingkasanDashboard();
+}
+
+/**
+ * Memuat produk demo secara otomatis jika database kosong.
+ * Dijalankan saat inisialisasi aplikasi.
+ */
+async function muatProdukDemoOtomatis() {
+    Utilitas.tampilkanNotifikasi('Memuat produk demo...', 'info');
+
+    // Ambil 20 produk dari API
+    const produkEksternal = await API.ambilProdukDariAPI(20);
+
+    if (produkEksternal.length === 0) return;
+
+    produkEksternal.forEach(produkItem => {
+        const produkBaru = {
+            id: Utilitas.buatIdUnik(),
+            name: produkItem.title,
+            image: produkItem.image,
+            category: produkItem.category,
+            price: Math.round(produkItem.price * 15000),
+            stock: 50,
+            createdAt: new Date().toISOString()
+        };
+        Penyimpanan.tambahProduk(produkBaru);
+    });
+
+    Utilitas.tampilkanNotifikasi('Berhasil memuat 20 produk demo!', 'success');
 }
 
 /**
