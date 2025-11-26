@@ -1,215 +1,371 @@
 /**
- * utils.js
- * Berisi fungsi-fungsi bantuan (helpers) yang dipakai di banyak tempat.
- * Tujuannya agar kode utama lebih bersih.
+ * ==================================================================================
+ * UTILS.JS
+ * ==================================================================================
+ * File ini berisi kumpulan fungsi bantuan (helper functions) yang sering digunakan
+ * di berbagai bagian aplikasi.
+ * 
+ * Tujuan:
+ * 1. Mencegah pengulangan kode (DRY - Don't Repeat Yourself).
+ * 2. Membuat kode utama lebih bersih dan mudah dibaca.
+ * 3. Menyediakan fungsi standar untuk format uang, tanggal, dan notifikasi.
+ * ==================================================================================
  */
 
-// 1. Buat ID unik sederhana (timestamp + random)
+// ==================================================================================
+// 1. GENERATOR ID UNIK
+// ==================================================================================
+/**
+ * Membuat ID unik secara acak.
+ * Digunakan untuk memberi ID pada produk, transaksi, atau pengguna baru.
+ * 
+ * @returns {string} ID unik (kombinasi huruf dan angka, 6 karakter)
+ */
 export function buatIdUnik() {
-    const karakter = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const angka = '0123456789';
-    const gabungan = karakter + angka;
+    const karakter = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'; // Huruf yang mungkin muncul
+    const angka = '0123456789';                 // Angka yang mungkin muncul
+    const gabungan = karakter + angka;          // Gabungkan keduanya
     let hasil = '';
+
+    // Ulangi sebanyak 6 kali untuk membuat 6 karakter
     for (let indeks = 0; indeks < 6; indeks++) {
-        hasil += gabungan.charAt(Math.floor(Math.random() * gabungan.length));
+        // Pilih karakter acak dari 'gabungan'
+        const acak = Math.floor(Math.random() * gabungan.length);
+        hasil += gabungan.charAt(acak);
     }
-    return hasil;
+
+    return hasil; // Contoh output: "A7X9B2"
 }
 
-// 2. Format angka ke format mata uang (Rupiah)
+
+// ==================================================================================
+// 2. FORMAT MATA UANG (RUPIAH)
+// ==================================================================================
+/**
+ * Mengubah angka biasa menjadi format Rupiah yang rapi.
+ * Contoh: 15000 -> "Rp 15.000"
+ * 
+ * @param {number} jumlahAngka - Angka yang ingin diformat
+ * @returns {string} String dalam format mata uang IDR
+ */
 export function formatKeRupiah(jumlahAngka) {
+    // Intl.NumberFormat adalah fitur bawaan JavaScript untuk format angka
     return new Intl.NumberFormat('id-ID', {
-        style: 'currency',
-        currency: 'IDR',
-        minimumFractionDigits: 0
+        style: 'currency',      // Mode mata uang
+        currency: 'IDR',        // Kode mata uang Rupiah
+        minimumFractionDigits: 0 // Tidak menampilkan desimal (koma nol)
     }).format(jumlahAngka);
 }
 
-// 3. Menampilkan notifikasi (Toast)
+
+// ==================================================================================
+// 3. SISTEM NOTIFIKASI (TOAST)
+// ==================================================================================
+/**
+ * Menampilkan pesan notifikasi kecil (toast) di pojok layar.
+ * Berguna untuk memberi feedback ke user (sukses/gagal).
+ * 
+ * @param {string} pesan - Pesan yang ingin ditampilkan
+ * @param {string} tipe - 'success' (hijau), 'error' (merah), atau 'info' (biru)
+ */
 export function tampilkanNotifikasi(pesan, tipe = 'info') {
     const kontainer = document.getElementById('notification-container');
 
-    // Buat elemen notifikasi
+    // Buat elemen div baru untuk notifikasi
     const notifikasi = document.createElement('div');
-    notifikasi.className = `notification ${tipe}`;
+    notifikasi.className = `notification ${tipe}`; // Tambahkan class sesuai tipe
     notifikasi.textContent = pesan;
 
-    // Masukkan ke container
+    // Masukkan notifikasi ke dalam container di HTML
     kontainer.appendChild(notifikasi);
 
-    // Hapus otomatis setelah 3 detik
+    // Pasang timer untuk menghapus notifikasi otomatis setelah 3 detik
     setTimeout(() => {
-        notifikasi.remove();
+        notifikasi.remove(); // Hapus elemen dari layar
     }, 3000);
 }
 
-// 4. Buka Modal
+
+// ==================================================================================
+// 4. MANAJEMEN MODAL (POPUP)
+// ==================================================================================
+/**
+ * Membuka modal (popup) berdasarkan ID-nya.
+ * Caranya dengan menghapus class 'hidden' dari elemen modal.
+ * 
+ * @param {string} idModal - ID elemen modal di HTML
+ */
 export function bukaModal(idModal) {
     const modal = document.getElementById(idModal);
     if (modal) {
-        modal.classList.remove('hidden');
+        modal.classList.remove('hidden'); // Tampilkan modal
     }
 }
 
-// 5. Tutup Modal
+/**
+ * Menutup modal (popup) berdasarkan ID-nya.
+ * Caranya dengan menambahkan kembali class 'hidden'.
+ * 
+ * @param {string} idModal - ID elemen modal di HTML
+ */
 export function tutupModal(idModal) {
     const modal = document.getElementById(idModal);
     if (modal) {
-        modal.classList.add('hidden');
+        modal.classList.add('hidden'); // Sembunyikan modal
     }
 }
 
-// 6. Pindah ke Tampilan Utama (Dashboard)
+
+// ==================================================================================
+// 5. NAVIGASI HALAMAN (SPA - Single Page Application)
+// ==================================================================================
+/**
+ * Berpindah ke tampilan Dashboard Utama.
+ * Menyembunyikan Welcome Screen dan menampilkan App Main.
+ */
 export function pindahKeTampilanUtama() {
     document.getElementById('welcome-screen').classList.add('hidden');
     document.getElementById('app-main').classList.remove('hidden');
 }
 
-// 7. Pindah ke Tampilan Welcome (Logout)
+/**
+ * Berpindah ke tampilan Welcome Screen (Login/Register).
+ * Menyembunyikan App Main dan menampilkan Welcome Screen.
+ */
 export function pindahKeTampilanSelamatDatang() {
     document.getElementById('app-main').classList.add('hidden');
     document.getElementById('welcome-screen').classList.remove('hidden');
 }
 
-// 8. Potong Teks        
+
+// ==================================================================================
+// 6. MANIPULASI TEKS
+// ==================================================================================
+/**
+ * Memotong teks jika terlalu panjang dan menambahkan "..." di akhir.
+ * Contoh: "Produk Sangat Panjang Sekali" -> "Produk Sangat..."
+ * 
+ * @param {string} teks - Teks asli
+ * @param {number} panjangMaksimal - Jumlah karakter maksimal
+ * @returns {string} Teks yang sudah dipotong (jika perlu)
+ */
 export function potongTeks(teks, panjangMaksimal) {
     if (teks.length > panjangMaksimal) {
         return teks.substring(0, panjangMaksimal) + '...';
     }
-    return teks;
+    return teks; // Kembalikan asli jika tidak terlalu panjang
 }
 
-// 9. Format Tanggal
+
+// ==================================================================================
+// 7. FORMAT TANGGAL & WAKTU
+// ==================================================================================
+/**
+ * Mengubah format tanggal ISO menjadi format Indonesia.
+ * Contoh: "2023-11-26" -> "26/11/2023"
+ */
 export function formatTanggal(stringTanggal) {
     const tanggal = new Date(stringTanggal);
     const opsi = { year: 'numeric', month: '2-digit', day: '2-digit' };
     return tanggal.toLocaleDateString('id-ID', opsi);
 }
 
-// 10. Format Waktu
+/**
+ * Mengambil jam dan menit saja.
+ * Contoh: "14:30"
+ */
 export function formatWaktu(stringTanggal) {
     const tanggal = new Date(stringTanggal);
     const opsi = { hour: '2-digit', minute: '2-digit' };
     return tanggal.toLocaleTimeString('id-ID', opsi);
 }
 
-// 11. Format Tanggal dan Waktu
+/**
+ * Format lengkap tanggal dan waktu.
+ * Contoh: "26/11/2023, 14:30"
+ */
 export function formatTanggalWaktu(stringTanggal) {
     const tanggal = new Date(stringTanggal);
-    const opsi = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' };
+    const opsi = {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit'
+    };
     return tanggal.toLocaleString('id-ID', opsi);
 }
 
-// --- CUSTOM MODAL SYSTEM (Alert, Confirm, Prompt) ---
 
-let modalResolver = null;
+// ==================================================================================
+// 8. SISTEM MODAL KUSTOM (PENGGANTI ALERT/CONFIRM/PROMPT)
+// ==================================================================================
 
-function resetGenericModal() {
+/**
+ * Fungsi internal untuk mereset isi modal generic sebelum ditampilkan.
+ * Mengembalikan referensi ke elemen-elemen modal agar mudah diisi.
+ */
+function resetModalGeneric() {
     const modal = document.getElementById('generic-modal');
-    const titleEl = document.getElementById('generic-modal-title');
-    const messageEl = document.getElementById('generic-modal-message');
-    const inputContainer = document.getElementById('generic-modal-input-container');
+    const judulEl = document.getElementById('generic-modal-title');
+    const pesanEl = document.getElementById('generic-modal-message');
+    const wadahInput = document.getElementById('generic-modal-input-container');
     const inputEl = document.getElementById('generic-modal-input');
-    const btnCancel = document.getElementById('btn-generic-cancel');
-    const btnConfirm = document.getElementById('btn-generic-confirm');
+    const tombolBatal = document.getElementById('btn-generic-cancel');
+    const tombolKonfirmasi = document.getElementById('btn-generic-confirm');
+    const tombolTutup = document.getElementById('btn-close-generic');
 
-    titleEl.textContent = 'Notification';
-    messageEl.textContent = '';
-    inputContainer.classList.add('hidden');
+    // Reset konten ke default
+    judulEl.textContent = 'Notifikasi';
+    pesanEl.textContent = '';
+    wadahInput.classList.add('hidden'); // Sembunyikan input
     inputEl.value = '';
-    btnCancel.classList.add('hidden');
-    btnConfirm.textContent = 'OK';
+    tombolBatal.classList.add('hidden'); // Sembunyikan tombol batal
+    tombolKonfirmasi.textContent = 'OK';
 
-    // Remove old event listeners to prevent stacking
-    const newBtnConfirm = btnConfirm.cloneNode(true);
-    btnConfirm.parentNode.replaceChild(newBtnConfirm, btnConfirm);
+    // PENTING: Kita harus menghapus event listener lama agar tidak menumpuk (double click issue).
+    // Caranya dengan meng-clone elemen tombol dan menggantinya dengan yang baru.
+    const tombolKonfirmasiBaru = tombolKonfirmasi.cloneNode(true);
+    tombolKonfirmasi.parentNode.replaceChild(tombolKonfirmasiBaru, tombolKonfirmasi);
 
-    const newBtnCancel = btnCancel.cloneNode(true);
-    btnCancel.parentNode.replaceChild(newBtnCancel, btnCancel);
+    const tombolBatalBaru = tombolBatal.cloneNode(true);
+    tombolBatal.parentNode.replaceChild(tombolBatalBaru, tombolBatal);
 
-    const newBtnClose = document.getElementById('btn-close-generic').cloneNode(true);
-    document.getElementById('btn-close-generic').parentNode.replaceChild(newBtnClose, document.getElementById('btn-close-generic'));
+    const tombolTutupBaru = tombolTutup.cloneNode(true);
+    tombolTutup.parentNode.replaceChild(tombolTutupBaru, tombolTutup);
 
-    return { modal, titleEl, messageEl, inputContainer, inputEl, btnCancel: newBtnCancel, btnConfirm: newBtnConfirm, btnClose: newBtnClose };
+    // Kembalikan elemen-elemen baru ini untuk dipakai fungsi pemanggil
+    return {
+        modal,
+        judulEl,
+        pesanEl,
+        wadahInput,
+        inputEl,
+        tombolBatal: tombolBatalBaru,
+        tombolKonfirmasi: tombolKonfirmasiBaru,
+        tombolTutup: tombolTutupBaru
+    };
 }
 
-export function showAlert(message, title = 'Info') {
-    return new Promise((resolve) => {
-        const els = resetGenericModal();
+/**
+ * Menampilkan pesan Alert (hanya tombol OK).
+ * Pengganti native `alert()`.
+ * 
+ * @param {string} pesan - Pesan yang ditampilkan
+ * @param {string} judul - Judul modal (opsional)
+ * @returns {Promise<void>} Promise yang selesai saat user klik OK
+ */
+export function tampilkanAlert(pesan, judul = 'Info') {
+    return new Promise((selesai) => {
+        const elemen = resetModalGeneric();
 
-        els.titleEl.textContent = title;
-        els.messageEl.textContent = message;
+        // Isi konten
+        elemen.judulEl.textContent = judul;
+        elemen.pesanEl.textContent = pesan;
 
-        els.btnConfirm.addEventListener('click', () => {
+        // Event saat tombol OK diklik
+        elemen.tombolKonfirmasi.addEventListener('click', () => {
             tutupModal('generic-modal');
-            resolve();
+            selesai(); // Beritahu pemanggil bahwa user sudah klik OK
         });
 
-        els.btnClose.addEventListener('click', () => {
+        // Event saat tombol X diklik
+        elemen.tombolTutup.addEventListener('click', () => {
             tutupModal('generic-modal');
-            resolve();
+            selesai();
         });
 
         bukaModal('generic-modal');
     });
 }
 
-export function showConfirm(message, title = 'Konfirmasi') {
-    return new Promise((resolve) => {
-        const els = resetGenericModal();
+/**
+ * Menampilkan pesan Konfirmasi (Ya / Tidak).
+ * Pengganti native `confirm()`.
+ * 
+ * @param {string} pesan - Pertanyaan untuk user
+ * @param {string} judul - Judul modal
+ * @returns {Promise<boolean>} TRUE jika klik Ya, FALSE jika klik Batal
+ */
+export function tampilkanKonfirmasi(pesan, judul = 'Konfirmasi') {
+    return new Promise((selesai) => {
+        const elemen = resetModalGeneric();
 
-        els.titleEl.textContent = title;
-        els.messageEl.textContent = message;
-        els.btnCancel.classList.remove('hidden');
-        els.btnConfirm.textContent = 'Ya';
+        elemen.judulEl.textContent = judul;
+        elemen.pesanEl.textContent = pesan;
 
-        els.btnConfirm.addEventListener('click', () => {
+        // Tampilkan tombol batal
+        elemen.tombolBatal.classList.remove('hidden');
+        elemen.tombolKonfirmasi.textContent = 'Ya'; // Ubah teks tombol OK jadi Ya
+
+        // Jika klik Ya
+        elemen.tombolKonfirmasi.addEventListener('click', () => {
             tutupModal('generic-modal');
-            resolve(true);
+            selesai(true); // Kirim TRUE
         });
 
-        els.btnCancel.addEventListener('click', () => {
+        // Jika klik Batal
+        elemen.tombolBatal.addEventListener('click', () => {
             tutupModal('generic-modal');
-            resolve(false);
+            selesai(false); // Kirim FALSE
         });
 
-        els.btnClose.addEventListener('click', () => {
+        // Jika klik X
+        elemen.tombolTutup.addEventListener('click', () => {
             tutupModal('generic-modal');
-            resolve(false);
+            selesai(false); // Kirim FALSE
         });
 
         bukaModal('generic-modal');
     });
 }
 
-export function showPrompt(message, defaultValue = '', title = 'Input') {
-    return new Promise((resolve) => {
-        const els = resetGenericModal();
+/**
+ * Menampilkan Input Dialog (User mengetik sesuatu).
+ * Pengganti native `prompt()`.
+ * 
+ * @param {string} pesan - Instruksi untuk user
+ * @param {string} nilaiDefault - Nilai awal input
+ * @param {string} judul - Judul modal
+ * @returns {Promise<string|null>} Teks input user, atau NULL jika batal
+ */
+export function tampilkanInput(pesan, nilaiDefault = '', judul = 'Input') {
+    return new Promise((selesai) => {
+        const elemen = resetModalGeneric();
 
-        els.titleEl.textContent = title;
-        els.messageEl.textContent = message;
-        els.inputContainer.classList.remove('hidden');
-        els.inputEl.value = defaultValue;
-        els.btnCancel.classList.remove('hidden');
-        els.btnConfirm.textContent = 'OK';
+        elemen.judulEl.textContent = judul;
+        elemen.pesanEl.textContent = pesan;
 
-        els.btnConfirm.addEventListener('click', () => {
-            const val = els.inputEl.value;
+        // Tampilkan input field
+        elemen.wadahInput.classList.remove('hidden');
+        elemen.inputEl.value = nilaiDefault;
+
+        // Tampilkan tombol batal
+        elemen.tombolBatal.classList.remove('hidden');
+        elemen.tombolKonfirmasi.textContent = 'OK';
+
+        // Jika klik OK
+        elemen.tombolKonfirmasi.addEventListener('click', () => {
+            const nilai = elemen.inputEl.value;
             tutupModal('generic-modal');
-            resolve(val);
+            selesai(nilai); // Kirim teks yang diketik
         });
 
-        els.btnCancel.addEventListener('click', () => {
+        // Jika klik Batal
+        elemen.tombolBatal.addEventListener('click', () => {
             tutupModal('generic-modal');
-            resolve(null);
+            selesai(null); // Kirim NULL
         });
 
-        els.btnClose.addEventListener('click', () => {
+        // Jika klik X
+        elemen.tombolTutup.addEventListener('click', () => {
             tutupModal('generic-modal');
-            resolve(null);
+            selesai(null);
         });
 
         bukaModal('generic-modal');
-        els.inputEl.focus();
+
+        // Fokus otomatis ke input agar user langsung bisa ketik
+        elemen.inputEl.focus();
     });
 }

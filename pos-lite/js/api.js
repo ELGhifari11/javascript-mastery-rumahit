@@ -1,22 +1,48 @@
 /**
- * api.js
- * Bertanggung jawab mengambil data dari API publik (Fetch API).
- * Contoh: Mengambil produk dari FakeStoreAPI.
+ * ==================================================================================
+ * API.JS
+ * ==================================================================================
+ * File ini bertugas untuk berkomunikasi dengan dunia luar (Server/API).
+ * Kita menggunakan teknik 'Fetch API' untuk mengambil data dari internet.
+ * 
+ * Sumber Data: FakeStoreAPI (https://fakestoreapi.com/)
+ * ==================================================================================
  */
 
-// Ambil produk dari FakeStoreAPI
+
+// ==================================================================================
+// 1. AMBIL DATA PRODUK
+// ==================================================================================
+/**
+ * Mengambil daftar produk dari server FakeStoreAPI.
+ * Fungsi ini bersifat ASYNC karena mengambil data dari internet butuh waktu.
+ * 
+ * @param {number} batas - Jumlah maksimal produk yang ingin diambil (default: 5)
+ * @returns {Promise<Array>} Daftar produk dalam bentuk Array
+ */
 export async function ambilProdukDariAPI(batas = 5) {
+    // URL endpoint API yang akan kita tuju
     const urlAPI = `https://fakestoreapi.com/products?limit=${batas}`;
+
     try {
-        console.log(`Mengambil ${batas} produk dari FakeStoreAPI...`);
+        console.log(`Sedang mengambil ${batas} produk dari server...`);
+
+        // 'await fetch()' artinya kita tunggu sampai server membalas
         const respons = await fetch(urlAPI);
 
-        if (!respons.ok) throw new Error('Gagal mengambil data produk');
+        // Cek apakah server menjawab dengan sukses (Status 200 OK)
+        if (!respons.ok) {
+            throw new Error('Gagal mengambil data produk dari server.');
+        }
 
+        // Ubah jawaban server (JSON) menjadi objek JavaScript
         const dataProduk = await respons.json();
-        return dataProduk; // Array berisi produk
+
+        return dataProduk; // Kembalikan data ke pemanggil
+
     } catch (kesalahan) {
-        console.error('Error saat mengambil produk:', kesalahan);
-        return [];
+        // Jika terjadi error (misal internet mati), kode ini akan dijalankan
+        console.error('Terjadi error saat mengambil produk:', kesalahan);
+        return []; // Kembalikan array kosong agar aplikasi tidak crash
     }
 }

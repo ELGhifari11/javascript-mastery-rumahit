@@ -1,31 +1,50 @@
 /**
- * auth.js
- * Mengatur alur pendaftaran (Register), masuk (Login), dan keluar (Logout).
+ * ==================================================================================
+ * AUTH.JS
+ * ==================================================================================
+ * File ini mengatur segala hal tentang Autentikasi (Login & Register).
+ * 
+ * Fitur:
+ * 1. Mendaftarkan pengguna baru (Register).
+ * 2. Masuk ke sistem (Login).
+ * 3. Keluar dari sistem (Logout).
+ * 4. Mengecek apakah pengguna sedang login.
+ * ==================================================================================
  */
 
-import * as Penyimpanan from './storage.js';
-import * as Utilitas from './utils.js';
+import * as Penyimpanan from './storage.js'; // Import modul penyimpanan
+import * as Utilitas from './utils.js';      // Import modul bantuan
 
-// --- INISIALISASI ---
 
+// ==================================================================================
+// 1. INISIALISASI ALUR AUTENTIKASI
+// ==================================================================================
+/**
+ * Menyiapkan semua Event Listener (pendengar klik) untuk tombol-tombol
+ * yang berhubungan dengan login dan register.
+ * Dijalankan sekali saat aplikasi mulai.
+ */
 export function inisialisasiAlurAutentikasi() {
-    // Event Listener untuk Tombol di Welcome Screen
+
+    // --- Tombol di Welcome Screen ---
     const tombolTampilkanLogin = document.getElementById('btn-show-login');
     const tombolTampilkanRegister = document.getElementById('btn-show-register');
 
+    // Jika tombol ada, pasang event listener
     if (tombolTampilkanLogin) {
         tombolTampilkanLogin.addEventListener('click', () => {
-            Utilitas.bukaModal('login-modal');
+            Utilitas.bukaModal('login-modal'); // Buka popup login
         });
     }
 
     if (tombolTampilkanRegister) {
         tombolTampilkanRegister.addEventListener('click', () => {
-            Utilitas.bukaModal('register-modal');
+            Utilitas.bukaModal('register-modal'); // Buka popup register
         });
     }
 
-    // Event Listener untuk Tombol Close di Modal
+
+    // --- Tombol Close (X) di Modal ---
     document.getElementById('btn-close-login').addEventListener('click', () => {
         Utilitas.tutupModal('login-modal');
     });
@@ -34,82 +53,108 @@ export function inisialisasiAlurAutentikasi() {
         Utilitas.tutupModal('register-modal');
     });
 
-    // Event Listener untuk Link Switch antar Modal
+
+    // --- Link Pindah Antar Modal (Login <-> Register) ---
+    // Link "Sign up" di modal Login
     document.getElementById('link-to-register').addEventListener('click', (event) => {
-        event.preventDefault();
+        event.preventDefault(); // Mencegah link pindah halaman
         Utilitas.tutupModal('login-modal');
         Utilitas.bukaModal('register-modal');
     });
 
+    // Link "Sign in" di modal Register
     document.getElementById('link-to-login').addEventListener('click', (event) => {
         event.preventDefault();
         Utilitas.tutupModal('register-modal');
         Utilitas.bukaModal('login-modal');
     });
 
-    // Event Listener untuk Submit Form
+
+    // --- Submit Form ---
+    // Saat form register dikirim
     document.getElementById('form-register').addEventListener('submit', prosesPendaftaran);
+
+    // Saat form login dikirim
     document.getElementById('form-login').addEventListener('submit', prosesMasuk);
+
+    // Saat tombol logout diklik
     document.getElementById('btn-logout').addEventListener('click', keluarkanPengguna);
 }
 
-// --- HANDLER LOGIKA ---
 
+// ==================================================================================
+// 2. LOGIKA PENDAFTARAN (REGISTER)
+// ==================================================================================
+/**
+ * Memproses data pendaftaran pengguna baru.
+ * 
+ * @param {Event} event - Event submit form
+ */
 function prosesPendaftaran(event) {
-    event.preventDefault(); // Mencegah reload halaman
+    event.preventDefault(); // Mencegah halaman reload otomatis
 
-    // Ambil value dari input
+    // 1. Ambil data dari input field
     const nama = document.getElementById('reg-name').value;
     const email = document.getElementById('reg-email').value;
     const kataSandi = document.getElementById('reg-password').value;
     const konfirmasiKataSandi = document.getElementById('reg-confirm-password').value;
 
-    // Validasi sederhana
+    // 2. Validasi: Cek apakah password sama
     if (kataSandi !== konfirmasiKataSandi) {
         Utilitas.tampilkanNotifikasi('Password dan Confirm Password tidak sama!', 'error');
-        return;
+        return; // Berhenti di sini
     }
 
-    // Cek apakah email sudah terdaftar
+    // 3. Validasi: Cek apakah email sudah dipakai
     const penggunaYangAda = Penyimpanan.cariPenggunaByEmail(email);
     if (penggunaYangAda) {
         Utilitas.tampilkanNotifikasi('Email sudah terdaftar! Silakan login.', 'error');
         return;
     }
 
-    // Buat object pengguna baru
+    // 4. Buat objek pengguna baru
     const penggunaBaru = {
         id: Utilitas.buatIdUnik(),
         name: nama,
         email: email,
-        password: kataSandi, // Note: Di real app, password HARUS di-hash!
+        password: kataSandi, // Catatan: Di aplikasi nyata, password WAJIB di-enkripsi!
         createdAt: new Date().toISOString()
     };
 
-    // Simpan ke storage
+    // 5. Simpan ke LocalStorage
     Penyimpanan.tambahPengguna(penggunaBaru);
 
-    // Beri notifikasi sukses
+    // 6. Beri feedback sukses
     Utilitas.tampilkanNotifikasi('Registrasi berhasil! Silakan login.', 'success');
 
-    // Reset form dan pindah ke login modal
+    // 7. Bersihkan form dan pindah ke login
     document.getElementById('form-register').reset();
     Utilitas.tutupModal('register-modal');
     Utilitas.bukaModal('login-modal');
 }
 
+
+// ==================================================================================
+// 3. LOGIKA MASUK (LOGIN)
+// ==================================================================================
+/**
+ * Memproses login pengguna.
+ * 
+ * @param {Event} event - Event submit form
+ */
 function prosesMasuk(event) {
     event.preventDefault();
 
+    // 1. Ambil data input
     const email = document.getElementById('login-email').value;
     const kataSandi = document.getElementById('login-password').value;
 
-    // Cari pengguna
+    // 2. Cari data pengguna di penyimpanan
     const pengguna = Penyimpanan.cariPenggunaByEmail(email);
 
-    // Cek validitas
+    // 3. Cek kecocokan email dan password
     if (pengguna && pengguna.password === kataSandi) {
-        // Login sukses
+        // SUKSES: Simpan sesi login
         Penyimpanan.setPenggunaSaatIni(pengguna);
         Utilitas.tampilkanNotifikasi(`Selamat datang, ${pengguna.name}!`, 'success');
 
@@ -117,24 +162,42 @@ function prosesMasuk(event) {
         document.getElementById('form-login').reset();
         Utilitas.tutupModal('login-modal');
 
-        // Refresh halaman atau update UI agar masuk ke dashboard
-        // Kita reload halaman agar state bersih dan inisialisasiAplikasi berjalan ulang
+        // Reload halaman agar aplikasi masuk ke mode Dashboard
         window.location.reload();
     } else {
-        // Login gagal
+        // GAGAL
         Utilitas.tampilkanNotifikasi('Email atau password salah!', 'error');
     }
 }
 
+
+// ==================================================================================
+// 4. LOGIKA KELUAR (LOGOUT)
+// ==================================================================================
+/**
+ * Mengeluarkan pengguna dari sistem.
+ * Menggunakan modal konfirmasi kustom.
+ */
 export async function keluarkanPengguna() {
-    const confirmed = await Utilitas.showConfirm('Apakah Anda yakin ingin logout?', 'Konfirmasi Logout');
-    if (confirmed) {
-        Penyimpanan.hapusPenggunaSaatIni();
-        window.location.reload(); // Reload ke welcome screen
+    // Tampilkan popup konfirmasi (Tunggu user klik Ya/Tidak)
+    const dikonfirmasi = await Utilitas.tampilkanKonfirmasi('Apakah Anda yakin ingin logout?', 'Konfirmasi Logout');
+
+    // Jika user klik 'Ya'
+    if (dikonfirmasi) {
+        Penyimpanan.hapusPenggunaSaatIni(); // Hapus sesi
+        window.location.reload();           // Reload ke welcome screen
     }
 }
 
-// Cek apakah ada pengguna yang login
+
+// ==================================================================================
+// 5. CEK STATUS LOGIN
+// ==================================================================================
+/**
+ * Mengecek apakah ada user yang sedang login saat ini.
+ * 
+ * @returns {boolean} TRUE jika sudah login, FALSE jika belum
+ */
 export function apakahSudahLogin() {
     return Penyimpanan.ambilPenggunaSaatIni() !== null;
 }
