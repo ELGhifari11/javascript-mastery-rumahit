@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POSLite - Modern POS System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- WELCOME SCREEN -->
+    <section id="welcome-screen" class="welcome-hero">
+        <div class="welcome-container">
+            <div class="welcome-branding">
+                <h1 class="brand-logo">POSLite</h1>
+                <p class="brand-tagline">Modern Point of Sale for Everyone</p>
+            </div>
+
+            <div class="welcome-actions">
+                <button id="btn-show-login" class="btn-hero btn-hero-primary">Sign In</button>
+                <button id="btn-show-register" class="btn-hero btn-hero-secondary">Create Account</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- LOGIN MODAL -->
+    <div id="login-modal" class="modal-overlay hidden">
+        <div class="modal-box">
+            <div class="modal-header-mini">
+                <h3>Sign In</h3>
+                <button class="btn-icon-close" id="btn-close-login">&times;</button>
+            </div>
+            <form id="form-login" class="form-clean">
+                <div class="input-group">
+                    <label>Email Address</label>
+                    <input type="email" id="login-email" placeholder="you@example.com" required>
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" id="login-password" placeholder="Enter password" required>
+                </div>
+                <button type="submit" class="btn-submit">Sign In</button>
+                <p class="form-footer-text">
+                    Don't have an account? <a href="#" id="link-to-register" class="link-primary">Sign up</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- REGISTER MODAL -->
+    <div id="register-modal" class="modal-overlay hidden">
+        <div class="modal-box">
+            <div class="modal-header-mini">
+                <h3>Create Account</h3>
+                <button class="btn-icon-close" id="btn-close-register">&times;</button>
+            </div>
+            <form id="form-register" class="form-clean">
+                <div class="input-group">
+                    <label>Full Name</label>
+                    <input type="text" id="reg-name" placeholder="John Doe" required>
+                </div>
+                <div class="input-group">
+                    <label>Email Address</label>
+                    <input type="email" id="reg-email" placeholder="you@example.com" required>
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" id="reg-password" placeholder="Create password" required>
+                </div>
+                <div class="input-group">
+                    <label>Confirm Password</label>
+                    <input type="password" id="reg-confirm-password" placeholder="Confirm password" required>
+                </div>
+                <button type="submit" class="btn-submit">Create Account</button>
+                <p class="form-footer-text">
+                    Already have an account? <a href="#" id="link-to-login" class="link-primary">Sign in</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- MAIN APP -->
+    <div id="app-main" class="hidden">
+
+        <!-- App Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <div class="brand-mini">POSLite</div>
+                <div class="user-section">
+                    <span id="user-display-name" class="user-name">User</span>
+                    <button id="btn-logout" class="btn-logout">Sign Out</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Tab Navigation -->
+        <nav class="tab-nav">
+            <div class="tab-nav-container">
+                <button class="tab-btn active" data-section="overview">Overview</button>
+                <button class="tab-btn" data-section="products">Products</button>
+                <button class="tab-btn" data-section="pos">Point of Sale</button>
+                <button class="tab-btn" data-section="reports">Reports</button>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="app-content">
+
+            <!-- OVERVIEW SECTION -->
+            <section id="section-overview" class="content-section active">
+                <div class="section-container">
+                    <div class="section-title">
+                        <h2>Dashboard Overview</h2>
+                        <p class="section-subtitle">Key metrics at a glance</p>
+                    </div>
+
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-label">Total Products</div>
+                            <div class="metric-value" id="stat-total-products">0</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Transactions</div>
+                            <div class="metric-value" id="stat-total-transactions">0</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Revenue</div>
+                            <div class="metric-value" id="stat-total-revenue">Rp 0</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PRODUCTS SECTION -->
+            <section id="section-products" class="content-section">
+                <div class="section-container">
+                    <div class="section-header-flex">
+                        <div>
+                            <h2>Products</h2>
+                            <p class="section-subtitle">Manage your inventory</p>
+                        </div>
+                        <div class="action-group">
+                            <button id="btn-import-products" class="btn-secondary">Import Demo</button>
+                            <button id="btn-add-product" class="btn-primary">Add Product</button>
+                        </div>
+                    </div>
+
+                    <!-- Product Form (Hidden by default) -->
+                    <div id="product-form-container" class="form-card hidden">
+                        <h3 id="product-form-title">Add New Product</h3>
+                        <form id="form-product" class="form-inline">
+                            <input type="hidden" id="prod-id">
+                            <div class="form-grid">
+                                <div class="input-group">
+                                    <label>Product Name</label>
+                                    <input type="text" id="prod-name" required>
+                                </div>
+                                <div class="input-group">
+                                    <label>Category</label>
+                                    <input type="text" id="prod-category" required>
+                                </div>
+                                <div class="input-group">
+                                    <label>Price (Rp)</label>
+                                    <input type="number" id="prod-price" min="0" required>
+                                </div>
+                                <div class="input-group">
+                                    <label>Stock</label>
+                                    <input type="number" id="prod-stock" min="0" required>
+                                </div>
+                            </div>
+                            <div class="form-actions-inline">
+                                <button type="submit" class="btn-primary">Save Product</button>
+                                <button type="button" id="btn-cancel-product" class="btn-text">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Product Table -->
+                    <div class="table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Category</th>
+                                    <th>Price</th>
+                                    <th>Stock</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="products-tbody">
+                                <tr class="empty-state">
+                                    <td colspan="5">No products yet</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- POS SECTION -->
+            <section id="section-pos" class="content-section">
+                <div class="section-container-wide">
+                    <div class="pos-grid">
+                        <!-- Product Catalog -->
+                        <div class="pos-catalog-area">
+                            <h3 class="area-title">Select Products</h3>
+                            <div id="pos-product-grid" class="product-grid-simple">
+                                <div class="empty-state-card">No products available</div>
+                            </div>
+                        </div>
+
+                        <!-- Cart -->
+                        <div class="pos-cart-area">
+                            <h3 class="area-title">Current Order</h3>
+                            <div class="cart-list" id="cart-items-container">
+                                <div class="empty-state-text">Cart is empty</div>
+                            </div>
+                            <div class="cart-footer">
+                                <div class="cart-totals">
+                                    <div class="total-row">
+                                        <span>Items:</span>
+                                        <span id="cart-total-qty">0</span>
+                                    </div>
+                                    <div class="total-row total-main">
+                                        <span>Total:</span>
+                                        <span id="cart-total-price">Rp 0</span>
+                                    </div>
+                                </div>
+                                <button id="btn-checkout" class="btn-checkout" disabled>Complete Order</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- REPORTS SECTION -->
+            <section id="section-reports" class="content-section">
+                <div class="section-container">
+                    <div class="section-title">
+                        <h2>Transaction Reports</h2>
+                        <p class="section-subtitle">View all transactions</p>
+                    </div>
+
+                    <div class="table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Transaction ID</th>
+                                    <th>Items</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody id="transactions-tbody">
+                                <tr class="empty-state">
+                                    <td colspan="4">No transactions yet</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="notification-container"></div>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+
+</html>
