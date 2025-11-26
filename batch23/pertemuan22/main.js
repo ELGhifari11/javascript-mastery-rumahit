@@ -2,6 +2,7 @@ const tagDiv = document.getElementById('app');
 const inputNama = document.getElementById('input-nama')
 const tagButton1 = document.getElementById("btn-submit")
 const tagMessage1 = document.getElementById("msg-name")
+const tagApp = document.getElementById('app')
 
 const database = []
 
@@ -87,7 +88,14 @@ function saveUser(name) {
     }
 }
 
+
+function renderData(data) {
+    tagApp.textContent = data
+}
+
+
 tagButton1.addEventListener('click',function(e){
     e.preventDefault()
     saveUser(inputNama.value.trim())
+    renderData(load('users'))
 })
