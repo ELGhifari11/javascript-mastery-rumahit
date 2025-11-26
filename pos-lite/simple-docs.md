@@ -60,19 +60,23 @@ graph TB
 ### Penjelasan Arsitektur
 
 **Layer 1: Presentation (index.html)**
+
 - File HTML yang berisi struktur tampilan
 - Form, button, modal, tabel
 
 **Layer 2: Entry Point (main.js)**
+
 - Titik masuk aplikasi
 - Mengatur inisialisasi semua modul
 
 **Layer 3: Business Logic**
+
 - `auth.js`: Logika autentikasi
 - `pos.js`: Logika POS utama
 - `api.js`: Komunikasi dengan API eksternal
 
 **Layer 4: Utilities & Storage**
+
 - `utils.js`: Fungsi-fungsi helper
 - `storage.js`: Interaksi dengan localStorage
 
@@ -86,12 +90,14 @@ graph TB
 Module adalah cara untuk memecah kode menjadi file-file terpisah yang bisa digunakan ulang.
 
 **Kenapa pakai Module?**
+
 - ✅ Kode lebih terorganisir
 - ✅ Mudah maintenance
 - ✅ Bisa reuse fungsi
 - ✅ Menghindari konflik nama variabel
 
 **Cara Export Fungsi:**
+
 ```javascript
 // Di file utils.js
 export function buatIdUnik() {
@@ -104,6 +110,7 @@ export function formatKeRupiah(angka) {
 ```
 
 **Cara Import Fungsi:**
+
 ```javascript
 // Di file main.js
 import * as Utilitas from './utils.js';
@@ -114,6 +121,7 @@ const harga = Utilitas.formatKeRupiah(50000);
 ```
 
 **Penjelasan `import * as`:**
+
 - `*` = ambil semua export
 - `as Utilitas` = beri nama alias "Utilitas"
 - Jadi semua fungsi dari utils.js bisa diakses via `Utilitas.namaFungsi()`
@@ -124,6 +132,7 @@ const harga = Utilitas.formatKeRupiah(50000);
 LocalStorage adalah tempat penyimpanan data di browser yang **persisten** (tidak hilang saat browser ditutup).
 
 **Cara Kerja:**
+
 ```javascript
 // Simpan data (harus string)
 localStorage.setItem('kunci', 'nilai');
@@ -146,6 +155,7 @@ const penggunaObject = JSON.parse(penggunaString);
 ### 3. Arrow Function
 
 **Sintaks Lama (ES5):**
+
 ```javascript
 function tambah(a, b) {
     return a + b;
@@ -153,6 +163,7 @@ function tambah(a, b) {
 ```
 
 **Sintaks Baru (ES6 Arrow Function):**
+
 ```javascript
 const tambah = (a, b) => {
     return a + b;
@@ -163,6 +174,7 @@ const tambah = (a, b) => a + b;
 ```
 
 **Kapan pakai Arrow Function?**
+
 - Untuk fungsi callback
 - Untuk fungsi yang pendek
 - Saat butuh `this` dari parent scope
@@ -170,6 +182,7 @@ const tambah = (a, b) => a + b;
 ### 4. Async/Await
 
 **Masalah: Kode Asynchronous**
+
 ```javascript
 // Tanpa await - tidak tunggu selesai
 function ambilData() {
@@ -180,6 +193,7 @@ function ambilData() {
 ```
 
 **Solusi: Async/Await**
+
 ```javascript
 // Dengan await - tunggu sampai selesai
 async function ambilData() {
@@ -190,6 +204,7 @@ async function ambilData() {
 ```
 
 **Penjelasan:**
+
 - `async` = fungsi ini bersifat asynchronous
 - `await` = tunggu sampai proses selesai
 - Lebih mudah dibaca seperti kode synchronous
@@ -218,6 +233,7 @@ pos-lite/
 ## 📄 File 1: main.js
 
 ### Tujuan File Ini
+
 File ini adalah **pintu masuk aplikasi**. Dijalankan pertama kali saat halaman dimuat.
 
 ### Kode Lengkap dengan Penjelasan
@@ -239,6 +255,7 @@ import * as Penyimpanan from './storage.js';
 ```
 
 **Penjelasan Import:**
+
 - Kita import 4 modul sebagai object
 - `* as Autentikasi` = semua export dari auth.js bisa diakses via `Autentikasi.namaFungsi()`
 - Kenapa pakai `* as`? Karena kita butuh banyak fungsi dari tiap modul
@@ -251,6 +268,7 @@ function inisialisasiAplikasi() {
 ```
 
 **Penjelasan:**
+
 - Fungsi ini dipanggil sekali saat aplikasi pertama kali jalan
 - `console.log()` untuk debugging - muncul di DevTools console
 
@@ -260,6 +278,7 @@ function inisialisasiAplikasi() {
 ```
 
 **Penjelasan:**
+
 - Memanggil fungsi dari modul Autentikasi
 - Fungsi ini akan memasang event listener ke tombol-tombol login/register
 - Event listener = kode yang mendengarkan aksi user (klik, ketik, dll)
@@ -270,6 +289,7 @@ function inisialisasiAplikasi() {
 ```
 
 **Penjelasan:**
+
 - `if` = percabangan
 - `Autentikasi.apakahSudahLogin()` = fungsi yang return `true` atau `false`
 - Jika ada pengguna yang login, masuk ke blok if
@@ -281,6 +301,7 @@ function inisialisasiAplikasi() {
 ```
 
 **Penjelasan:**
+
 - `const` = deklarasi variabel yang tidak bisa diubah
 - `Penyimpanan.ambilPenggunaSaatIni()` = ambil data pengguna dari localStorage
 - `pengguna.name` = akses property 'name' dari object pengguna
@@ -291,6 +312,7 @@ function inisialisasiAplikasi() {
 ```
 
 **Penjelasan:**
+
 - `document.getElementById()` = cari elemen HTML dengan id tertentu
 - `.textContent` = ubah isi teks elemen tersebut
 - Jadi nama pengguna ditampilkan di UI
@@ -301,6 +323,7 @@ function inisialisasiAplikasi() {
 ```
 
 **Penjelasan:**
+
 - Memanggil fungsi untuk hide welcome screen dan show dashboard
 - Fungsi ini manipulasi class CSS (add/remove 'hidden')
 
@@ -310,6 +333,7 @@ function inisialisasiAplikasi() {
 ```
 
 **Penjelasan:**
+
 - Setup semua event listener untuk fitur POS (produk, keranjang, dll)
 - Fungsi ini baru dipanggil kalau user sudah login
 
@@ -323,6 +347,7 @@ function inisialisasiAplikasi() {
 ```
 
 **Penjelasan:**
+
 - Blok `else` = dijalankan jika kondisi `if` false
 - Jika belum login, tampilkan welcome screen
 
@@ -332,6 +357,7 @@ document.addEventListener('DOMContentLoaded', inisialisasiAplikasi);
 ```
 
 **Penjelasan:**
+
 - `addEventListener` = pasang listener untuk event
 - `'DOMContentLoaded'` = event yang fire saat HTML selesai dimuat
 - `inisialisasiAplikasi` = fungsi callback yang dipanggil saat event terjadi
@@ -342,10 +368,13 @@ document.addEventListener('DOMContentLoaded', inisialisasiAplikasi);
 ## 📄 File 2: storage.js
 
 ### Tujuan File Ini
+
 File ini bertindak sebagai **Database Layer**. Semua operasi baca/tulis ke localStorage dilakukan di sini.
 
 ### Konsep: Separation of Concerns
+
 Kenapa pisahkan storage ke file terpisah?
+
 - ✅ Mudah ganti database (misal dari localStorage ke API)
 - ✅ Fungsi storage bisa dipakai di banyak tempat
 - ✅ Kode lebih terorganisir
@@ -369,6 +398,7 @@ const KUNCI_PENYIMPANAN = {
 ```
 
 **Penjelasan:**
+
 - `const` dengan huruf kapital = konstanta global
 - Object berisi kunci-kunci untuk localStorage
 - Kenapa pakai konstanta? Agar tidak typo dan mudah ubah
@@ -387,16 +417,19 @@ export function ambilSemuaPengguna() {
 **Penjelasan Baris per Baris:**
 
 **Baris 1:** `export function ambilSemuaPengguna()`
+
 - `export` = fungsi ini bisa di-import oleh file lain
 - `function` = deklarasi fungsi
 - `ambilSemuaPengguna()` = nama fungsi tanpa parameter
 
 **Baris 2:** `const jsonPengguna = localStorage.getItem(KUNCI_PENYIMPANAN.PENGGUNA);`
+
 - `localStorage.getItem()` = ambil data dari localStorage
 - Hasilnya berupa string JSON atau `null` jika tidak ada
 - Disimpan ke variabel `jsonPengguna`
 
 **Baris 3:** `return jsonPengguna ? JSON.parse(jsonPengguna) : [];`
+
 - Ini adalah **Ternary Operator**: `kondisi ? nilaiJikaTrue : nilaiJikaFalse`
 - Kondisi: `jsonPengguna` (truthy jika ada data)
 - Jika ada: `JSON.parse(jsonPengguna)` = convert string JSON ke array
@@ -411,6 +444,7 @@ export function simpanSemuaPengguna(daftarPengguna) {
 ```
 
 **Penjelasan:**
+
 - `daftarPengguna` = parameter berupa array
 - `JSON.stringify()` = convert array/object ke string JSON
 - `localStorage.setItem()` = simpan ke localStorage
@@ -427,17 +461,20 @@ export function cariPenggunaByEmail(email) {
 **Penjelasan:**
 
 **Method Array: `.find()`**
+
 - `.find()` = mencari element pertama yang memenuhi kondisi
 - Parameter: callback function
 - Return: element yang ditemukan atau `undefined`
 
 **Arrow Function:** `pengguna => pengguna.email === email`
+
 - `pengguna` = parameter (setiap item dalam array)
 - `=>` = arrow function syntax
 - `pengguna.email === email` = kondisi: apakah email cocok?
 - `===` = strict equality (cek nilai dan tipe data)
 
 **Contoh:**
+
 ```javascript
 const users = [
     { email: 'andi@mail.com', name: 'Andi' },
@@ -458,6 +495,7 @@ export function tambahPengguna(pengguna) {
 ```
 
 **Penjelasan Flow:**
+
 1. Ambil semua pengguna yang ada (array)
 2. `.push()` = tambahkan element baru ke akhir array
 3. Simpan kembali ke localStorage
@@ -479,6 +517,7 @@ export function ambilStatePOS() {
 ```
 
 **Penjelasan:**
+
 - Cek apakah ada data state di localStorage
 - Jika ada: parse dan return
 - Jika tidak: return object default dengan array kosong
@@ -502,18 +541,22 @@ export function perbaruiProdukById(id, dataBaru) {
 **Penjelasan Konsep Penting:**
 
 **Method `.findIndex()`:**
+
 - Mirip `.find()` tapi return index (posisi) bukan element
 - Return `-1` jika tidak ditemukan
 
 **Spread Operator (`...`):**
+
 ```javascript
 { ...state.produk[indeks], ...dataBaru }
 ```
+
 - `...` = spread operator, "sebarkan" semua property
 - Gabungkan object lama dengan object baru
 - Property di dataBaru akan overwrite yang lama
 
 **Contoh:**
+
 ```javascript
 const produkLama = { id: '123', name: 'Laptop', price: 5000000 };
 const dataBaru = { price: 4500000, stock: 10 };
@@ -527,10 +570,13 @@ const hasil = { ...produkLama, ...dataBaru };
 ## 📄 File 3: utils.js
 
 ### Tujuan File Ini
+
 File ini berisi **fungsi-fungsi helper** yang dipakai di banyak tempat dalam aplikasi.
 
 ### Konsep: DRY (Don't Repeat Yourself)
+
 Kenapa buat file utils?
+
 - ✅ Fungsi yang sama tidak ditulis ulang
 - ✅ Mudah maintain - ubah 1 tempat, semua update
 - ✅ Testing lebih mudah
@@ -554,24 +600,29 @@ export function buatIdUnik() {
 **Penjelasan Algoritma:**
 
 **Step 1:** Definisikan karakter yang boleh dipakai
+
 ```javascript
 const gabungan = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 ```
 
 **Step 2:** Loop 6 kali untuk buat string 6 karakter
+
 ```javascript
 for (let indeks = 0; indeks < 6; indeks++) {
 ```
+
 - `let indeks = 0` = inisialisasi
 - `indeks < 6` = kondisi
 - `indeks++` = increment (tambah 1 setiap loop)
 
 **Step 3:** Ambil karakter random
+
 ```javascript
 hasil += gabungan.charAt(Math.floor(Math.random() * gabungan.length));
 ```
 
 **Penjelasan Detail:**
+
 - `Math.random()` = angka random 0-1 (contoh: 0.7234)
 - `gabungan.length` = panjang string (36)
 - `Math.random() * 36` = angka decimal 0-36 (contoh: 26.04)
@@ -595,16 +646,19 @@ export function formatKeRupiah(jumlahAngka) {
 **Penjelasan Intl.NumberFormat:**
 
 **Apa itu Intl?**
+
 - `Intl` = Internationalization API (bawaan JavaScript)
 - Untuk format angka, tanggal, dll sesuai locale
 
 **Parameter:**
+
 - `'id-ID'` = locale Indonesia
 - `style: 'currency'` = format sebagai mata uang
 - `currency: 'IDR'` = Rupiah Indonesia
 - `minimumFractionDigits: 0` = tanpa desimal
 
 **Contoh:**
+
 ```javascript
 formatKeRupiah(50000);  // "Rp50.000"
 formatKeRupiah(1500000); // "Rp1.500.000"
@@ -633,36 +687,45 @@ export function tampilkanNotifikasi(pesan, tipe = 'info') {
 **Penjelasan DOM Manipulation:**
 
 **Step 1:** Cari container di HTML
+
 ```javascript
 const kontainer = document.getElementById('notification-container');
 ```
 
 **Step 2:** Buat elemen div baru
+
 ```javascript
 const notifikasi = document.createElement('div');
 ```
+
 - Membuat `<div></div>` di memori (belum di-attach ke DOM)
 
 **Step 3:** Set class dan teks
+
 ```javascript
 notifikasi.className = `notification ${tipe}`;
 notifikasi.textContent = pesan;
 ```
+
 - Template literal: `` `notification ${tipe}` ``
 - Contoh: jika `tipe = 'error'`, maka class = `'notification error'`
 
 **Step 4:** Masukkan ke DOM
+
 ```javascript
 kontainer.appendChild(notifikasi);
 ```
+
 - `.appendChild()` = tambahkan sebagai child
 
 **Step 5:** Auto hapus setelah 3 detik
+
 ```javascript
 setTimeout(() => {
     notifikasi.remove();
 }, 3000);
 ```
+
 - `setTimeout()` = jalankan fungsi setelah delay
 - `3000` = 3000 milidetik = 3 detik
 - Arrow function `() => {...}` = callback yang dijalankan
@@ -678,11 +741,13 @@ export function potongTeks(teks, panjangMaksimal) {
 ```
 
 **Penjelasan `.substring()`:**
+
 - `.substring(start, end)` = ambil sebagian string
 - `teks.substring(0, 20)` = ambil karakter 0-19 (20 karakter)
 - Tambahkan `'...'` untuk indikasi terpotong
 
 **Contoh:**
+
 ```javascript
 potongTeks('Laptop Gaming ASUS ROG', 15);
 // "Laptop Gaming A..."
@@ -696,11 +761,13 @@ potongTeks('Mouse', 15);
 ## 📄 File 4: api.js
 
 ### Tujuan File Ini
+
 File ini menangani **komunikasi dengan API eksternal** (FakeStoreAPI).
 
 ### Konsep: Fetch API
 
 **Apa itu Fetch?**
+
 - Fetch = fungsi bawaan JavaScript untuk HTTP request
 - Digunakan untuk ambil data dari server/API
 - Return Promise (asynchronous)
@@ -728,21 +795,26 @@ export async function ambilProdukDariAPI(batas = 5) {
 **Penjelasan Konsep Penting:**
 
 **1. Async Function**
+
 ```javascript
 async function ambilProdukDariAPI(batas = 5) {
 ```
+
 - `async` = fungsi ini bersifat asynchronous
 - `batas = 5` = default parameter (jika tidak diisi, pakai 5)
 
 **2. Query Parameter di URL**
+
 ```javascript
 const urlAPI = `https://fakestoreapi.com/products?limit=${batas}`;
 ```
+
 - `?limit=5` = query parameter
 - Format: `?nama=nilai`
 - Multiple parameter: `?limit=5&category=electronics`
 
 **3. Try-Catch Block**
+
 ```javascript
 try {
     // kode yang mungkin error
@@ -750,45 +822,55 @@ try {
     // tangani error
 }
 ```
+
 - `try` = coba jalankan kode ini
 - `catch` = kalau ada error, jalankan blok ini
 - `kesalahan` = object error yang ditangkap
 
 **4. Await Fetch**
+
 ```javascript
 const respons = await fetch(urlAPI);
 ```
+
 - `fetch(urlAPI)` = kirim GET request ke URL
 - `await` = tunggu sampai request selesai
 - `respons` = object Response dari server
 
 **5. Cek Status Response**
+
 ```javascript
 if (!respons.ok) throw new Error('Gagal mengambil data produk');
 ```
+
 - `respons.ok` = true jika status 200-299
 - `!respons.ok` = negasi (NOT)
 - `throw new Error()` = lempar error (masuk ke catch)
 
 **6. Parse JSON**
+
 ```javascript
 const dataProduk = await respons.json();
 ```
+
 - `.json()` = parse response body sebagai JSON
 - Juga async, jadi pakai `await`
 - Return array/object
 
 **7. Error Handling**
+
 ```javascript
 catch (kesalahan) {
     console.error('Error saat mengambil produk:', kesalahan);
     return [];
 }
 ```
+
 - `console.error()` = log error ke console
 - `return []` = return array kosong agar aplikasi tidak crash
 
 **Flow Diagram:**
+
 ```
 User klik "Import Produk"
     ↓
@@ -804,6 +886,493 @@ Parse JSON (await)
     ↓
 Return array produk
 ```
+
+---
+
+## 📄 File 5: auth.js
+
+### Tujuan File Ini
+
+File ini adalah **Satpam Aplikasi**. Mengurus siapa yang boleh masuk (Login) dan pendaftaran anggota baru (Register).
+
+### Kode Lengkap dengan Penjelasan
+
+```javascript
+/**
+ * auth.js
+ * Menangani logika autentikasi: Login, Register, Logout.
+ */
+
+import * as Penyimpanan from './storage.js';
+import * as Utilitas from './utils.js';
+```
+
+#### 1. Logika Register (Pendaftaran)
+
+```javascript
+function prosesPendaftaran(event) {
+    event.preventDefault(); // 1. Cegah reload halaman
+
+    // 2. Ambil nilai dari form
+    const nama = document.getElementById('reg-name').value;
+    const email = document.getElementById('reg-email').value;
+    const kataSandi = document.getElementById('reg-password').value;
+    const konfirmasiKataSandi = document.getElementById('reg-confirm-password').value;
+
+    // 3. Validasi Password
+    if (kataSandi !== konfirmasiKataSandi) {
+        Utilitas.tampilkanNotifikasi('Password tidak sama!', 'error');
+        return; // Stop di sini jika gagal
+    }
+
+    // 4. Cek apakah email sudah terdaftar?
+    const penggunaAda = Penyimpanan.cariPenggunaByEmail(email);
+    if (penggunaAda) {
+        Utilitas.tampilkanNotifikasi('Email sudah terdaftar!', 'error');
+        return;
+    }
+
+    // 5. Buat object pengguna baru
+    const penggunaBaru = {
+        id: Utilitas.buatIdUnik(), // Generate ID unik
+        name: nama,
+        email: email,
+        password: kataSandi, // Note: Di real app, password HARUS di-hash!
+        createdAt: new Date().toISOString()
+    };
+
+    // 6. Simpan ke database
+    Penyimpanan.tambahPengguna(penggunaBaru);
+    
+    Utilitas.tampilkanNotifikasi('Registrasi berhasil! Silakan login.', 'success');
+    
+    // 7. Reset form dan tutup modal
+    document.getElementById('form-register').reset();
+    document.getElementById('register-modal').classList.add('hidden');
+    document.getElementById('login-modal').classList.remove('hidden');
+}
+```
+
+**Poin Belajar Penting:**
+
+- **Validasi Input**: Selalu cek input user sebelum diproses (password match, email duplikat).
+- **Object Creation**: Kita membungkus data user dalam satu object rapi.
+- **UX Flow**: Setelah register sukses, user langsung diarahkan ke form login (langkah 7).
+
+#### 2. Logika Login (Masuk)
+
+```javascript
+function prosesMasuk(event) {
+    event.preventDefault();
+
+    const email = document.getElementById('login-email').value;
+    const kataSandi = document.getElementById('login-password').value;
+
+    // 1. Cari user di database
+    const pengguna = Penyimpanan.cariPenggunaByEmail(email);
+
+    // 2. Validasi User & Password
+    if (pengguna && pengguna.password === kataSandi) {
+        // LOGIN SUKSES
+        
+        // 3. Simpan sesi login
+        Penyimpanan.setPenggunaSaatIni(pengguna);
+        
+        Utilitas.tampilkanNotifikasi('Login berhasil!', 'success');
+        
+        // 4. Reload halaman untuk masuk ke dashboard
+        setTimeout(() => {
+            window.location.reload();
+        }, 1000);
+        
+    } else {
+        // LOGIN GAGAL
+        Utilitas.tampilkanNotifikasi('Email atau password salah!', 'error');
+    }
+}
+```
+
+**Poin Belajar Penting:**
+
+- **Session Management**: Saat login sukses, kita simpan data user di `localStorage` (via `setPenggunaSaatIni`). Ini yang membuat user tetap login meski browser ditutup.
+- **Security Note**: Di aplikasi nyata, jangan pernah simpan password mentah (plain text) dan jangan validasi password di client-side saja. Ini hanya untuk belajar logika dasar.
+
+---
+
+## 📄 File 6: pos.js (The Brain 🧠)
+
+### Tujuan File Ini
+
+Ini adalah **Otak Aplikasi**. File paling kompleks yang menangani:
+
+1. CRUD Produk (Create, Read, Update, Delete)
+2. Logika Keranjang Belanja (Add to cart, calculate total)
+3. Transaksi & Laporan
+
+### Bedah Kode: Logika Keranjang Belanja
+
+Salah satu fitur tersulit bagi pemula adalah logika keranjang. Mari kita bedah:
+
+```javascript
+// State Lokal untuk keranjang (hanya hidup selama halaman dibuka)
+let keranjangBelanja = [];
+
+// Fungsi Global (di-attach ke window agar bisa dipanggil dari HTML onclick)
+window.tambahKeKeranjang = (idProduk) => {
+    // 1. Cari data produk aslinya
+    const produk = Penyimpanan.cariProdukById(idProduk);
+    
+    // 2. Cek: Apakah produk ini SUDAH ada di keranjang?
+    const itemAda = keranjangBelanja.find(item => item.id === idProduk);
+
+    if (itemAda) {
+        // SKENARIO A: Produk sudah ada
+        // Cukup tambahkan jumlahnya (qty)
+        itemAda.qty++;
+        
+        // Update subtotal (Harga x Jumlah)
+        itemAda.subtotal = itemAda.price * itemAda.qty;
+    } else {
+        // SKENARIO B: Produk belum ada
+        // Masukkan sebagai item baru
+        keranjangBelanja.push({
+            ...produk,      // Copy semua data produk
+            qty: 1,         // Set jumlah awal 1
+            subtotal: produk.price // Subtotal awal = harga
+        });
+    }
+
+    // 3. Update tampilan keranjang
+    renderKeranjang();
+    Utilitas.tampilkanNotifikasi('Produk masuk keranjang', 'success');
+};
+```
+
+**Konsep: State Mutation vs Immutability**
+Di sini kita melakukan **mutasi state** (`itemAda.qty++`). Dalam framework modern seperti React, ini sering dihindari, tapi di Vanilla JS ini cara yang efisien dan mudah dimengerti.
+
+### Bedah Kode: Rendering Keranjang & Kalkulasi Total
+
+```javascript
+function renderKeranjang() {
+    const container = document.getElementById('cart-items-container');
+    container.innerHTML = ''; // Reset tampilan
+
+    let totalHarga = 0;
+    let totalJumlah = 0;
+
+    // Loop setiap item di keranjang
+    keranjangBelanja.forEach(item => {
+        // 1. Akumulasi Total
+        totalHarga += item.subtotal;
+        totalJumlah += item.qty;
+
+        // 2. Buat HTML untuk item ini
+        const div = document.createElement('div');
+        div.className = 'cart-item';
+        div.innerHTML = `
+            <div class="item-info">
+                <h4>${item.name}</h4>
+                <p>${item.qty} x ${Utilitas.formatKeRupiah(item.price)}</p>
+            </div>
+            <div class="item-total">
+                ${Utilitas.formatKeRupiah(item.subtotal)}
+            </div>
+        `;
+        container.appendChild(div);
+    });
+
+    // 3. Update Angka Total di UI
+    document.getElementById('cart-total-qty').textContent = totalJumlah;
+    document.getElementById('cart-total-price').textContent = Utilitas.formatKeRupiah(totalHarga);
+}
+```
+
+**Poin Belajar:**
+
+- **Accumulator Pattern**: Variabel `totalHarga` dimulai dari 0, lalu ditambah terus di dalam loop (`+=`). Ini pola standar untuk menghitung total.
+- **Dynamic HTML**: Kita membangun HTML menggunakan JavaScript (`createElement`, `innerHTML`) berdasarkan data array.
+
+---
+
+## 🎨 File 7: styles.css (The Look)
+
+### Tujuan File Ini
+
+Mengatur tampilan agar cantik dan responsif. Kita menggunakan **Modern CSS**.
+
+### Konsep Utama: Flexbox & Grid
+
+#### 1. Layout Utama (Flexbox)
+
+```css
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+```
+
+- `display: flex`: Mengaktifkan mode layout fleksibel.
+
+- `flex-direction: column`: Elemen disusun dari atas ke bawah.
+- `min-height: 100vh`: Tinggi minimal adalah 100% layar (Viewport Height).
+
+#### 2. Grid Produk (CSS Grid)
+
+```css
+.product-grid {
+    display: grid;
+    /* Responsive Column Magic */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+```
+
+- **Magic Code**: `repeat(auto-fill, minmax(200px, 1fr))`
+  - Ini membuat kolom otomatis bertambah/berkurang sesuai lebar layar.
+  - Minimal lebar kolom 200px.
+  - Jika ada sisa ruang, bagi rata (`1fr`).
+  - **Hasil**: Responsif tanpa media query yang ribet!
+
+#### 3. Modal (Overlay)
+
+```css
+.modal-overlay {
+    position: fixed; /* Tetap di tempat saat scroll */
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Hitam transparan */
+    display: flex;
+    justify-content: center; /* Tengah horizontal */
+    align-items: center; /* Tengah vertikal */
+    z-index: 1000; /* Selalu di atas */
+}
+```
+
+- Teknik klasik untuk membuat modal yang selalu di tengah layar.
+
+---
+
+## 🛠 Skenario Error & Debugging
+
+Bagian ini penting! Apa yang harus dilakukan kalau aplikasi error?
+
+### Skenario 1: "Produk tidak muncul di tabel!"
+
+**Kemungkinan Penyebab:**
+
+1. LocalStorage kosong atau corrupt.
+2. Ada error JavaScript yang menghentikan eksekusi.
+
+**Cara Debug:**
+
+1. Buka **Console** (Klik kanan -> Inspect -> Console).
+2. Apakah ada tulisan merah? Baca error-nya.
+3. Cek tab **Application** -> **Local Storage**. Apakah ada data di `pos_state`?
+4. Coba ketik di Console: `localStorage.clear()` lalu refresh.
+
+### Skenario 2: "Gambar produk broken/rusak"
+
+**Penyebab:**
+Link gambar mati atau internet offline.
+
+**Solusi (Defensive Coding):**
+Di `pos.js` kita sudah pasang pengaman:
+
+```html
+<img src="${url}" onerror="this.src='data:image/svg...'">
+```
+
+Ini akan otomatis ganti gambar jadi placeholder kalau gagal load.
+
+### Skenario 3: "Total harga NaN (Not a Number)"
+
+**Penyebab:**
+Salah satu produk punya harga yang bukan angka (misal string "5000" bukan number 5000).
+
+**Cara Debug:**
+Cek saat input produk. Pastikan `parseInt()` digunakan:
+
+```javascript
+const harga = parseInt(document.getElementById('prod-price').value);
+```
+
+---
+
+---
+
+---
+
+## 🧠 Bedah Logika Lanjutan (Advanced Logic)
+
+Bagian ini membahas logika-logika yang lebih kompleks dan "tersembunyi" di dalam aplikasi.
+
+### 1. Logika Checkout & Manajemen Stok (`pos.js`)
+
+Fitur Checkout adalah proses paling krusial karena melibatkan banyak perubahan data sekaligus.
+
+**Kode:**
+
+```javascript
+function prosesCheckout() {
+    // 1. Validasi Stok Dulu!
+    // Kita harus pastikan stok cukup SEBELUM mengurangi apapun.
+    for (const item of keranjangBelanja) {
+        const produkAsli = Penyimpanan.cariProdukById(item.id);
+        if (produkAsli.stock < item.qty) {
+            Utilitas.tampilkanNotifikasi(`Stok ${item.name} tidak cukup!`, 'error');
+            return; // Batalkan seluruh transaksi
+        }
+    }
+
+    // 2. Kurangi Stok (Mutasi Data Produk)
+    keranjangBelanja.forEach(item => {
+        const produkAsli = Penyimpanan.cariProdukById(item.id);
+        const stokBaru = produkAsli.stock - item.qty;
+        
+        // Update stok di database
+        Penyimpanan.perbaruiProdukById(item.id, { stock: stokBaru });
+    });
+
+    // 3. Simpan Riwayat Transaksi
+    const transaksiBaru = {
+        id: Utilitas.buatIdUnik(),
+        date: new Date().toISOString(), // Waktu standar ISO
+        items: keranjangBelanja,        // Simpan snapshot item saat harga ini
+        totalPrice: totalHargaKeranjang,
+        paymentMethod: 'cash'           // Hardcode dulu
+    };
+    Penyimpanan.tambahTransaksi(transaksiBaru);
+
+    // 4. Reset Keranjang & UI
+    keranjangBelanja = [];
+    renderKeranjang();
+    tampilkanKatalogPOS(); // Refresh katalog biar stok terupdate visualnya
+    Utilitas.tampilkanNotifikasi('Transaksi Berhasil!', 'success');
+}
+```
+
+**Poin Penting:**
+- **Atomic Operation (Simulasi)**: Kita melakukan validasi stok untuk *semua* item dulu (Langkah 1). Jika ada satu saja yang gagal, *tidak ada* stok yang dikurangi. Ini mencegah data tidak konsisten (misal: item A berkurang, item B gagal).
+- **Snapshot Data**: Kita menyimpan `items: keranjangBelanja` ke dalam transaksi. Ini penting! Jika nanti harga produk berubah, data di riwayat transaksi *tidak boleh* ikut berubah. Kita simpan harga *saat transaksi terjadi*.
+
+### 2. Event Delegation (Teknik Efisiensi Event)
+
+Di `pos.js`, saat kita merender tabel produk, kita punya tombol Edit dan Delete untuk *setiap* baris.
+
+**Cara Naif (Boros Memori):**
+Memasang event listener ke *setiap* tombol satu per satu. Kalau ada 1000 produk, ada 2000 event listener!
+
+**Cara Kita (Event Delegation):**
+Kita pasang 1 listener di induknya (Tabel), lalu cek siapa yang diklik.
+
+```javascript
+// Di pos.js (konsep)
+tabelBody.addEventListener('click', (event) => {
+    const target = event.target; // Elemen yang diklik
+    
+    // Cek apakah yang diklik adalah tombol Delete?
+    if (target.classList.contains('btn-delete')) {
+        const idProduk = target.dataset.id; // Ambil ID dari data-id="..."
+        hapusProduk(idProduk);
+    }
+    
+    // Cek apakah yang diklik adalah tombol Edit?
+    if (target.classList.contains('btn-edit')) {
+        const idProduk = target.dataset.id;
+        editProduk(idProduk);
+    }
+});
+```
+
+*Catatan: Di kode `pos.js` saat ini kita masih attach listener saat render (`baris.querySelector(...)`) untuk kemudahan pemahaman pemula, tapi Event Delegation adalah teknik yang wajib diketahui untuk optimasi.*
+
+### 3. Data Mapping (API Adapter Pattern)
+
+Saat kita ambil data dari FakeStoreAPI (`api.js`), struktur datanya beda dengan struktur aplikasi kita. Kita perlu melakukan **Mapping**.
+
+**Data dari API:**
+
+```json
+{
+    "id": 1,
+    "title": "Tas Keren",  // Beda nama field
+    "price": 109.95,
+    "image": "url...",
+    "category": "men's clothing"
+}
+```
+
+**Data Aplikasi Kita:**
+
+```javascript
+{
+    id: "unik...",
+    name: "Tas Keren",     // Kita pakai 'name', bukan 'title'
+    price: 1500000,        // Kita pakai Rupiah
+    stock: 50              // API gak punya stok, kita harus buat sendiri
+}
+```
+
+**Logika Mapping (`pos.js`):**
+
+```javascript
+// Saat import
+const produkBaru = {
+    id: Utilitas.buatIdUnik(),
+    name: produkAPI.title, // Mapping title -> name
+    category: produkAPI.category,
+    price: Math.round(produkAPI.price * 15000), // Konversi USD -> IDR
+    stock: 50, // Default stok
+    image: produkAPI.image
+};
+```
+
+Ini disebut **Adapter Pattern**: mengubah interface (struktur data) asing menjadi interface yang dimengerti aplikasi kita.
+
+---
+
+## 🎨 Bedah Styling System (`styles.css`)
+
+Selain JavaScript, CSS juga punya struktur logic lho!
+
+### 1. CSS Variables (Custom Properties)
+
+Kita mendefinisikan warna di satu tempat (`:root`).
+
+```css
+:root {
+    /* Color Palette */
+    --primary-color: #4f46e5;   /* Indigo utama */
+    --secondary-color: #10b981; /* Hijau sukses */
+    --danger-color: #ef4444;    /* Merah error */
+    --bg-light: #f3f4f6;
+    --text-dark: #1f2937;
+}
+```
+
+**Keuntungan:**
+- **Konsistensi**: Warna di seluruh aplikasi pasti sama.
+- **Mudah Ganti Tema**: Mau ganti warna utama jadi Merah? Cukup ubah `--primary-color` di satu baris, seluruh aplikasi berubah!
+
+### 2. Utility Classes
+
+Kita membuat class-class kecil yang bisa dipakai ulang (mirip Tailwind CSS tapi manual).
+
+```css
+.hidden { display: none !important; }
+.text-center { text-align: center; }
+.mt-2 { margin-top: 0.5rem; }
+```
+
+Di JavaScript (`utils.js`), kita sering pakai `.hidden`:
+
+```javascript
+element.classList.add('hidden'); // Sembunyikan
+element.classList.remove('hidden'); // Tampilkan
+```
+
+Ini cara paling efisien untuk mengatur visibilitas elemen tanpa menyentuh property `style.display` secara langsung di JS.
 
 ---
 
@@ -834,6 +1403,7 @@ sequenceDiagram
 ```
 
 **Penjelasan Flow:**
+
 1. User buka `index.html` di browser
 2. Browser load semua file JavaScript
 3. Event `DOMContentLoaded` fire
@@ -876,19 +1446,23 @@ sequenceDiagram
 **Penjelasan Penting:**
 
 **event.preventDefault():**
+
 ```javascript
 event.preventDefault();
 ```
+
 - Mencegah bahavior default form (reload page)
 - Tanpa ini, halaman akan reload saat submit
 
 **Validasi:**
+
 ```javascript
 if (kataSandi !== konfirmasiKataSandi) {
     Utilitas.tampilkanNotifikasi('Password tidak sama!', 'error');
     return;
 }
 ```
+
 - `return` = keluar dari fungsi (tidak lanjut eksekusi)
 
 ### Flow 3: User Login
@@ -918,9 +1492,11 @@ sequenceDiagram
 ```
 
 **Kenapa Reload?**
+
 ```javascript
 window.location.reload();
 ```
+
 - Untuk refresh state aplikasi
 - `main.js` akan baca ulang localStorage
 - Alternatif: manual update UI (lebih kompleks)
@@ -935,12 +1511,14 @@ window.location.reload();
 Memecah aplikasi menjadi modul-modul kecil yang independent.
 
 **Keuntungan:**
+
 - ✅ Separation of Concerns
 - ✅ Reusability
 - ✅ Easier Testing
 - ✅ Better Organization
 
 **Implementasi di POSLite:**
+
 - `storage.js` = Database layer
 - `api.js` = External API layer
 - `utils.js` = Helper functions
@@ -953,6 +1531,7 @@ Memecah aplikasi menjadi modul-modul kecil yang independent.
 Program merespons terhadap event (klik, submit, load, dll).
 
 **Contoh:**
+
 ```javascript
 document.getElementById('btn-add-product').addEventListener('click', () => {
     tampilkanFormProduk();
@@ -960,6 +1539,7 @@ document.getElementById('btn-add-product').addEventListener('click', () => {
 ```
 
 **Flow:**
+
 ```
 User Klik Tombol → Event "click" → Callback Function Dijalankan
 ```
@@ -967,6 +1547,7 @@ User Klik Tombol → Event "click" → Callback Function Dijalankan
 ### 3. CRUD Operations
 
 **Apa itu CRUD?**
+
 - **C**reate = Tambah data baru
 - **R**ead = Baca/ambil data
 - **U**pdate = Perbarui data
@@ -975,6 +1556,7 @@ User Klik Tombol → Event "click" → Callback Function Dijalankan
 **Implementasi di POSLite:**
 
 **Create:**
+
 ```javascript
 export function tambahProduk(produk) {
     const state = ambilStatePOS();
@@ -984,6 +1566,7 @@ export function tambahProduk(produk) {
 ```
 
 **Read:**
+
 ```javascript
 export function ambilSemuaProduk() {
     const state = ambilStatePOS();
@@ -992,6 +1575,7 @@ export function ambilSemuaProduk() {
 ```
 
 **Update:**
+
 ```javascript
 export function perbaruiProdukById(id, dataBaru) {
     const state = ambilStatePOS();
@@ -1002,6 +1586,7 @@ export function perbaruiProdukById(id, dataBaru) {
 ```
 
 **Delete:**
+
 ```javascript
 export function hapusProdukById(id) {
     const state = ambilStatePOS();
@@ -1016,6 +1601,7 @@ export function hapusProdukById(id) {
 State = data yang menggambarkan kondisi aplikasi saat ini.
 
 **Contoh State di POSLite:**
+
 ```javascript
 {
     produk: [
@@ -1029,6 +1615,7 @@ State = data yang menggambarkan kondisi aplikasi saat ini.
 ```
 
 **Local State vs Global State:**
+
 - Global State = `storage.js` (localStorage)
 - Local State = `let keranjangBelanja = []` di `pos.js`
 
@@ -1038,6 +1625,7 @@ State = data yang menggambarkan kondisi aplikasi saat ini.
 Fungsi yang diberikan sebagai parameter ke fungsi lain.
 
 **Contoh:**
+
 ```javascript
 // setTimeout menerima callback
 setTimeout(() => {
@@ -1062,11 +1650,13 @@ button.addEventListener('click', () => {
 ### 1. Naming Conventions
 
 **Function Names:**
+
 - Gunakan kata kerja: `ambil`, `simpan`, `tampilkan`, `proses`
 - Deskriptif: `ambilSemuaProduk()` not `get()`
 - camelCase: `inisialisasiAplikasi` not `Inisialisasi_aplikasi`
 
 **Variable Names:**
+
 - Gunakan kata benda: `produk`, `pengguna`, `transaksi`
 - Hindari singkatan: `tombol` not `btn`
 - camelCase untuk variabel, UPPER_CASE untuk konstanta
@@ -1074,6 +1664,7 @@ button.addEventListener('click', () => {
 ### 2. Code Organization
 
 **File Structure:**
+
 ```javascript
 // 1. Imports di atas
 import * as Storage from './storage.js';
@@ -1092,6 +1683,7 @@ function helperFunction() { }
 ### 3. Error Handling
 
 **Selalu handle error:**
+
 ```javascript
 try {
     const data = await fetchData();
@@ -1105,12 +1697,14 @@ try {
 ### 4. Comments
 
 **Good Comments:**
+
 ```javascript
 // Konversi USD ke IDR (kurs kasar 1:15000)
 const hargaIDR = hargaUSD * 15000;
 ```
 
 **Bad Comments:**
+
 ```javascript
 // Tambah 1
 indeks++;
@@ -1119,6 +1713,7 @@ indeks++;
 ### 5. Debugging Tips
 
 **Console Methods:**
+
 ```javascript
 console.log('Info biasa');
 console.error('Error message');
@@ -1127,6 +1722,7 @@ console.table(arrayOfObjects); // Tampil sebagai tabel
 ```
 
 **Debugging Flow:**
+
 ```javascript
 function prosesCheckout() {
     console.log('1. Mulai checkout');
@@ -1147,6 +1743,7 @@ function prosesCheckout() {
 **Task:** Buat fitur untuk filter produk berdasarkan kategori
 
 **Hint:**
+
 ```javascript
 export function ambilProdukByKategori(kategori) {
     const semuaProduk = ambilSemuaProduk();
@@ -1159,6 +1756,7 @@ export function ambilProdukByKategori(kategori) {
 **Task:** Buat search produk berdasarkan nama
 
 **Hint:**
+
 ```javascript
 export function cariProdukByNama(keyword) {
     const semuaProduk = ambilSemuaProduk();
@@ -1173,6 +1771,7 @@ export function cariProdukByNama(keyword) {
 **Task:** Bisa ubah jumlah item langsung di keranjang
 
 **Hint:**
+
 ```javascript
 function ubahJumlahDiKeranjang(idProduk, jumlahBaru) {
     const item = keranjangBelanja.find(i => i.productId === idProduk);
