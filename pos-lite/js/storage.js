@@ -77,12 +77,12 @@ export function simpanStatePOS(state) {
 
 export function ambilSemuaProduk() {
     const state = ambilStatePOS();
-    return state.produk;
+    return state.produk || [];
 }
 
 export function simpanSemuaProduk(daftarProduk) {
     const state = ambilStatePOS();
-    state.produk = daftarProduk;
+    state.produk = daftarProduk || [];
     simpanStatePOS(state);
 }
 
@@ -93,12 +93,14 @@ export function cariProdukById(id) {
 
 export function tambahProduk(produk) {
     const state = ambilStatePOS();
+    if (!state.produk) state.produk = [];
     state.produk.push(produk);
     simpanStatePOS(state);
 }
 
 export function perbaruiProdukById(id, dataBaru) {
     const state = ambilStatePOS();
+    if (!state.produk) state.produk = [];
     const indeks = state.produk.findIndex(produk => produk.id === id);
 
     if (indeks !== -1) {
@@ -112,6 +114,7 @@ export function perbaruiProdukById(id, dataBaru) {
 
 export function hapusProdukById(id) {
     const state = ambilStatePOS();
+    if (!state.produk) state.produk = [];
     const panjangAwal = state.produk.length;
 
     // Filter produk yang ID-nya BUKAN id yang mau dihapus
@@ -125,11 +128,12 @@ export function hapusProdukById(id) {
 
 export function ambilSemuaTransaksi() {
     const state = ambilStatePOS();
-    return state.transaksi;
+    return state.transaksi || [];
 }
 
 export function tambahTransaksi(transaksi) {
     const state = ambilStatePOS();
+    if (!state.transaksi) state.transaksi = [];
     state.transaksi.push(transaksi);
     simpanStatePOS(state);
 }
