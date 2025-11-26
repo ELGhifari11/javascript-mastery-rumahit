@@ -4,98 +4,98 @@
  * Tujuannya agar kode utama lebih bersih.
  */
 
-// 1. Generate ID unik sederhana (timestamp + random)
-export function generateId() {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const numbers = '0123456789';
-    const combined = chars + numbers;
-    let result = '';
-    for (let i = 0; i < 6; i++) {
-        result += combined.charAt(Math.floor(Math.random() * combined.length));
+// 1. Buat ID unik sederhana (timestamp + random)
+export function buatIdUnik() {
+    const karakter = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const angka = '0123456789';
+    const gabungan = karakter + angka;
+    let hasil = '';
+    for (let indeks = 0; indeks < 6; indeks++) {
+        hasil += gabungan.charAt(Math.floor(Math.random() * gabungan.length));
     }
-    return result;
+    return hasil;
 }
 
 // 2. Format angka ke format mata uang (Rupiah)
-export function formatCurrency(amount) {
+export function formatKeRupiah(jumlahAngka) {
     return new Intl.NumberFormat('id-ID', {
         style: 'currency',
         currency: 'IDR',
         minimumFractionDigits: 0
-    }).format(amount);
+    }).format(jumlahAngka);
 }
 
 // 3. Menampilkan notifikasi (Toast)
-export function showNotification(message, type = 'info') {
-    const container = document.getElementById('notification-container');
+export function tampilkanNotifikasi(pesan, tipe = 'info') {
+    const kontainer = document.getElementById('notification-container');
 
     // Buat elemen notifikasi
-    const notif = document.createElement('div');
-    notif.className = `notification ${type}`;
-    notif.textContent = message;
+    const notifikasi = document.createElement('div');
+    notifikasi.className = `notification ${tipe}`;
+    notifikasi.textContent = pesan;
 
     // Masukkan ke container
-    container.appendChild(notif);
+    kontainer.appendChild(notifikasi);
 
     // Hapus otomatis setelah 3 detik
     setTimeout(() => {
-        notif.remove();
+        notifikasi.remove();
     }, 3000);
 }
 
 // 4. Buka Modal
-export function openModal(modalId) {
-    const modal = document.getElementById(modalId);
+export function bukaModal(idModal) {
+    const modal = document.getElementById(idModal);
     if (modal) {
         modal.classList.remove('hidden');
     }
 }
 
 // 5. Tutup Modal
-export function closeModal(modalId) {
-    const modal = document.getElementById(modalId);
+export function tutupModal(idModal) {
+    const modal = document.getElementById(idModal);
     if (modal) {
         modal.classList.add('hidden');
     }
 }
 
 // 6. Pindah ke Tampilan Utama (Dashboard)
-export function switchToMainAppView() {
+export function pindahKeTampilanUtama() {
     document.getElementById('welcome-screen').classList.add('hidden');
     document.getElementById('app-main').classList.remove('hidden');
 }
 
 // 7. Pindah ke Tampilan Welcome (Logout)
-export function switchToWelcomeView() {
+export function pindahKeTampilanSelamatDatang() {
     document.getElementById('app-main').classList.add('hidden');
     document.getElementById('welcome-screen').classList.remove('hidden');
 }
 
-// 8. Singkat Charachter        
-export function truncateText(text, maxLength) {
-    if (text.length > maxLength) {
-        return text.substring(0, maxLength) + '...';
+// 8. Potong Teks        
+export function potongTeks(teks, panjangMaksimal) {
+    if (teks.length > panjangMaksimal) {
+        return teks.substring(0, panjangMaksimal) + '...';
     }
-    return text;
+    return teks;
 }
 
 // 9. Format Tanggal
-export function formatDate(dateString) {
-    const date = new Date(dateString);
-    const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
-    return date.toLocaleDateString('id-ID', options);
+export function formatTanggal(stringTanggal) {
+    const tanggal = new Date(stringTanggal);
+    const opsi = { year: 'numeric', month: '2-digit', day: '2-digit' };
+    return tanggal.toLocaleDateString('id-ID', opsi);
 }
 
 // 10. Format Waktu
-export function formatTime(dateString) {
-    const date = new Date(dateString);
-    const options = { hour: '2-digit', minute: '2-digit' };
-    return date.toLocaleTimeString('id-ID', options);
+export function formatWaktu(stringTanggal) {
+    const tanggal = new Date(stringTanggal);
+    const opsi = { hour: '2-digit', minute: '2-digit' };
+    return tanggal.toLocaleTimeString('id-ID', opsi);
 }
 
 // 11. Format Tanggal dan Waktu
-export function formatDateTime(dateString) {
-    const date = new Date(dateString);
-    const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' };
-    return date.toLocaleString('id-ID', options);
+export function formatTanggalWaktu(stringTanggal) {
+    const tanggal = new Date(stringTanggal);
+    const opsi = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' };
+    return tanggal.toLocaleString('id-ID', opsi);
 }

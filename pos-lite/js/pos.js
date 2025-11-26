@@ -2,437 +2,440 @@
  * pos.js
  * Berisi logika utama Dashboard POS:
  * - CRUD Produk
- * - Cart & Transaksi
+ * - Keranjang & Transaksi
  * - Laporan
  * - Integrasi API
  */
 
-import * as Storage from './storage.js';
-import * as Utils from './utils.js';
-import * as Api from './api.js';
+import * as Penyimpanan from './storage.js';
+import * as Utilitas from './utils.js';
+import * as API from './api.js';
 
-// State lokal untuk Cart (keranjang belanja sementara)
-let cart = [];
+// State lokal untuk keranjang belanja sementara
+let keranjangBelanja = [];
 
-// --- INITIALIZATION ---
+// --- INISIALISASI ---
 
-export function initPosApp() {
+export function inisialisasiAplikasiPOS() {
     // 1. Setup Navigasi Sidebar
-    setupNavigation();
+    aturNavigasi();
 
     // 2. Load Data Awal Dashboard
-    loadDashboardOverview();
+    muatRingkasanDashboard();
 
     // 3. Setup Event Listeners untuk Produk
-    setupProductEvents();
+    aturEventProduk();
 
-    // 4. Setup Event Listeners untuk Cart
-    setupCartEvents();
+    // 4. Setup Event Listeners untuk Keranjang
+    aturEventKeranjang();
 }
 
-function setupNavigation() {
+function aturNavigasi() {
     // Tab navigation
-    const tabs = document.querySelectorAll('.tab-btn');
-    const sections = document.querySelectorAll('.content-section');
+    const daftarTab = document.querySelectorAll('.tab-btn');
+    const daftarSeksi = document.querySelectorAll('.content-section');
 
-    tabs.forEach(tab => {
+    daftarTab.forEach(tab => {
         tab.addEventListener('click', () => {
-            const targetId = tab.getAttribute('data-section');
+            const idTarget = tab.getAttribute('data-section');
 
             // Update active tab
-            tabs.forEach(t => t.classList.remove('active'));
+            daftarTab.forEach(tabItem => tabItem.classList.remove('active'));
             tab.classList.add('active');
 
             // Update active section
-            sections.forEach(section => section.classList.remove('active'));
-            const targetSection = document.getElementById(`section-${targetId}`);
-            if (targetSection) {
-                targetSection.classList.add('active');
+            daftarSeksi.forEach(seksi => seksi.classList.remove('active'));
+            const seksiTarget = document.getElementById(`section-${idTarget}`);
+            if (seksiTarget) {
+                seksiTarget.classList.add('active');
             }
 
-            // Refresh data based on section
-            if (targetId === 'products') renderProductTable();
-            if (targetId === 'pos') renderPosCatalog();
-            if (targetId === 'reports') renderReports();
-            if (targetId === 'overview') loadDashboardOverview();
+            // Refresh data berdasarkan section
+            if (idTarget === 'products') tampilkanTabelProduk();
+            if (idTarget === 'pos') tampilkanKatalogPOS();
+            if (idTarget === 'reports') tampilkanLaporan();
+            if (idTarget === 'overview') muatRingkasanDashboard();
         });
     });
 }
 
-// --- DASHBOARD OVERVIEW ---
+// --- RINGKASAN DASHBOARD ---
 
-function loadDashboardOverview() {
-    const products = Storage.getAllProducts();
-    const transactions = Storage.getAllTransactions();
+function muatRingkasanDashboard() {
+    const daftarProduk = Penyimpanan.ambilSemuaProduk();
+    const daftarTransaksi = Penyimpanan.ambilSemuaTransaksi();
 
     // Hitung total omzet
-    let totalRevenue = 0;
-    for (const trx of transactions) {
-        totalRevenue += trx.totalPrice;
+    let totalOmzet = 0;
+    for (const transaksi of daftarTransaksi) {
+        totalOmzet += transaksi.totalPrice;
     }
 
     // Update UI
-    document.getElementById('stat-total-products').textContent = products.length;
-    document.getElementById('stat-total-transactions').textContent = transactions.length;
-    document.getElementById('stat-total-revenue').textContent = Utils.formatCurrency(totalRevenue);
+    document.getElementById('stat-total-products').textContent = daftarProduk.length;
+    document.getElementById('stat-total-transactions').textContent = daftarTransaksi.length;
+    document.getElementById('stat-total-revenue').textContent = Utilitas.formatKeRupiah(totalOmzet);
 }
 
 
-// --- PRODUCT MANAGEMENT (CRUD) ---
+// --- MANAJEMEN PRODUK (CRUD) ---
 
-function setupProductEvents() {
-    // Tombol Add Product
+function aturEventProduk() {
+    // Tombol Tambah Produk
     document.getElementById('btn-add-product').addEventListener('click', () => {
-        showProductForm(); // Mode tambah (kosong)
+        tampilkanFormProduk(); // Mode tambah (kosong)
     });
 
-    // Tombol Import Product (New)
-    const btnImport = document.getElementById('btn-import-products');
-    if (btnImport) {
-        btnImport.addEventListener('click', handleImportProducts);
+    // Tombol Import Produk (Baru)
+    const tombolImport = document.getElementById('btn-import-products');
+    if (tombolImport) {
+        tombolImport.addEventListener('click', prosesImportProduk);
     }
 
-    // Tombol Cancel Form
+    // Tombol Batal Form
     document.getElementById('btn-cancel-product').addEventListener('click', () => {
-        hideProductForm();
+        sembunyikanFormProduk();
     });
 
-    // Submit Form Product
-    document.getElementById('form-product').addEventListener('submit', handleProductSubmit);
+    // Submit Form Produk
+    document.getElementById('form-product').addEventListener('submit', prosesSimpanProduk);
 }
 
-function showProductForm(product = null) {
-    const container = document.getElementById('product-form-container');
-    const title = document.getElementById('product-form-title');
+function tampilkanFormProduk(produk = null) {
+    const kontainerForm = document.getElementById('product-form-container');
+    const judulForm = document.getElementById('product-form-title');
 
-    container.classList.remove('hidden');
+    kontainerForm.classList.remove('hidden');
 
-    if (product) {
+    if (produk) {
         // Mode Edit
-        title.textContent = 'Edit Product';
-        document.getElementById('prod-id').value = product.id;
-        document.getElementById('prod-name').value = product.name;
-        document.getElementById('prod-category').value = product.category;
-        document.getElementById('prod-price').value = product.price;
-        document.getElementById('prod-stock').value = product.stock;
+        judulForm.textContent = 'Edit Product';
+        document.getElementById('prod-id').value = produk.id;
+        document.getElementById('prod-name').value = produk.name;
+        document.getElementById('prod-category').value = produk.category;
+        document.getElementById('prod-price').value = produk.price;
+        document.getElementById('prod-stock').value = produk.stock;
     } else {
-        // Mode Add
-        title.textContent = 'Add New Product';
+        // Mode Tambah
+        judulForm.textContent = 'Add New Product';
         document.getElementById('form-product').reset();
         document.getElementById('prod-id').value = '';
     }
 }
 
-function hideProductForm() {
+function sembunyikanFormProduk() {
     document.getElementById('product-form-container').classList.add('hidden');
     document.getElementById('form-product').reset();
 }
 
-function handleProductSubmit(e) {
-    e.preventDefault();
+function prosesSimpanProduk(event) {
+    event.preventDefault();
 
     const id = document.getElementById('prod-id').value;
-    const name = document.getElementById('prod-name').value;
-    const category = document.getElementById('prod-category').value;
-    const price = parseInt(document.getElementById('prod-price').value);
-    const stock = parseInt(document.getElementById('prod-stock').value);
+    const nama = document.getElementById('prod-name').value;
+    const kategori = document.getElementById('prod-category').value;
+    const harga = parseInt(document.getElementById('prod-price').value);
+    const stok = parseInt(document.getElementById('prod-stock').value);
 
     if (id) {
-        // Update Existing
-        Storage.updateProductById(id, { name, category, price, stock });
-        Utils.showNotification('Produk berhasil diperbarui!', 'success');
+        // Update yang sudah ada
+        Penyimpanan.perbaruiProdukById(id, { name: nama, category: kategori, price: harga, stock: stok });
+        Utilitas.tampilkanNotifikasi('Produk berhasil diperbarui!', 'success');
     } else {
-        // Create New
-        const newProduct = {
-            id: Utils.generateId(),
-            name, category, price, stock,
+        // Buat Baru
+        const produkBaru = {
+            id: Utilitas.buatIdUnik(),
+            name: nama,
+            category: kategori,
+            price: harga,
+            stock: stok,
             createdAt: new Date().toISOString()
         };
-        Storage.addProduct(newProduct);
-        Utils.showNotification('Produk berhasil ditambahkan!', 'success');
+        Penyimpanan.tambahProduk(produkBaru);
+        Utilitas.tampilkanNotifikasi('Produk berhasil ditambahkan!', 'success');
     }
 
-    hideProductForm();
-    renderProductTable();
+    sembunyikanFormProduk();
+    tampilkanTabelProduk();
 }
 
-async function handleImportProducts() {
-    const limitInput = prompt('Masukkan jumlah produk yang ingin di-import (Max 20):', '5');
-    const limit = parseInt(limitInput);
+async function prosesImportProduk() {
+    const inputBatas = prompt('Masukkan jumlah produk yang ingin di-import (Max 20):', '5');
+    const batas = parseInt(inputBatas);
 
-    if (!limit || limit <= 0) return;
+    if (!batas || batas <= 0) return;
 
-    Utils.showNotification('Sedang mengambil data...', 'info');
+    Utilitas.tampilkanNotifikasi('Sedang mengambil data...', 'info');
 
-    const externalProducts = await Api.fetchProducts(limit);
+    const produkEksternal = await API.ambilProdukDariAPI(batas);
 
-    if (externalProducts.length === 0) {
-        Utils.showNotification('Gagal mengambil data produk.', 'error');
+    if (produkEksternal.length === 0) {
+        Utilitas.tampilkanNotifikasi('Gagal mengambil data produk.', 'error');
         return;
     }
 
-    let count = 0;
-    
-    externalProducts.forEach(p => {
-        const newProduct = {
-            id: Utils.generateId(),
-            name: p.title,
-            image: p.image,
-            category: p.category,
-            price: Math.round(p.price * 15000), // Konversi USD ke IDR kasar
+    let jumlahImport = 0;
+
+    produkEksternal.forEach(produkItem => {
+        const produkBaru = {
+            id: Utilitas.buatIdUnik(),
+            name: produkItem.title,
+            image: produkItem.image,
+            category: produkItem.category,
+            price: Math.round(produkItem.price * 15000), // Konversi USD ke IDR kasar
             stock: 50, // Default stock
             createdAt: new Date().toISOString()
         };
-        Storage.addProduct(newProduct);
-        count++;
+        Penyimpanan.tambahProduk(produkBaru);
+        jumlahImport++;
     });
 
-    Utils.showNotification(`Berhasil import ${count} produk!`, 'success');
-    renderProductTable();
-    loadDashboardOverview(); // Update stats
+    Utilitas.tampilkanNotifikasi(`Berhasil import ${jumlahImport} produk!`, 'success');
+    tampilkanTabelProduk();
+    muatRingkasanDashboard(); // Update statistik
 }
 
-function renderProductTable() {
-    const products = Storage.getAllProducts();
+function tampilkanTabelProduk() {
+    const daftarProduk = Penyimpanan.ambilSemuaProduk();
     const tbody = document.getElementById('products-tbody');
     tbody.innerHTML = '';
 
-    if (products.length === 0) {
+    if (daftarProduk.length === 0) {
         tbody.innerHTML = '<tr><td colspan="5" class="text-center">Belum ada produk.</td></tr>';
         return;
     }
 
-    products.forEach(p => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-            <td><img  src="${p.image}" width="50"></td>
-            <td>${Utils.truncateText(p.name, 40)}</td>
-            <td>${Utils.truncateText(p.category, 40)}</td>
-            <td>${Utils.formatCurrency(p.price)}</td>
-            <td>${p.stock}</td>
+    daftarProduk.forEach(produk => {
+        const baris = document.createElement('tr');
+        baris.innerHTML = `
+            <td><img  src="${produk.image}" width="50"></td>
+            <td>${Utilitas.potongTeks(produk.name, 40)}</td>
+            <td>${Utilitas.potongTeks(produk.category, 40)}</td>
+            <td>${Utilitas.formatKeRupiah(produk.price)}</td>
+            <td>${produk.stock}</td>
             <td>
-                <button class="btn btn-sm btn-outline btn-edit" data-id="${p.id}"><i class="fas fa-edit"></i></button>
-                <button class="btn btn-sm btn-danger btn-delete" data-id="${p.id}"><i class="fas fa-trash-alt"></i></button>
+                <button class="btn btn-sm btn-outline btn-edit" data-id="${produk.id}"><i class="fas fa-edit"></i></button>
+                <button class="btn btn-sm btn-danger btn-delete" data-id="${produk.id}"><i class="fas fa-trash-alt"></i></button>
             </td>
         `;
-        tbody.appendChild(tr);
+        tbody.appendChild(baris);
     });
 
     // Pasang event listener untuk tombol dinamis
-    document.querySelectorAll('.btn-edit').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const id = btn.getAttribute('data-id');
-            const product = Storage.findProductById(id);
-            if (product) showProductForm(product);
+    document.querySelectorAll('.btn-edit').forEach(tombol => {
+        tombol.addEventListener('click', () => {
+            const id = tombol.getAttribute('data-id');
+            const produk = Penyimpanan.cariProdukById(id);
+            if (produk) tampilkanFormProduk(produk);
         });
     });
 
-    document.querySelectorAll('.btn-delete').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const id = btn.getAttribute('data-id');
+    document.querySelectorAll('.btn-delete').forEach(tombol => {
+        tombol.addEventListener('click', () => {
+            const id = tombol.getAttribute('data-id');
             if (confirm('Yakin ingin menghapus produk ini?')) {
-                Storage.deleteProductById(id);
-                renderProductTable();
-                Utils.showNotification('Produk dihapus.', 'info');
+                Penyimpanan.hapusProdukById(id);
+                tampilkanTabelProduk();
+                Utilitas.tampilkanNotifikasi('Produk dihapus.', 'info');
             }
         });
     });
 }
 
-// --- CART & TRANSACTION (POS) ---
+// --- KERANJANG & TRANSAKSI (POS) ---
 
-function setupCartEvents() {
-    document.getElementById('btn-checkout').addEventListener('click', handleCheckout);
+function aturEventKeranjang() {
+    document.getElementById('btn-checkout').addEventListener('click', prosesCheckout);
 }
 
-function renderPosCatalog() {
-    const products = Storage.getAllProducts();
+function tampilkanKatalogPOS() {
+    const daftarProduk = Penyimpanan.ambilSemuaProduk();
     const grid = document.getElementById('pos-product-grid');
     grid.innerHTML = '';
 
-    if (products.length === 0) {
+    if (daftarProduk.length === 0) {
         grid.innerHTML = '<p class="text-muted">Tidak ada produk tersedia.</p>';
         return;
     }
 
-    products.forEach(p => {
-        const card = document.createElement('div');
-        card.className = 'product-card-simple';
-        card.innerHTML = `
-            <img src="${p.image}" width="50">
-            <h4>${Utils.truncateText(p.name, 15)}</h4>
-            <div class="price">${Utils.formatCurrency(p.price)}</div>
-            <div class="stock">Stock: ${p.stock}</div>
+    daftarProduk.forEach(produk => {
+        const kartu = document.createElement('div');
+        kartu.className = 'product-card-simple';
+        kartu.innerHTML = `
+            <img src="${produk.image}" width="50">
+            <h4>${Utilitas.potongTeks(produk.name, 15)}</h4>
+            <div class="price">${Utilitas.formatKeRupiah(produk.price)}</div>
+            <div class="stock">Stock: ${produk.stock}</div>
         `;
 
-        // Klik card untuk tambah ke cart
-        card.addEventListener('click', () => {
-            if (p.stock > 0) {
-                addToCart(p);
+        // Klik kartu untuk tambah ke keranjang
+        kartu.addEventListener('click', () => {
+            if (produk.stock > 0) {
+                tambahKeKeranjang(produk);
             } else {
-                Utils.showNotification('Stok habis!', 'error');
+                Utilitas.tampilkanNotifikasi('Stok habis!', 'error');
             }
         });
 
-        grid.appendChild(card);
+        grid.appendChild(kartu);
     });
 }
 
-function addToCart(product) {
-    // Cek apakah produk sudah ada di cart
-    const existingItem = cart.find(item => item.productId === product.id);
+function tambahKeKeranjang(produk) {
+    // Cek apakah produk sudah ada di keranjang
+    const itemYangAda = keranjangBelanja.find(item => item.productId === produk.id);
 
-    if (existingItem) {
-        // Cek stok sebelum nambah
-        if (existingItem.qty < product.stock) {
-            existingItem.qty++;
-            existingItem.subtotal = existingItem.qty * existingItem.price;
+    if (itemYangAda) {
+        // Cek stok sebelum menambah
+        if (itemYangAda.qty < produk.stock) {
+            itemYangAda.qty++;
+            itemYangAda.subtotal = itemYangAda.qty * itemYangAda.price;
         } else {
-            Utils.showNotification('Stok tidak mencukupi!', 'error');
+            Utilitas.tampilkanNotifikasi('Stok tidak mencukupi!', 'error');
             return;
         }
     } else {
         // Tambah item baru
-        cart.push({
-            productId: product.id,
-            name: product.name,
-            image: product.image,
-            price: product.price,
+        keranjangBelanja.push({
+            productId: produk.id,
+            name: produk.name,
+            image: produk.image,
+            price: produk.price,
             qty: 1,
-            subtotal: product.price
+            subtotal: produk.price
         });
     }
 
-    renderCart();
+    tampilkanKeranjang();
 }
 
-function removeFromCart(productId) {
-    cart = cart.filter(item => item.productId !== productId);
-    renderCart();
+function hapusDariKeranjang(idProduk) {
+    keranjangBelanja = keranjangBelanja.filter(item => item.productId !== idProduk);
+    tampilkanKeranjang();
 }
 
-function renderCart() {
-    const container = document.getElementById('cart-items-container');
-    container.innerHTML = '';
+function tampilkanKeranjang() {
+    const kontainer = document.getElementById('cart-items-container');
+    kontainer.innerHTML = '';
 
-    let totalQty = 0;
-    let totalPrice = 0;
+    let totalJumlah = 0;
+    let totalHarga = 0;
 
-    if (cart.length === 0) {
-        container.innerHTML = '<p class="text-muted text-center mt-4">Cart is empty</p>';
+    if (keranjangBelanja.length === 0) {
+        kontainer.innerHTML = '<p class="text-muted text-center mt-4">Cart is empty</p>';
         document.getElementById('btn-checkout').disabled = true;
     } else {
-        cart.forEach(item => {
-            totalQty += item.qty;
-            totalPrice += item.subtotal;
+        keranjangBelanja.forEach(item => {
+            totalJumlah += item.qty;
+            totalHarga += item.subtotal;
 
             const div = document.createElement('div');
             div.className = 'cart-item';
             div.innerHTML = `
                 <div class="cart-item-info">
                     <img src="${item.image}" width="50">
-                    <h5>${Utils.truncateText(item.name, 20)}</h5>
-                    <span>${item.qty} x ${Utils.formatCurrency(item.price)}</span>
+                    <h5>${Utilitas.potongTeks(item.name, 20)}</h5>
+                    <span>${item.qty} x ${Utilitas.formatKeRupiah(item.price)}</span>
                 </div>
                 <div>
-                    <strong>${Utils.formatCurrency(item.subtotal)}</strong>
+                    <strong>${Utilitas.formatKeRupiah(item.subtotal)}</strong>
                     <button class="btn-sm btn-danger ml-2 btn-remove-cart" data-id="${item.productId}">&times;</button>
                 </div>
             `;
-            container.appendChild(div);
+            kontainer.appendChild(div);
         });
         document.getElementById('btn-checkout').disabled = false;
     }
 
-    // Update Summary
-    document.getElementById('cart-total-qty').textContent = totalQty;
-    document.getElementById('cart-total-price').textContent = Utils.formatCurrency(totalPrice);
+    // Update Ringkasan
+    document.getElementById('cart-total-qty').textContent = totalJumlah;
+    document.getElementById('cart-total-price').textContent = Utilitas.formatKeRupiah(totalHarga);
 
-    // Event listener remove
-    document.querySelectorAll('.btn-remove-cart').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            const id = e.target.getAttribute('data-id');
-            removeFromCart(id);
+    // Event listener hapus
+    document.querySelectorAll('.btn-remove-cart').forEach(tombol => {
+        tombol.addEventListener('click', (event) => {
+            const id = event.target.getAttribute('data-id');
+            hapusDariKeranjang(id);
         });
     });
 }
 
-function handleCheckout() {
-    if (cart.length === 0) return;
+function prosesCheckout() {
+    if (keranjangBelanja.length === 0) return;
 
     if (!confirm('Proses transaksi ini?')) return;
 
     // 1. Kurangi stok produk
-    let stockError = false;
+    let adaKesalahanStok = false;
 
     // Kita harus validasi stok lagi untuk keamanan
-    for (const item of cart) {
-        const product = Storage.findProductById(item.productId);
-        if (!product || product.stock < item.qty) {
-            stockError = true;
+    for (const item of keranjangBelanja) {
+        const produk = Penyimpanan.cariProdukById(item.productId);
+        if (!produk || produk.stock < item.qty) {
+            adaKesalahanStok = true;
             break;
         }
     }
 
-    if (stockError) {
-        Utils.showNotification('Terjadi kesalahan stok. Mohon refresh.', 'error');
+    if (adaKesalahanStok) {
+        Utilitas.tampilkanNotifikasi('Terjadi kesalahan stok. Mohon refresh.', 'error');
         return;
     }
 
-    // Update stok di storage
-    cart.forEach(item => {
-        const product = Storage.findProductById(item.productId);
-        const newStock = product.stock - item.qty;
-        Storage.updateProductById(product.id, { stock: newStock });
+    // Update stok di penyimpanan
+    keranjangBelanja.forEach(item => {
+        const produk = Penyimpanan.cariProdukById(item.productId);
+        const stokBaru = produk.stock - item.qty;
+        Penyimpanan.perbaruiProdukById(produk.id, { stock: stokBaru });
     });
 
     // 2. Simpan Transaksi
-    const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
-    const totalPrice = cart.reduce((sum, item) => sum + item.subtotal, 0);
+    const totalJumlah = keranjangBelanja.reduce((jumlah, item) => jumlah + item.qty, 0);
+    const totalHarga = keranjangBelanja.reduce((jumlah, item) => jumlah + item.subtotal, 0);
 
-    const transaction = {
-        id: Utils.generateId(),
-        items: [...cart], // Copy array
-        totalQty,
-        totalPrice,
+    const transaksi = {
+        id: Utilitas.buatIdUnik(),
+        items: [...keranjangBelanja], // Copy array
+        totalQty: totalJumlah,
+        totalPrice: totalHarga,
         createdAt: new Date().toISOString()
     };
 
-    Storage.addTransaction(transaction);
+    Penyimpanan.tambahTransaksi(transaksi);
 
-    // 3. Reset Cart & UI
-    cart = [];
-    renderCart();
-    renderPosCatalog(); // Refresh stok di katalog
-    Utils.showNotification('Transaksi Berhasil!', 'success');
+    // 3. Reset Keranjang & UI
+    keranjangBelanja = [];
+    tampilkanKeranjang();
+    tampilkanKatalogPOS(); // Refresh stok di katalog
+    Utilitas.tampilkanNotifikasi('Transaksi Berhasil!', 'success');
 }
 
-// --- REPORTS ---
+// --- LAPORAN ---
 
-function renderReports() {
-    const transactions = Storage.getAllTransactions();
+function tampilkanLaporan() {
+    const daftarTransaksi = Penyimpanan.ambilSemuaTransaksi();
     const tbody = document.getElementById('transactions-tbody');
     tbody.innerHTML = '';
 
-    if (transactions.length === 0) {
+    if (daftarTransaksi.length === 0) {
         tbody.innerHTML = '<tr><td colspan="4" class="text-center">Belum ada transaksi.</td></tr>';
         return;
     }
 
     // Urutkan dari yang terbaru
-    const sortedTrx = transactions.slice().reverse();
+    const transaksiTerurut = daftarTransaksi.slice().reverse();
 
-    sortedTrx.forEach(trx => {
-        const date = Utils.formatDateTime(trx.createdAt);
-        const itemNames = trx.items.map(i => `${i.name} (${i.qty})`).join(', ');
+    transaksiTerurut.forEach(transaksi => {
+        const tanggal = Utilitas.formatTanggalWaktu(transaksi.createdAt);
+        const namaNamaItem = transaksi.items.map(item => `${item.name} (${item.qty})`).join(', ');
 
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-            <td>${date}</td>
-            <td><small>${trx.id}</small></td>
-            <td>${itemNames}</td>
-            <td><strong>${Utils.formatCurrency(trx.totalPrice)}</strong></td>
+        const baris = document.createElement('tr');
+        baris.innerHTML = `
+            <td>${tanggal}</td>
+            <td><small>${transaksi.id}</small></td>
+            <td>${namaNamaItem}</td>
+            <td><strong>${Utilitas.formatKeRupiah(transaksi.totalPrice)}</strong></td>
         `;
-        tbody.appendChild(tr);
+        tbody.appendChild(baris);
     });
 }

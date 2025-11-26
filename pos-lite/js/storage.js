@@ -4,132 +4,132 @@
  * Bertindak sebagai "Database" sederhana.
  */
 
-const KEYS = {
-    USERS: 'pos_users',
-    CURRENT_USER: 'pos_current_user',
-    POS_STATE: 'pos_state'
+const KUNCI_PENYIMPANAN = {
+    PENGGUNA: 'pos_pengguna',
+    PENGGUNA_SAAT_INI: 'pos_pengguna_saat_ini',
+    STATE_POS: 'pos_state'
 };
 
-// --- USER MANAGEMENT ---
+// --- MANAJEMEN PENGGUNA ---
 
-// Ambil semua user
-export function getAllUsers() {
-    const usersJson = localStorage.getItem(KEYS.USERS);
-    return usersJson ? JSON.parse(usersJson) : [];
+// Ambil semua pengguna
+export function ambilSemuaPengguna() {
+    const jsonPengguna = localStorage.getItem(KUNCI_PENYIMPANAN.PENGGUNA);
+    return jsonPengguna ? JSON.parse(jsonPengguna) : [];
 }
 
-// Simpan semua user (overwrite)
-export function saveAllUsers(users) {
-    localStorage.setItem(KEYS.USERS, JSON.stringify(users));
+// Simpan semua pengguna (timpa data)
+export function simpanSemuaPengguna(daftarPengguna) {
+    localStorage.setItem(KUNCI_PENYIMPANAN.PENGGUNA, JSON.stringify(daftarPengguna));
 }
 
-// Cari user berdasarkan email
-export function findUserByEmail(email) {
-    const users = getAllUsers();
-    return users.find(user => user.email === email);
+// Cari pengguna berdasarkan email
+export function cariPenggunaByEmail(email) {
+    const daftarPengguna = ambilSemuaPengguna();
+    return daftarPengguna.find(pengguna => pengguna.email === email);
 }
 
-// Tambah user baru
-export function addUser(user) {
-    const users = getAllUsers();
-    users.push(user);
-    saveAllUsers(users);
+// Tambah pengguna baru
+export function tambahPengguna(pengguna) {
+    const daftarPengguna = ambilSemuaPengguna();
+    daftarPengguna.push(pengguna);
+    simpanSemuaPengguna(daftarPengguna);
 }
 
-// Set user yang sedang login
-export function setCurrentUser(user) {
-    localStorage.setItem(KEYS.CURRENT_USER, JSON.stringify(user));
+// Set pengguna yang sedang login
+export function setPenggunaSaatIni(pengguna) {
+    localStorage.setItem(KUNCI_PENYIMPANAN.PENGGUNA_SAAT_INI, JSON.stringify(pengguna));
 }
 
-// Ambil user yang sedang login
-export function getCurrentUser() {
-    const userJson = localStorage.getItem(KEYS.CURRENT_USER);
-    return userJson ? JSON.parse(userJson) : null;
+// Ambil pengguna yang sedang login
+export function ambilPenggunaSaatIni() {
+    const jsonPengguna = localStorage.getItem(KUNCI_PENYIMPANAN.PENGGUNA_SAAT_INI);
+    return jsonPengguna ? JSON.parse(jsonPengguna) : null;
 }
 
-// Hapus sesi user (Logout)
-export function clearCurrentUser() {
-    localStorage.removeItem(KEYS.CURRENT_USER);
+// Hapus sesi pengguna (Logout)
+export function hapusPenggunaSaatIni() {
+    localStorage.removeItem(KUNCI_PENYIMPANAN.PENGGUNA_SAAT_INI);
 }
 
-// --- POS STATE (PRODUCTS & TRANSACTIONS) ---
+// --- STATE POS (PRODUK & TRANSAKSI) ---
 
-// Ambil state POS (jika kosong, return default structure)
-export function getPosState() {
-    const stateJson = localStorage.getItem(KEYS.POS_STATE);
-    if (stateJson) {
-        return JSON.parse(stateJson);
+// Ambil state POS (jika kosong, return struktur default)
+export function ambilStatePOS() {
+    const jsonState = localStorage.getItem(KUNCI_PENYIMPANAN.STATE_POS);
+    if (jsonState) {
+        return JSON.parse(jsonState);
     } else {
-        // Default state jika belum ada data
+        // State default jika belum ada data
         return {
-            products: [],
-            transactions: []
+            produk: [],
+            transaksi: []
         };
     }
 }
 
 // Simpan state POS
-export function savePosState(state) {
-    localStorage.setItem(KEYS.POS_STATE, JSON.stringify(state));
+export function simpanStatePOS(state) {
+    localStorage.setItem(KUNCI_PENYIMPANAN.STATE_POS, JSON.stringify(state));
 }
 
-// --- PRODUCT HELPERS ---
+// --- HELPER PRODUK ---
 
-export function getAllProducts() {
-    const state = getPosState();
-    return state.products;
+export function ambilSemuaProduk() {
+    const state = ambilStatePOS();
+    return state.produk;
 }
 
-export function saveAllProducts(products) {
-    const state = getPosState();
-    state.products = products;
-    savePosState(state);
+export function simpanSemuaProduk(daftarProduk) {
+    const state = ambilStatePOS();
+    state.produk = daftarProduk;
+    simpanStatePOS(state);
 }
 
-export function findProductById(id) {
-    const products = getAllProducts();
-    return products.find(p => p.id === id);
+export function cariProdukById(id) {
+    const daftarProduk = ambilSemuaProduk();
+    return daftarProduk.find(produk => produk.id === id);
 }
 
-export function addProduct(product) {
-    const state = getPosState();
-    state.products.push(product);
-    savePosState(state);
+export function tambahProduk(produk) {
+    const state = ambilStatePOS();
+    state.produk.push(produk);
+    simpanStatePOS(state);
 }
 
-export function updateProductById(id, updatedData) {
-    const state = getPosState();
-    const index = state.products.findIndex(p => p.id === id);
+export function perbaruiProdukById(id, dataBaru) {
+    const state = ambilStatePOS();
+    const indeks = state.produk.findIndex(produk => produk.id === id);
 
-    if (index !== -1) {
+    if (indeks !== -1) {
         // Gabungkan data lama dengan data baru
-        state.products[index] = { ...state.products[index], ...updatedData };
-        savePosState(state);
+        state.produk[indeks] = { ...state.produk[indeks], ...dataBaru };
+        simpanStatePOS(state);
         return true;
     }
     return false;
 }
 
-export function deleteProductById(id) {
-    const state = getPosState();
-    const initialLength = state.products.length;
+export function hapusProdukById(id) {
+    const state = ambilStatePOS();
+    const panjangAwal = state.produk.length;
 
     // Filter produk yang ID-nya BUKAN id yang mau dihapus
-    state.products = state.products.filter(p => p.id !== id);
+    state.produk = state.produk.filter(produk => produk.id !== id);
 
-    savePosState(state);
-    return state.products.length < initialLength; // Return true jika ada yang terhapus
+    simpanStatePOS(state);
+    return state.produk.length < panjangAwal; // Return true jika ada yang terhapus
 }
 
-// --- TRANSACTION HELPERS ---
+// --- HELPER TRANSAKSI ---
 
-export function getAllTransactions() {
-    const state = getPosState();
-    return state.transactions;
+export function ambilSemuaTransaksi() {
+    const state = ambilStatePOS();
+    return state.transaksi;
 }
 
-export function addTransaction(transaction) {
-    const state = getPosState();
-    state.transactions.push(transaction);
-    savePosState(state);
+export function tambahTransaksi(transaksi) {
+    const state = ambilStatePOS();
+    state.transaksi.push(transaksi);
+    simpanStatePOS(state);
 }
