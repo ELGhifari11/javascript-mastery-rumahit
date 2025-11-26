@@ -11,6 +11,9 @@ import * as Penyimpanan from './storage.js';
 import * as Utilitas from './utils.js';
 import * as API from './api.js';
 
+// Default placeholder image (data URI - works offline)
+const GAMBAR_DEFAULT = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="150" height="150"%3E%3Crect fill="%23ddd" width="150" height="150"/%3E%3Ctext fill="%23999" font-family="sans-serif" font-size="16" dy=".3em" x="50%25" y="50%25" text-anchor="middle"%3EProduct%3C/text%3E%3C/svg%3E';
+
 // State lokal untuk keranjang belanja sementara
 let keranjangBelanja = [];
 
@@ -113,6 +116,7 @@ function tampilkanFormProduk(produk = null) {
         document.getElementById('prod-id').value = produk.id;
         document.getElementById('prod-name').value = produk.name;
         document.getElementById('prod-category').value = produk.category;
+        document.getElementById('prod-image').value = produk.image || '';
         document.getElementById('prod-price').value = produk.price;
         document.getElementById('prod-stock').value = produk.stock;
     } else {
@@ -134,18 +138,30 @@ function prosesSimpanProduk(event) {
     const id = document.getElementById('prod-id').value;
     const nama = document.getElementById('prod-name').value;
     const kategori = document.getElementById('prod-category').value;
+    const urlGambar = document.getElementById('prod-image').value.trim();
     const harga = parseInt(document.getElementById('prod-price').value);
     const stok = parseInt(document.getElementById('prod-stock').value);
 
     if (id) {
         // Update yang sudah ada
-        Penyimpanan.perbaruiProdukById(id, { name: nama, category: kategori, price: harga, stock: stok });
+        const dataUpdate = {
+            name: nama,
+            category: kategori,
+            price: harga,
+            stock: stok
+        };
+        // Update image jika diisi
+        if (urlGambar) {
+            dataUpdate.image = urlGambar;
+        }
+        Penyimpanan.perbaruiProdukById(id, dataUpdate);
         Utilitas.tampilkanNotifikasi('Produk berhasil diperbarui!', 'success');
     } else {
         // Buat Baru
         const produkBaru = {
             id: Utilitas.buatIdUnik(),
             name: nama,
+            image: urlGambar || GAMBAR_DEFAULT,
             category: kategori,
             price: harga,
             stock: stok,
@@ -207,8 +223,9 @@ function tampilkanTabelProduk() {
 
     daftarProduk.forEach(produk => {
         const baris = document.createElement('tr');
+        const gambarProduk = produk.image || GAMBAR_DEFAULT;
         baris.innerHTML = `
-            <td><img  src="${produk.image}" width="50"></td>
+            <td><img  src="${gambarProduk}" width="50" height="70" onerror="this.src='${GAMBAR_DEFAULT}'"></td>
             <td>${Utilitas.potongTeks(produk.name, 40)}</td>
             <td>${Utilitas.potongTeks(produk.category, 40)}</td>
             <td>${Utilitas.formatKeRupiah(produk.price)}</td>
@@ -260,9 +277,10 @@ function tampilkanKatalogPOS() {
 
     daftarProduk.forEach(produk => {
         const kartu = document.createElement('div');
+        const gambarProduk = produk.image || GAMBAR_DEFAULT;
         kartu.className = 'product-card-simple';
         kartu.innerHTML = `
-            <img src="${produk.image}" width="50">
+            <img src="${gambarProduk}" width="50" height="70" onerror="this.src='${GAMBAR_DEFAULT}'">
             <h4>${Utilitas.potongTeks(produk.name, 15)}</h4>
             <div class="price">${Utilitas.formatKeRupiah(produk.price)}</div>
             <div class="stock">Stock: ${produk.stock}</div>
@@ -330,10 +348,11 @@ function tampilkanKeranjang() {
             totalHarga += item.subtotal;
 
             const div = document.createElement('div');
+            const gambarItem = item.image || GAMBAR_DEFAULT;
             div.className = 'cart-item';
             div.innerHTML = `
                 <div class="cart-item-info">
-                    <img src="${item.image}" width="50">
+                    <img src="${gambarItem}" width="50" height="70" onerror="this.src='${GAMBAR_DEFAULT}'">
                     <h5>${Utilitas.potongTeks(item.name, 20)}</h5>
                     <span>${item.qty} x ${Utilitas.formatKeRupiah(item.price)}</span>
                 </div>
