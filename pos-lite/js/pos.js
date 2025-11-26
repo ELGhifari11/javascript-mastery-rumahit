@@ -172,10 +172,12 @@ async function handleImportProducts() {
     }
 
     let count = 0;
+    
     externalProducts.forEach(p => {
         const newProduct = {
             id: Utils.generateId(),
             name: p.title,
+            image: p.image,
             category: p.category,
             price: Math.round(p.price * 15000), // Konversi USD ke IDR kasar
             stock: 50, // Default stock
@@ -203,13 +205,14 @@ function renderProductTable() {
     products.forEach(p => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
-            <td>${p.name}</td>
-            <td>${p.category}</td>
+            <td><img  src="${p.image}" width="50"></td>
+            <td>${Utils.truncateText(p.name, 40)}</td>
+            <td>${Utils.truncateText(p.category, 40)}</td>
             <td>${Utils.formatCurrency(p.price)}</td>
             <td>${p.stock}</td>
             <td>
-                <button class="btn btn-sm btn-outline btn-edit" data-id="${p.id}">Edit</button>
-                <button class="btn btn-sm btn-danger btn-delete" data-id="${p.id}">Delete</button>
+                <button class="btn btn-sm btn-outline btn-edit" data-id="${p.id}"><i class="fas fa-edit"></i></button>
+                <button class="btn btn-sm btn-danger btn-delete" data-id="${p.id}"><i class="fas fa-trash-alt"></i></button>
             </td>
         `;
         tbody.appendChild(tr);
@@ -256,7 +259,8 @@ function renderPosCatalog() {
         const card = document.createElement('div');
         card.className = 'product-card-simple';
         card.innerHTML = `
-            <h4>${p.name}</h4>
+            <img src="${p.image}" width="50">
+            <h4>${Utils.truncateText(p.name, 15)}</h4>
             <div class="price">${Utils.formatCurrency(p.price)}</div>
             <div class="stock">Stock: ${p.stock}</div>
         `;
@@ -292,6 +296,7 @@ function addToCart(product) {
         cart.push({
             productId: product.id,
             name: product.name,
+            image: product.image,
             price: product.price,
             qty: 1,
             subtotal: product.price
@@ -325,7 +330,8 @@ function renderCart() {
             div.className = 'cart-item';
             div.innerHTML = `
                 <div class="cart-item-info">
-                    <h5>${item.name}</h5>
+                    <img src="${item.image}" width="50">
+                    <h5>${Utils.truncateText(item.name, 20)}</h5>
                     <span>${item.qty} x ${Utils.formatCurrency(item.price)}</span>
                 </div>
                 <div>
@@ -417,7 +423,7 @@ function renderReports() {
     const sortedTrx = transactions.slice().reverse();
 
     sortedTrx.forEach(trx => {
-        const date = new Date(trx.createdAt).toLocaleString();
+        const date = Utils.formatDateTime(trx.createdAt);
         const itemNames = trx.items.map(i => `${i.name} (${i.qty})`).join(', ');
 
         const tr = document.createElement('tr');
