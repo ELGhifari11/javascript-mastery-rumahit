@@ -6,7 +6,14 @@
 
 // 1. Generate ID unik sederhana (timestamp + random)
 export function generateId() {
-    return Date.now().toString(36) + Math.random().toString(36).substr(2);
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const numbers = '0123456789';
+    const combined = chars + numbers;
+    let result = '';
+    for (let i = 0; i < 6; i++) {
+        result += combined.charAt(Math.floor(Math.random() * combined.length));
+    }
+    return result;
 }
 
 // 2. Format angka ke format mata uang (Rupiah)
@@ -62,4 +69,33 @@ export function switchToMainAppView() {
 export function switchToWelcomeView() {
     document.getElementById('app-main').classList.add('hidden');
     document.getElementById('welcome-screen').classList.remove('hidden');
+}
+
+// 8. Singkat Charachter        
+export function truncateText(text, maxLength) {
+    if (text.length > maxLength) {
+        return text.substring(0, maxLength) + '...';
+    }
+    return text;
+}
+
+// 9. Format Tanggal
+export function formatDate(dateString) {
+    const date = new Date(dateString);
+    const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+    return date.toLocaleDateString('id-ID', options);
+}
+
+// 10. Format Waktu
+export function formatTime(dateString) {
+    const date = new Date(dateString);
+    const options = { hour: '2-digit', minute: '2-digit' };
+    return date.toLocaleTimeString('id-ID', options);
+}
+
+// 11. Format Tanggal dan Waktu
+export function formatDateTime(dateString) {
+    const date = new Date(dateString);
+    const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' };
+    return date.toLocaleString('id-ID', options);
 }
