@@ -99,3 +99,117 @@ export function formatTanggalWaktu(stringTanggal) {
     const opsi = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' };
     return tanggal.toLocaleString('id-ID', opsi);
 }
+
+// --- CUSTOM MODAL SYSTEM (Alert, Confirm, Prompt) ---
+
+let modalResolver = null;
+
+function resetGenericModal() {
+    const modal = document.getElementById('generic-modal');
+    const titleEl = document.getElementById('generic-modal-title');
+    const messageEl = document.getElementById('generic-modal-message');
+    const inputContainer = document.getElementById('generic-modal-input-container');
+    const inputEl = document.getElementById('generic-modal-input');
+    const btnCancel = document.getElementById('btn-generic-cancel');
+    const btnConfirm = document.getElementById('btn-generic-confirm');
+
+    titleEl.textContent = 'Notification';
+    messageEl.textContent = '';
+    inputContainer.classList.add('hidden');
+    inputEl.value = '';
+    btnCancel.classList.add('hidden');
+    btnConfirm.textContent = 'OK';
+
+    // Remove old event listeners to prevent stacking
+    const newBtnConfirm = btnConfirm.cloneNode(true);
+    btnConfirm.parentNode.replaceChild(newBtnConfirm, btnConfirm);
+
+    const newBtnCancel = btnCancel.cloneNode(true);
+    btnCancel.parentNode.replaceChild(newBtnCancel, btnCancel);
+
+    const newBtnClose = document.getElementById('btn-close-generic').cloneNode(true);
+    document.getElementById('btn-close-generic').parentNode.replaceChild(newBtnClose, document.getElementById('btn-close-generic'));
+
+    return { modal, titleEl, messageEl, inputContainer, inputEl, btnCancel: newBtnCancel, btnConfirm: newBtnConfirm, btnClose: newBtnClose };
+}
+
+export function showAlert(message, title = 'Info') {
+    return new Promise((resolve) => {
+        const els = resetGenericModal();
+
+        els.titleEl.textContent = title;
+        els.messageEl.textContent = message;
+
+        els.btnConfirm.addEventListener('click', () => {
+            tutupModal('generic-modal');
+            resolve();
+        });
+
+        els.btnClose.addEventListener('click', () => {
+            tutupModal('generic-modal');
+            resolve();
+        });
+
+        bukaModal('generic-modal');
+    });
+}
+
+export function showConfirm(message, title = 'Konfirmasi') {
+    return new Promise((resolve) => {
+        const els = resetGenericModal();
+
+        els.titleEl.textContent = title;
+        els.messageEl.textContent = message;
+        els.btnCancel.classList.remove('hidden');
+        els.btnConfirm.textContent = 'Ya';
+
+        els.btnConfirm.addEventListener('click', () => {
+            tutupModal('generic-modal');
+            resolve(true);
+        });
+
+        els.btnCancel.addEventListener('click', () => {
+            tutupModal('generic-modal');
+            resolve(false);
+        });
+
+        els.btnClose.addEventListener('click', () => {
+            tutupModal('generic-modal');
+            resolve(false);
+        });
+
+        bukaModal('generic-modal');
+    });
+}
+
+export function showPrompt(message, defaultValue = '', title = 'Input') {
+    return new Promise((resolve) => {
+        const els = resetGenericModal();
+
+        els.titleEl.textContent = title;
+        els.messageEl.textContent = message;
+        els.inputContainer.classList.remove('hidden');
+        els.inputEl.value = defaultValue;
+        els.btnCancel.classList.remove('hidden');
+        els.btnConfirm.textContent = 'OK';
+
+        els.btnConfirm.addEventListener('click', () => {
+            const val = els.inputEl.value;
+            tutupModal('generic-modal');
+            resolve(val);
+        });
+
+        els.btnCancel.addEventListener('click', () => {
+            tutupModal('generic-modal');
+            resolve(null);
+        });
+
+        els.btnClose.addEventListener('click', () => {
+            tutupModal('generic-modal');
+            resolve(null);
+        });
+
+        bukaModal('generic-modal');
+        els.inputEl.focus();
+    });
+}
