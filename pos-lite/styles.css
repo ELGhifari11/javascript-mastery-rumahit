@@ -530,6 +530,17 @@ body {
     border-radius: var(--radius-sm);
     border: none;
     cursor: pointer;
+    font-weight:
+     600;
+}
+.btn-outline {
+    background: var(--color-warning);
+    color: white;
+    padding: var(--space-2) var(--space-3);
+    font-size: 13px;
+    border-radius: var(--radius-sm);
+    border: none;
+    cursor: pointer;
     font-weight: 600;
 }
 
