@@ -19,7 +19,7 @@
     <section id="welcome-screen" class="welcome-hero">
         <div class="welcome-container">
             <div class="welcome-branding">
-                <h1 class="brand-logo">POSLite</h1>
+                <h1 class="brand-logo">EL POS Lite</h1>
                 <p class="brand-tagline">Modern Point of Sale for Everyone</p>
             </div>
 
@@ -86,13 +86,36 @@
         </div>
     </div>
 
+    <!-- GENERIC MODAL (Alert/Confirm/Prompt) -->
+    <div id="generic-modal" class="modal-overlay hidden" style="z-index: 2000;">
+        <div class="modal-box" style="max-width: 380px;">
+            <div class="modal-header-mini">
+                <h3 id="generic-modal-title">Notification</h3>
+                <button class="btn-icon-close" id="btn-close-generic">&times;</button>
+            </div>
+            <div class="form-clean">
+                <p id="generic-modal-message"
+                    style="margin-bottom: 20px; color: var(--color-gray-700); font-size: 15px;"></p>
+
+                <div id="generic-modal-input-container" class="input-group hidden">
+                    <input type="text" id="generic-modal-input" class="form-input">
+                </div>
+
+                <div class="form-actions-inline" style="justify-content: flex-end; margin-top: 20px;">
+                    <button id="btn-generic-cancel" class="btn-secondary hidden">Cancel</button>
+                    <button id="btn-generic-confirm" class="btn-primary">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- MAIN APP -->
     <div id="app-main" class="hidden">
 
         <!-- App Header -->
         <header class="app-header">
             <div class="header-content">
-                <div class="brand-mini">POSLite</div>
+                <div class="brand-mini">EL POS Lite</div>
                 <div class="user-section">
                     <span id="user-display-name" class="user-name">User</span>
                     <button id="btn-logout" class="btn-logout">Sign Out</button>
