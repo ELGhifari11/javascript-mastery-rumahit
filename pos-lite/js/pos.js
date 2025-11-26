@@ -126,6 +126,11 @@ function aturEventProduk() {
         sembunyikanFormProduk();
     });
 
+    // Tombol "Close" (X) di modal
+    document.getElementById('btn-close-product-modal').addEventListener('click', () => {
+        sembunyikanFormProduk();
+    });
+
     // Saat form disubmit (Simpan)
     document.getElementById('form-product').addEventListener('submit', prosesSimpanProduk);
 }
@@ -137,10 +142,9 @@ function aturEventProduk() {
  * @param {Object} produk - Data produk jika mode edit (opsional)
  */
 function tampilkanFormProduk(produk = null) {
-    const kontainerForm = document.getElementById('product-form-container');
-    const judulForm = document.getElementById('product-form-title');
+    const judulForm = document.getElementById('product-modal-title');
 
-    kontainerForm.classList.remove('hidden'); // Munculkan form
+    Utilitas.bukaModal('product-modal'); // Buka modal
 
     if (produk) {
         // --- MODE EDIT ---
@@ -164,7 +168,7 @@ function tampilkanFormProduk(produk = null) {
  * Menyembunyikan form produk.
  */
 function sembunyikanFormProduk() {
-    document.getElementById('product-form-container').classList.add('hidden');
+    Utilitas.tutupModal('product-modal');
     document.getElementById('form-product').reset();
 }
 
