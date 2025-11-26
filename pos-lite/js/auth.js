@@ -126,8 +126,9 @@ function prosesMasuk(event) {
     }
 }
 
-export function keluarkanPengguna() {
-    if (confirm('Apakah Anda yakin ingin logout?')) {
+export async function keluarkanPengguna() {
+    const confirmed = await Utilitas.showConfirm('Apakah Anda yakin ingin logout?', 'Konfirmasi Logout');
+    if (confirmed) {
         Penyimpanan.hapusPenggunaSaatIni();
         window.location.reload(); // Reload ke welcome screen
     }
