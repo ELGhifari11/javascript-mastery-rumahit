@@ -176,7 +176,7 @@ function prosesSimpanProduk(event) {
 }
 
 async function prosesImportProduk() {
-    const inputBatas = prompt('Masukkan jumlah produk yang ingin di-import (Max 20):', '5');
+    const inputBatas = await Utilitas.showPrompt('Masukkan jumlah produk yang ingin di-import (Max 20):', '5', 'Import Produk');
     const batas = parseInt(inputBatas);
 
     if (!batas || batas <= 0) return;
@@ -248,9 +248,10 @@ function tampilkanTabelProduk() {
     });
 
     document.querySelectorAll('.btn-delete').forEach(tombol => {
-        tombol.addEventListener('click', () => {
+        tombol.addEventListener('click', async () => {
             const id = tombol.getAttribute('data-id');
-            if (confirm('Yakin ingin menghapus produk ini?')) {
+            const confirmed = await Utilitas.showConfirm('Yakin ingin menghapus produk ini?', 'Hapus Produk');
+            if (confirmed) {
                 Penyimpanan.hapusProdukById(id);
                 tampilkanTabelProduk();
                 Utilitas.tampilkanNotifikasi('Produk dihapus.', 'info');
@@ -379,10 +380,11 @@ function tampilkanKeranjang() {
     });
 }
 
-function prosesCheckout() {
+async function prosesCheckout() {
     if (keranjangBelanja.length === 0) return;
 
-    if (!confirm('Proses transaksi ini?')) return;
+    const confirmed = await Utilitas.showConfirm('Proses transaksi ini?', 'Konfirmasi Checkout');
+    if (!confirmed) return;
 
     // 1. Kurangi stok produk
     let adaKesalahanStok = false;
