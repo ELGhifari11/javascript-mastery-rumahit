@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Exam Announcement | Basic JavaScript</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Background Noise Texture -->
+    <div class="bg-noise"></div>
+    <div class="bg-gradient-mesh"></div>
+
+    <!-- Audio Player -->
+    <audio id="bg-music" loop>
+        <source src="assets/music/ambition.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Enter Overlay -->
+    <div id="enter-overlay">
+        <div class="overlay-bg">
+            <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2070&auto=format&fit=crop"
+                alt="Coding Background">
+        </div>
+        <div class="overlay-content">
+            <div class="logo-group-overlay">
+                <img src="https://rumahitindonesia.com/wp-content/uploads/2023/11/1.png" alt="Rumah IT">
+                <div class="divider-v"></div>
+                <img src="https://pondokprogrammer.com/assets/imgs/template/logo.svg" alt="Pondok Programmer">
+            </div>
+            <div class="enter-text">
+                <p class="pre-title">FINAL EXAMINATION BRIEF</p>
+                <h1>ARE YOU READY?</h1>
+                <p class="sub-title">Ignite Your Ambition. Prove Your Skills.</p>
+            </div>
+            <button id="enter-btn">
+                <span>ENTER THE ARENA</span>
+                <div class="btn-glow"></div>
+            </button>
+        </div>
+    </div>
+
+    <!-- Music Control -->
+    <div class="music-control">
+        <button id="music-toggle">
+            <div class="equalizer">
+                <span></span><span></span><span></span><span></span>
+            </div>
+        </button>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo-container">
+            <img src="https://rumahitindonesia.com/wp-content/uploads/2023/11/1.png" alt="Rumah IT" class="brand-logo">
+            <span class="divider">/</span>
+            <img src="https://pondokprogrammer.com/assets/imgs/template/logo.svg" alt="Pondok Programmer"
+                class="brand-logo">
+        </div>
+        <div class="nav-links">
+            <button onclick="scrollToSection('hero')" class="active">Overview</button>
+            <button onclick="scrollToSection('objectives')">Objectives</button>
+            <button onclick="scrollToSection('structure')">Day 1</button>
+            <button onclick="scrollToSection('day2')">Day 2</button>
+            <button onclick="scrollToSection('rubric')">Rubric</button>
+        </div>
+    </nav>
+
+    <!-- Horizontal Scroll Wrapper -->
+    <main class="horizontal-wrapper">
+
+        <!-- Hero Section -->
+        <section id="hero" class="h-section">
+            <div class="container hero-container">
+                <div class="hero-content">
+                    <div class="badge-wrapper">
+                        <span class="badge">BATCH 23 FINAL EXAM</span>
+                    </div>
+                    <h1 class="glitch-text" data-text="BASIC JAVASCRIPT">BASIC JAVASCRIPT</h1>
+                    <h2 class="gradient-text">FINAL EXAMINATION</h2>
+
+                    <div class="hero-details">
+                        <div class="detail-box">
+                            <i class="far fa-calendar-alt"></i>
+                            <div>
+                                <span class="label">DATE</span>
+                                <span class="value">27 NOV 2025</span>
+                            </div>
+                        </div>
+                        <div class="detail-box">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <span class="label">DURATION</span>
+                                <span class="value">2 DAYS CHALLENGE</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hero-actions">
+                        <button onclick="scrollToSection('intro')" class="cta-btn primary">
+                            READ BRIEF <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Decorative Elements -->
+                <div class="hero-visuals">
+                    <div class="hero-image-card glass-card">
+                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop"
+                            alt="Coding Setup">
+                        <div class="code-overlay">
+                            <div class="window-controls"><span></span><span></span><span></span></div>
+                            <pre><code>const future = await student.code();
+if (future.isBright) {
+    return "SUCCESS";
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Intro Section -->
+        <section id="intro" class="h-section">
+            <div class="container intro-container">
+                <div class="intro-grid">
+                    <div class="bismillah-card glass-card">
+                        <div class="card-bg-img">
+                            <img src="https://images.unsplash.com/photo-1590076215667-875d4ef2d7ee?q=80&w=2036&auto=format&fit=crop"
+                                alt="Islamic Pattern">
+                        </div>
+                        <div class="card-content">
+                            <h2>بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</h2>
+                            <p>Segala puji bagi Allah Subḥānahu wa Ta‘ālā... Program Basic JavaScript selama 1 bulan ini
+                                telah menempuh perjalanan panjang.</p>
+                        </div>
+                    </div>
+
+                    <!-- Quote 1: Itqan -->
+                    <div class="quote-card-large glass-card">
+                        <i class="fas fa-star quote-icon"></i>
+                        <blockquote>
+                            "Sesungguhnya Allah mencintai apabila salah seorang di antara kalian melakukan suatu
+                            pekerjaan, maka hendaklah ia melakukannya dengan <strong>itqan</strong> (tekun,
+                            sempurna/profesional)."
+                        </blockquote>
+                        <cite>— HR. Al-Baihaqi (Dihasankan oleh Syekh Al-Albani)</cite>
+                    </div>
+
+                    <!-- Quote 2: Beneficial Knowledge -->
+                    <div class="quote-card-large glass-card secondary-quote">
+                        <i class="fas fa-book-open quote-icon"></i>
+                        <blockquote>
+                            "Ilmu bukanlah apa yang dihafal, tetapi ilmu adalah apa yang bermanfaat."
+                        </blockquote>
+                        <cite>— Imam Syafi'i</cite>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Objectives (Bento Grid) -->
+        <section id="objectives" class="h-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">🎯 OBJECTIVES</h2>
+                    <p class="section-desc">What you will achieve in this final examination</p>
+                </div>
+
+                <div class="bento-grid">
+                    <div class="bento-item glass-card large-item has-bg">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop"
+                            class="bg-img" alt="Analytics">
+                        <div class="content-overlay">
+                            <div class="bento-icon"><i class="fas fa-laptop-code"></i></div>
+                            <h3>Real Application</h3>
+                            <p>Mampu membangun aplikasi nyata dengan JavaScript dasar yang bermanfaat untuk manusia.</p>
+                        </div>
+                    </div>
+                    <div class="bento-item glass-card">
+                        <div class="bento-icon"><i class="fas fa-cubes"></i></div>
+                        <h3>Modular Code</h3>
+                        <p>Struktur modular & alur kerja modern.</p>
+                    </div>
+                    <div class="bento-item glass-card">
+                        <div class="bento-icon"><i class="fas fa-rocket"></i></div>
+                        <h3>Full Lifecycle</h3>
+                        <p>Deploy dari 0 hingga siap pakai.</p>
+                    </div>
+                    <div class="bento-item glass-card tall-item has-bg">
+                        <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=1955&auto=format&fit=crop"
+                            class="bg-img" alt="Portfolio">
+                        <div class="content-overlay">
+                            <div class="bento-icon"><i class="fas fa-briefcase"></i></div>
+                            <h3>Portfolio</h3>
+                            <p>Memiliki rekam jejak karya pertama yang membanggakan.</p>
+                        </div>
+                    </div>
+                    <div class="bento-item glass-card">
+                        <div class="bento-icon"><i class="fas fa-microphone-alt"></i></div>
+                        <h3>Public Speaking</h3>
+                        <p>Menjelaskan karya dengan percaya diri.</p>
+                    </div>
+                    <div class="bento-item glass-card">
+                        <div class="bento-icon"><i class="fas fa-brain"></i></div>
+                        <h3>Problem Solving</h3>
+                        <p>Melatih mindset programmer sejati.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Day 1 Structure -->
+        <section id="structure" class="h-section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="day-tag">DAY 01</span>
+                    <h2 class="section-title">APP BUILDING</h2>
+                </div>
+
+                <div class="day1-layout">
+                    <!-- Left: Requirements -->
+                    <div class="requirements-panel glass-card">
+                        <h3>✅ MANDATORY REQUIREMENTS</h3>
+                        <div class="req-grid">
+                            <div class="req-item">
+                                <i class="fas fa-user-lock"></i>
+                                <span>Auth System</span>
+                            </div>
+                            <div class="req-item">
+                                <i class="fas fa-database"></i>
+                                <span>LocalStorage CRUD</span>
+                            </div>
+                            <div class="req-item">
+                                <i class="fas fa-cloud-download-alt"></i>
+                                <span>Fetch API Public</span>
+                            </div>
+                            <div class="req-item">
+                                <i class="fas fa-code"></i>
+                                <span>DOM Manipulation</span>
+                            </div>
+                            <div class="req-item">
+                                <i class="fas fa-paint-brush"></i>
+                                <span>Modern UI/UX</span>
+                            </div>
+                            <div class="req-item">
+                                <i class="fas fa-book"></i>
+                                <span>Documentation</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Ideas -->
+                    <div class="ideas-panel glass-card has-bg-right">
+                        <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=2070&auto=format&fit=crop"
+                            class="bg-img-panel" alt="Teamwork">
+                        <div class="panel-content">
+                            <h3>🧱 PROJECT IDEAS</h3>
+                            <div class="ideas-cloud">
+                                <span class="idea-tag"><i class="fas fa-check-double"></i> To-Do Premium</span>
+                                <span class="idea-tag"><i class="fas fa-book"></i> Library System</span>
+                                <span class="idea-tag"><i class="fas fa-user-clock"></i> Absensi Siswa</span>
+                                <span class="idea-tag"><i class="fas fa-wallet"></i> Budget App</span>
+                                <span class="idea-tag"><i class="fas fa-chart-line"></i> Habit Tracker</span>
+                                <span class="idea-tag"><i class="fas fa-utensils"></i> Recipe Manager</span>
+                                <span class="idea-tag"><i class="fas fa-shopping-cart"></i> Mini E-Commerce</span>
+                                <span class="idea-tag"><i class="fas fa-mosque"></i> Jadwal Sholat</span>
+                                <span class="idea-tag"><i class="fas fa-cloud-sun"></i> Weather App</span>
+                            </div>
+                            <div class="warning-box">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                <p>Code must be your own. No full AI generation allowed.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Day 2 Structure -->
+        <section id="day2" class="h-section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="day-tag blue">DAY 02</span>
+                    <h2 class="section-title">PRESENTATION</h2>
+                </div>
+
+                <div class="day2-layout">
+                    <div class="presentation-card glass-card has-bg">
+                        <img src="https://images.unsplash.com/photo-1588196749597-9ff075ee6b5b?q=80&w=1974&auto=format&fit=crop"
+                            class="bg-img" alt="Recording">
+                        <div class="content-overlay-card">
+                            <div class="card-header">
+                                <i class="fas fa-video"></i>
+                                <h3>SELF RECORD</h3>
+                            </div>
+                            <ul class="checklist">
+                                <li>Perkenalan Diri</li>
+                                <li>Demo Project & Fitur</li>
+                                <li>Kesulitan & Tantangan</li>
+                                <li>Insight & Pelajaran</li>
+                                <li>Pesan & Komitmen</li>
+                            </ul>
+                            <span class="meta">Duration: 3-10 Minutes</span>
+                        </div>
+                    </div>
+
+                    <div class="presentation-card glass-card has-bg">
+                        <img src="https://images.unsplash.com/photo-1544531586-fde5298cdd40?q=80&w=2070&auto=format&fit=crop"
+                            class="bg-img" alt="Presentation">
+                        <div class="content-overlay-card">
+                            <div class="card-header">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                                <h3>PITCH DECK</h3>
+                            </div>
+                            <ul class="checklist">
+                                <li>Cover & Nama Project</li>
+                                <li>Problem & Solution</li>
+                                <li>Tech Stack & Flow</li>
+                                <li>Demo Screenshots</li>
+                                <li>Insight & Penutup</li>
+                            </ul>
+                            <span class="meta">Format: Canva / PPT / Slides</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Rubric & Footer -->
+        <section id="rubric" class="h-section">
+            <div class="container">
+                <div class="rubric-layout">
+                    <div class="rubric-panel glass-card">
+                        <h3>📝 SCORING RUBRIC</h3>
+                        <div class="rubric-items">
+                            <div class="r-item">
+                                <div class="r-info">
+                                    <span>Functionality</span>
+                                    <span>30%</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="fill" style="width: 30%"></div>
+                                </div>
+                            </div>
+                            <div class="r-item">
+                                <div class="r-info">
+                                    <span>Code Quality</span>
+                                    <span>20%</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="fill" style="width: 20%"></div>
+                                </div>
+                            </div>
+                            <div class="r-item">
+                                <div class="r-info">
+                                    <span>Problem Solving</span>
+                                    <span>20%</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="fill" style="width: 20%"></div>
+                                </div>
+                            </div>
+                            <div class="r-item">
+                                <div class="r-info">
+                                    <span>Creativity & UI</span>
+                                    <span>15%</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="fill" style="width: 15%"></div>
+                                </div>
+                            </div>
+                            <div class="r-item">
+                                <div class="r-info">
+                                    <span>Presentation</span>
+                                    <span>15%</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="fill" style="width: 15%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="forbidden-panel glass-card">
+                        <h3>🚫 STRICTLY FORBIDDEN</h3>
+                        <div class="forbidden-grid">
+                            <div class="f-item">No Full Copas</div>
+                            <div class="f-item">No Frameworks</div>
+                            <div class="f-item">No CSS Libs</div>
+                            <div class="f-item">No Backend</div>
+                            <div class="f-item">No AI Full Gen</div>
+                        </div>
+                    </div>
+                </div>
+
+                <footer class="mini-footer">
+                    <p>“Sungguh, bersama kesulitan ada kemudahan.”</p>
+                    <div class="copyright">
+                        &copy; 2025 Rumah IT Hub / Pondok Programmer
+                    </div>
+                </footer>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
