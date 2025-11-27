@@ -110,7 +110,7 @@ Asalkan **memenuhi 10 kriteria** di atas.
 
 Setiap peserta wajib membuat:
 
-## 🎥 **1. Self Record (Video 3–10 menit)**
+## 🎥 **1. Self Record**
 
 Berisi:
 
