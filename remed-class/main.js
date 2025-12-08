@@ -62,3 +62,12 @@ console.log(utils.f2("Mie Ayam","Teh","Pangsit","Bakso"));
 
 
 
+const santri = {id:"01",nama:"Bambang",alamat:"DIY"}
+
+const {alamat,nama,id} = santri // destructuring
+
+console.log(santri.id); // ini manggil langsung
+
+console.log(`
+    alamat: ${alamat},
+    nama: ${nama}`);
