@@ -3,3 +3,19 @@
 .class1{
     color: aqua;
 }
+
+.class2{
+    color: red;
+}
+
+.class3 {
+    color: blueviolet;
+}
+
+.hide{
+    display: none;
+}
+
+.display {
+    display: flex ;
+}
