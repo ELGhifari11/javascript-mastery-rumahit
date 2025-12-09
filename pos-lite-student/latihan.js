@@ -26,9 +26,9 @@ const resultObj2 = obj2({id:"id1",class:"class1"})
 const list1 = (props = {}) => Object.entries(props).map((v,i,) => `I:(${i}) V:(${v})`).join()
 const list2 = (props = {}) => Object.entries(props).map(([k,v],i,) => `I:(${i}). K:(${k}) V:(${v})`)
 const list3 = (props = {}) => Object.entries(props).map(([k,v],i,) => `I:(${i}). K:(${k}) V:(${v})`).join('\n')
-const resultList1 = list1({id:"id1",class:"class1"}) 
-const resultList2 = list2({id:"id1",class:"class1"}) // TANPA JOIN : [ '0|id:"id1"', '1|class:"class1"' ]
-const resultList3 = list3({id:"id1",class:"class1"}) // DENGAN JOIN : 0|id:"id1" , 1|class:"class1"
+const resultList1 = list1({id:"id1",class:"class1"}) // Array [] pada Param Value nya : I:(0) V:(id,id1),I:(1) V:(class,class1)
+const resultList2 = list2({id:"id1",class:"class1"}) // TANPA JOIN : [ 'I:(0). K:(id) V:(id1)', 'I:(1). K:(class) V:(class1)' ]
+const resultList3 = list3({id:"id1",class:"class1"}) // DENGAN JOIN : I:(0). K:(id) V:(id1) , I:(1). K:(class) V:(class1)
 
 console.log("================================================"); console.log(resultList1); 
 console.log("================================================"); console.log(resultList2); 
