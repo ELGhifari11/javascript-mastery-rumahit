@@ -1,12 +1,10 @@
-
-
 // ===================================================================
 //                   MATERI KNOWLEDGE
 // ===================================================================
 
 
 // CREATE ELEMENT
-const buatElemen = (tag, isi) => {
+const buatElemenSimple = (tag, isi) => {
     const elemen = document.createElement(tag)
     elemen.textContent = isi
     document.body.appendChild(elemen)
@@ -42,45 +40,57 @@ const resultList3 = list3({ id: "id1", class: "class1" }) // DENGAN JOIN : I:(0)
 
 
 
+
+
+
 // ===================================================================
-// POV STEP BY STEP CUSTOM FUNCTION UNTUK MANIPULASU DOM
+// FLOW STEP BY STEP CUSTOM FUNCTION UNTUK MANIPULASI DOM
 // ===================================================================
 
-// STEP (Create Elemnent)
+// STEP (Khusus Untuk Create Elemnent)
 const buatTag = (tag) => document.createElement(tag)
 /////////////////////////////////////////////////////////////////
 
-// STEP (Create Node)
+// STEP (Khusus Untuk Create Node)
 const buatNode = (node) => document.createTextNode(node)
 /////////////////////////////////////////////////////////////////
 
 
-// STEP (Add Event Listener)
+// STEP (Khusus Untuk Add Event Listener)
 const buatEventListn = (elemen, namEvent, handler) => {
-    elemen.addEventListener(namEvent, handler)}
-/////////////////////////////////////////////////////////////////
-
-
-// STEP (Set Single Attribute)
-const buatSatuAttribute = (tag, key, value) => {
-
-    // Validasi untuk EVENT LISTENER
-    if (key.startsWith('on') && typeof value === 'function') {
-        const namaEvent = key.substring(2).toLowerCase();
-        buatEventListn(tag, namaEvent, value)
-        return;
-    }
-
-    // Untuk ATRIBUT BIASA
-    tag.setAttribute(key, value)
+    elemen.addEventListener(namEvent, handler)
 }
 /////////////////////////////////////////////////////////////////
 
 
-// STEP (Set Banyak Attribute)
+// STEP (Set Khusus Single Attribute)
+const buatSatuAttribute = (tag, key, value) => {
+
+    // Validasi Khusus untuk Attribute EVENT LISTENER
+    if (key.startsWith('on') && typeof value === 'function') {
+        const namaEvent = key.substring(2).toLowerCase();
+        buatEventListn(tag, namaEvent, value)
+        return;
+
+    // Validasi Khusus Untuk set ATTRIBUTE CLASS
+    } else if (key === 'class'){
+        setClass(tag,value)
+    } else {
+
+    // Khusus Untuk ATRIBUT BIASA
+        tag.setAttribute(key, value)
+    }
+
+}
+/////////////////////////////////////////////////////////////////
+
+
+// STEP (Set Khusus Banyak Attribute)
 const tanganiBanyakAttribute = (tag, att = {}) => Object.entries(att).forEach(([k, v]) => buatSatuAttribute(tag, k, v))
 /////////////////////////////////////////////////////////////////
 
+// STEP (Set Khusus Untuk Class)
+const setClass = (tag,className) => tag.className = className
 
 // STEP (Set Ke Body di HTML)
 const addKeBody = (tag) => document.body.appendChild(tag)
@@ -89,29 +99,25 @@ const addKeBody = (tag) => document.body.appendChild(tag)
 
 
 
+
 // CUSTOM MANIPULASI DALAM MEMBUAT ELEMEN DENGAN BEBRBAGAI DOM
 //////////////////////////////////////////////////////
-const buatElemen2 = (tag, node, atributs = {}) => {
+const buatElemen = (tag, node, atributs = {}) => {
 
-    let elemen = buatTag(tag) 
-    
-    if(node) {
+    let elemen = buatTag(tag)
+
+    if (node) {
         let text = buatNode(node)
         elemen.appendChild(text)
-    } 
+    }
 
-    if(atributs) {
+    if (atributs) {
         tanganiBanyakAttribute(elemen, atributs)
     }
 
     addKeBody(elemen)
 }
 /////////////////////////////////////////////////////
-
-
-
-// REST PARAM
-const jumlahkan = (...angka) => angka.reduce((a, b) => a + b)
 
 
 
@@ -123,65 +129,33 @@ const jumlahkan = (...angka) => angka.reduce((a, b) => a + b)
 
 
 
+
+
 // RUANG EKSKUSI PEMANGGILAN BERBAGAI FUNCTION YANG SUDAH DI BUAT
 //////////////////////////////////////////////////////////////////////////////////////
 
-buatElemen2('button', 'EL', { id: "1", class:'neon-glow-btn',style:'margin:5px', onClick: () => tanyaMauBikinButtonBerapa() })
-buatElemen2('button', 'ABYAN', { id: "1", class:'neon-glow-btn',style:'margin:5px', onClick: () => abyan() })
+buatElemen('button', 'EL', { id: "1", class: 'neon-glow-btn', style: 'margin:5px', onClick: () => tanyaMauBikinButtonBerapa() })
+buatElemen('button', 'ABYAN', { id: "1", class: 'neon-glow-btn', style: 'margin:5px', onClick: () => abyan() })
 
 
-///////
+///////////////////////////////////////
 const tanyaNama = () => {
     const nama = prompt('SIAPA  KAU?')
-    if(nama){
+    if (nama) {
         alert(`Ouh Anda Adalah si ${nama}`)
     }
 }
 
-/////// STUDY CASE ERROR
+/////// STUDY CASE 
 const tanyaMauBikinButtonBerapa = () => {
     const total = prompt('Mau Bikin Button Berapa cuy?')
 
     if (total >= 1) {
-       for (let i = 0; i < total; i++) {
-       buatElemen2('button',`Button Ke ${i+1}`,{id:`id${i+1}`,class:'neon-glow-btn',style:'margin:5px'})
-       }
-    }
-}
-
-/// SOLVE DI SINI 
-
-
-// LUQMAN 
-
-
-
-
-
-
-// FIRMAN
-
-
-
-
-
-// ABYAN 
-const abyan = () => {
-    const total = parseInt(prompt('Mau Bikin Button Berapa cuy?'), 10)
-
-    if (!isNaN(total) && total >= 1) {
         for (let i = 0; i < total; i++) {
-            buatElemen2('button', {
-                id: `${i}`,
-                class: 'neon-glow-btn',
-                style: 'margin:5px'
-            })
+            buatElemen('button', `Button ${i + 1}`, { id: `id${i + 1}`, class: 'neon-glow-btn', style: 'margin:5px',onclick: ()  => alert(`SAYA BUTTON KE ${i+1}`)  })
         }
     }
 }
-
-
-
 
 
 
