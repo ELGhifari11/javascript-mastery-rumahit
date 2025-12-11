@@ -148,7 +148,7 @@ const buatSatuAttribute = (tag, key, value) => {
 
 
 // STEP (Set Khusus Banyak Attribute)
-const tanganiBanyakAttribute = (tag, att = {}) => objToArray(att).forEach(([k, v]) => buatSatuAttribute(tag, k, v))
+const tanganiBanyakAttribute = (tag, att = {}) => objToArray(att).forEach(([key, value]) => buatSatuAttribute(tag, key, value))
 /////////////////////////////////////////////////////////////////
 
 // STEP (Set Khusus Untuk pasang Class)
@@ -210,11 +210,6 @@ const buatElemen = (tag,atributs = {}, ...children) => {
 
 
 
-
-
-
-
-
 //////////////////////////////////////////////////////////////////////////////////////
 // RUANG EKSKUSI PEMANGGILAN BERBAGAI FUNCTION YANG SUDAH DI BUAT
 //////////////////////////////////////////////////////////////////////////////////////
@@ -249,11 +244,6 @@ let id1 = document.getElementById('1')
 
 console.log(id1.dataset);
 
-
-//// Custom Manipulasi 
-buatElemen('h1',{ id: "2"},"INI ID H1")
-let id2 = document.getElementById('2')
-
 buatElemen('button',{class: 'neon-glow-btn',style: 'margin:15px'},`Id: ${id1.dataset.id}`)
 buatElemen('button',{class: 'neon-glow-btn',style: 'margin:15px'},`Nama: ${id1.dataset.nama}`)
 buatElemen('button',{class: 'neon-glow-btn',style: 'margin:15px'},`Price: ${id1.dataset.price}`)
@@ -261,6 +251,10 @@ buatElemen('button',{class: 'neon-glow-btn',style: 'margin:15px'},`Category: ${i
 
 buatElemen('p',{id:'p1',class: 'neon-glow-btn',style: 'margin:15px'},'INI ID P1 ')
 let p1 = document.getElementById('p1')
+
+//// Custom Manipulasi 
+buatElemen('h1',{ id: "2"},"INI ID H1")
+let id2 = document.getElementById('2')
 
 
 buatElemen('button',{class: 'neon-glow-btn',style: 'margin:15px',onclick:()=> adopsiAnak(p1,id2)},`jadikan Anak`)
