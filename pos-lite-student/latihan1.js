@@ -82,6 +82,10 @@ const ubahKeHurufBesar = () => {
 }
 
 // STUDY CASE DENGAN (Object.assign())
+const salinObject = (paste, ...copy) => Object.assign(paste,...copy)
+
+// STUDYCASE DENGAN (Object.entries())
+const objToArray = (obj) => Object.entries(obj)
 
 
 
@@ -112,7 +116,7 @@ const pasangEventListn = (elemen, namEvent, handler) => {
 
 // STEP (Set khusus Untuk Pasang Dataset)
 function pasangDataset(elemen, datasetObject = {}) {
-  Object.assign(elemen.dataset, datasetObject); // datasetObject misal: { id: '123', role: 'card' }
+  salinObject(elemen.dataset,datasetObject) // datasetObject misal: { id: '123', role: 'card' }
 }
 /////////////////////////////////////////////////////////////////
 
@@ -144,7 +148,7 @@ const buatSatuAttribute = (tag, key, value) => {
 
 
 // STEP (Set Khusus Banyak Attribute)
-const tanganiBanyakAttribute = (tag, att = {}) => Object.entries(att).forEach(([k, v]) => buatSatuAttribute(tag, k, v))
+const tanganiBanyakAttribute = (tag, att = {}) => objToArray(att).forEach(([k, v]) => buatSatuAttribute(tag, k, v))
 /////////////////////////////////////////////////////////////////
 
 // STEP (Set Khusus Untuk pasang Class)
@@ -240,12 +244,14 @@ const tanyaMauBikinButtonBerapa = () => {
 
 
 ///// Custom Manipulasi pada DATASET
-buatElemen('div', { id: "1", class: 'neon-glow-btn', style: 'margin-right:1195px',dataset:{id:'001',nama:"Nutrisari",price:'1000',category:'Minuman'}},'SAMPLE DATA SET')
+buatElemen('div', { id: "1", class: 'neon-glow-btn',dataset:{id:'001',nama:"Nutrisari",price:'1000',category:'Minuman'}},'SAMPLE DATA SET')
 let id1 = document.getElementById('1')
+
+console.log(id1.dataset);
 
 
 //// Custom Manipulasi 
-buatElemen('h1', 'INI ID NYA 1', { id: "2",})
+buatElemen('h1',{ id: "2"},"INI ID H1")
 let id2 = document.getElementById('2')
 
 buatElemen('button',{class: 'neon-glow-btn',style: 'margin:5px'},`Id: ${id1.dataset.id}`)
@@ -256,4 +262,4 @@ buatElemen('p',{id:'btn-category',class: 'neon-glow-btn',style: 'margin:5px'},`C
 let btnCategory = document.getElementById('btn-category')
 
 
-buatElemen('button',{class: 'neon-glow-btn',style: 'margin-top:50px',onclick:()=> adopsiAnak(btnCategory,['1','2','3','4'])},`jadikan Anak`)
+buatElemen('button',{class: 'neon-glow-btn',style: 'margin-top:50px',onclick:()=> adopsiAnak(btnCategory,id2)},`jadikan Anak`)
