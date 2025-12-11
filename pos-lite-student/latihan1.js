@@ -1,16 +1,16 @@
-// ===================================================================
+ // ===================================================================
 //                   MATERI KNOWLEDGE
 // ===================================================================
 
 
-// CREATE ELEMENT
+// STUDY CASE DENGAN (createElement())
 const buatElemenSimple = (tag, isi) => {
     const elemen = document.createElement(tag)
     elemen.textContent = isi
     document.body.appendChild(elemen)
 }
 
-// CREATE ELEMENT WITH DEFAULT PARAM
+// STUDY CASE DENGAN (createElement()) WITH DEFAULT PARAM
 const buatElemenButton = (isi = "KLIK") => {
     const button = document.createElement('button')
     const textNode = document.createTextNode(isi)
@@ -18,14 +18,14 @@ const buatElemenButton = (isi = "KLIK") => {
     document.body.appendChild(button)
 }
 
-// OBJECT ENTRIES
+// STUDY CASE DENGAN (Object.entries())
 const obj1 = (props = {}) => props // HASIL => { id: 'id1', class: 'class1' }
 const obj2 = (props = {}) => Object.entries(props) // HASIL => [ [ 'id', 'id1' ], [ 'class', 'class1' ] ]
 const resultObj1 = obj1({ id: "id1", class: "class1" })
 const resultObj2 = obj2({ id: "id1", class: "class1" })
 
 
-// OBJECT ENTRIES WITH FOREACH 
+// STUDY CASE DENGAN (Object.entries() + map())
 const list1 = (props = {}) => Object.entries(props).map((v, i,) => `I:(${i}) V:(${v})`).join()
 const list2 = (props = {}) => Object.entries(props).map(([k, v], i,) => `I:(${i}). K:(${k}) V:(${v})`)
 const list3 = (props = {}) => Object.entries(props).map(([k, v], i,) => `I:(${i}). K:(${k}) V:(${v})`).join('\n')
@@ -33,12 +33,55 @@ const resultList1 = list1({ id: "id1", class: "class1" }) // Tanpa array [] pada
 const resultList2 = list2({ id: "id1", class: "class1" }) // TANPA JOIN : [ 'I:(0). K:(id) V:(id1)', 'I:(1). K:(class) V:(class1)' ]
 const resultList3 = list3({ id: "id1", class: "class1" }) // DENGAN JOIN : I:(0). K:(id) V:(id1) , I:(1). K:(class) V:(class1)
 
-// console.log("================================================"); console.log(resultList1);
-// console.log("================================================"); console.log(resultList2);
-// console.log("================================================"); console.log(resultList3);
+// STUDY CASE DENGAN (startsWith()) 
+const cekNama = () => {
+    let nama = prompt("Nama Kamu Siapa ?")
+    if (nama) {
+        // Validasi Jika Value Nama Di awali (muhammad)
+        if (nama.startsWith('muhammad') || nama.startsWith('ahmad')) {
+            console.log(nama);
+            alert(`Hello Brother ${nama} Im Muslim Like You`)
+        } else {
+            // Langsung Muncul Jika Namanya bukan di awali 
+            alert(`Halo ${nama}`)
+            console.log(nama);
+        }
+    }
+    return 
+}
+
+
+// STUDY CASE DENGAN (typeof)
+const cekTypeData = (value) => console.log(typeof value );
+
+// STUDY CASE DENGAN (substring())
+const ambilKarakterKe = () => {
+    let value = prompt('Masukan Value')
+    let start = prompt('Ambil dari Karakter ke berapa?')
+    let end = prompt('Sampe ke Berapa?')
+    console.log(value.substring(start,end)); 
+}
+
+// STUDY CASE DENGAN (toLowerCase())
+const ubahKeHurufKecil = () => {
+    let value = prompt("Masukan Text")
+    let result = value.toLowerCase()
+    buatElemen('h1',result,{id:'hurufKecil',style:"font-size:100px;"})  
+}
+
+// STUDY CASE DENGAN (toUpperCase())
+const ubahKeHurufBesar = () => {
+    let value = prompt("Masukan Text")
+    let result = value.toUpperCase()
+    buatElemen('h1',result,{id:'hurufBesar',style:"font-size:100px;"})
+}
+
+// STUDY CASE DENGAN (Object.assign())
 
 
 
+// =====================================================================================================================================================
+// =====================================================================================================================================================
 
 
 
@@ -57,7 +100,7 @@ const buatNode = (node) => document.createTextNode(node)
 
 
 // STEP (Khusus Untuk Add Event Listener)
-const buatEventListn = (elemen, namEvent, handler) => {
+const pasangEventListn = (elemen, namEvent, handler) => {
     elemen.addEventListener(namEvent, handler)
 }
 /////////////////////////////////////////////////////////////////
@@ -69,15 +112,19 @@ const buatSatuAttribute = (tag, key, value) => {
     // Validasi Khusus untuk Attribute EVENT LISTENER
     if (key.startsWith('on') && typeof value === 'function') {
         const namaEvent = key.substring(2).toLowerCase();
-        buatEventListn(tag, namaEvent, value)
+        pasangEventListn(tag, namaEvent, value)
         return;
 
-    // Validasi Khusus Untuk set ATTRIBUTE CLASS
-    } else if (key === 'class'){
-        setClass(tag,value)
-    } else {
+    // Validasi Khusus Untuk pasang ATTRIBUTE CLASS
+    } else if (key === 'class') {
+        pasangClass(tag, value)
 
-    // Khusus Untuk ATRIBUT BIASA
+    // Validais Khusus Untuk Pasang DATASET
+    } else if (key === 'dataset' && typeof value === 'object') {
+        pasangDataset(tag,value)
+    }
+    else {
+        // Khusus Untuk ATRIBUT BIASA
         tag.setAttribute(key, value)
     }
 
@@ -89,8 +136,13 @@ const buatSatuAttribute = (tag, key, value) => {
 const tanganiBanyakAttribute = (tag, att = {}) => Object.entries(att).forEach(([k, v]) => buatSatuAttribute(tag, k, v))
 /////////////////////////////////////////////////////////////////
 
-// STEP (Set Khusus Untuk Class)
-const setClass = (tag,className) => tag.className = className
+// STEP (Set Khusus Untuk pasang Class)
+const pasangClass = (tag, className) => tag.className = className
+
+// STEP (Set khusus Untuk Pasang Dataset)
+function pasangDataset(elemen, datasetObject = {}) {
+  Object.assign(elemen.dataset, datasetObject); // datasetObject misal: { id: '123', role: 'card' }
+}
 
 // STEP (Set Ke Body di HTML)
 const addKeBody = (tag) => document.body.appendChild(tag)
@@ -134,11 +186,10 @@ const buatElemen = (tag, node, atributs = {}) => {
 // RUANG EKSKUSI PEMANGGILAN BERBAGAI FUNCTION YANG SUDAH DI BUAT
 //////////////////////////////////////////////////////////////////////////////////////
 
-buatElemen('button', 'EL', { id: "1", class: 'neon-glow-btn', style: 'margin:5px', onClick: () => tanyaMauBikinButtonBerapa() })
-buatElemen('button', 'ABYAN', { id: "1", class: 'neon-glow-btn', style: 'margin:5px', onClick: () => abyan() })
+buatElemen('div', 'undefined', { id: "1", class: 'neon-glow-btn', style: 'margin:5px',dataset:{id:'001',nama:"Nutrisari",price:'1000',category:'Minuman'}})
 
 
-///////////////////////////////////////
+///////  Custom Handler For Add Event Listner 
 const tanyaNama = () => {
     const nama = prompt('SIAPA  KAU?')
     if (nama) {
@@ -146,13 +197,13 @@ const tanyaNama = () => {
     }
 }
 
-/////// STUDY CASE 
+///////  Custom Handler For Add Event Listner 
 const tanyaMauBikinButtonBerapa = () => {
     const total = prompt('Mau Bikin Button Berapa cuy?')
 
     if (total >= 1) {
         for (let i = 0; i < total; i++) {
-            buatElemen('button', `Button ${i + 1}`, { id: `id${i + 1}`, class: 'neon-glow-btn', style: 'margin:5px',onclick: ()  => alert(`SAYA BUTTON KE ${i+1}`)  })
+            buatElemen('button', `Button ${i + 1}`, { id: `id${i + 1}`, class: 'neon-glow-btn', style: 'margin:5px', onclick: () => alert(`SAYA BUTTON KE ${i + 1}`) })
         }
     }
 }
