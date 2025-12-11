@@ -244,7 +244,7 @@ const tanyaMauBikinButtonBerapa = () => {
 
 
 ///// Custom Manipulasi pada DATASET
-buatElemen('div', { id: "1", class: 'neon-glow-btn',dataset:{id:'001',nama:"Nutrisari",price:'1000',category:'Minuman'}},'SAMPLE DATA SET')
+buatElemen('div', { id: "1", class: 'neon-glow-btn',style: 'margin:15px',dataset:{id:'001',nama:"Nutrisari",price:'1000',category:'Minuman'}},'SAMPLE DATA SET')
 let id1 = document.getElementById('1')
 
 console.log(id1.dataset);
@@ -254,12 +254,13 @@ console.log(id1.dataset);
 buatElemen('h1',{ id: "2"},"INI ID H1")
 let id2 = document.getElementById('2')
 
-buatElemen('button',{class: 'neon-glow-btn',style: 'margin:5px'},`Id: ${id1.dataset.id}`)
-buatElemen('button',{class: 'neon-glow-btn',style: 'margin:5px'},`Nama: ${id1.dataset.nama}`)
-buatElemen('button',{class: 'neon-glow-btn',style: 'margin:5px'},`Price: ${id1.dataset.price}`)
+buatElemen('button',{class: 'neon-glow-btn',style: 'margin:15px'},`Id: ${id1.dataset.id}`)
+buatElemen('button',{class: 'neon-glow-btn',style: 'margin:15px'},`Nama: ${id1.dataset.nama}`)
+buatElemen('button',{class: 'neon-glow-btn',style: 'margin:15px'},`Price: ${id1.dataset.price}`)
+buatElemen('button',{class: 'neon-glow-btn',style: 'margin:15px'},`Category: ${id1.dataset.category}`)
 
-buatElemen('p',{id:'btn-category',class: 'neon-glow-btn',style: 'margin:5px'},`Category: ${id1.dataset.category}`)
-let btnCategory = document.getElementById('btn-category')
+buatElemen('p',{id:'p1',class: 'neon-glow-btn',style: 'margin:15px'},'INI ID P1 ')
+let p1 = document.getElementById('p1')
 
 
-buatElemen('button',{class: 'neon-glow-btn',style: 'margin-top:50px',onclick:()=> adopsiAnak(btnCategory,id2)},`jadikan Anak`)
+buatElemen('button',{class: 'neon-glow-btn',style: 'margin:15px',onclick:()=> adopsiAnak(p1,id2)},`jadikan Anak`)
