@@ -179,14 +179,9 @@ const buatElemen = (tag, node, atributs = {}) => {
 
 
 
-
-
-
+//////////////////////////////////////////////////////////////////////////////////////
 // RUANG EKSKUSI PEMANGGILAN BERBAGAI FUNCTION YANG SUDAH DI BUAT
 //////////////////////////////////////////////////////////////////////////////////////
-
-// buatElemen('div', 'undefined', { id: "1", class: 'neon-glow-btn', style: 'margin:5px',dataset:{id:'001',nama:"Nutrisari",price:'1000',category:'Minuman'}})
-
 
 ///////  Custom Handler For Add Event Listner 
 const tanyaNama = () => {
@@ -207,10 +202,10 @@ const tanyaMauBikinButtonBerapa = () => {
     }
 }
 
-///// Custom Manipulati pada DATASET
+///// Custom Manipulasi pada DATASET
 buatElemen('div', 'SAMPLE DATA SET', { id: "1", class: 'neon-glow-btn', style: 'margin-right:1195px',dataset:{id:'001',nama:"Nutrisari",price:'1000',category:'Minuman'}})
 let id1 = document.getElementById('1')
-buatElemen('button',`Id: ${id1.dataset.id}`,{ class: 'neon-glow-btn',style: 'margin:5px'})
-buatElemen('button',`Nama: ${id1.dataset.nama}`,{ class: 'neon-glow-btn',style: 'margin:5px'})
-buatElemen('button',`Price: ${id1.dataset.price}`,{ class: 'neon-glow-btn',style: 'margin:5px'})
-buatElemen('button',`Category: ${id1.dataset.category}`,{ class: 'neon-glow-btn',style: 'margin:5px'})
+buatElemen('button',`Id: ${id1.dataset.id}`,{class: 'neon-glow-btn',style: 'margin:5px'})
+buatElemen('button',`Nama: ${id1.dataset.nama}`,{class: 'neon-glow-btn',style: 'margin:5px'})
+buatElemen('button',`Price: ${id1.dataset.price}`,{class: 'neon-glow-btn',style: 'margin:5px'})
+buatElemen('button',`Category: ${id1.dataset.category}`,{class: 'neon-glow-btn',style: 'margin:5px'})
