@@ -44,9 +44,9 @@ export function buatElemen(tag, props = {}, ...children) {
         if (typeof anak === 'string' || typeof anak === 'number') {
             elemen.appendChild(document.createTextNode(anak));
         } 
-        // Jika anaknya adalah Element HTML juga (Node)
+        // Jika anaknya adalah Element HTML juga (Node) <p>
         else if (anak instanceof Node) {
-            elemen.appendChild(anak);
+            elemen.appendChild(anak); 
         }
         // Jika anaknya adalah Array (Nested Children)
         else if (Array.isArray(anak)) {
