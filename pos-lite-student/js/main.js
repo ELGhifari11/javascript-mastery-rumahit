@@ -8,6 +8,7 @@ console.log("Mesin POS Lite dinyalakan..."); // Cek di Console Browser (F12)
 console.table(db.myProduct);
 
 
+
 // 2. Ambil wadah dari index.html
 const wadahAplikasi = document.getElementById('aplikasi');
 
@@ -15,6 +16,4 @@ const wadahAplikasi = document.getElementById('aplikasi');
 const styleContainer = 'display: flex; align-items: start; flex-wrap: wrap; gap: 20px; padding:10px';
 wadahAplikasi.setAttribute('style',styleContainer)
 
-const renderBanyakKartu = (products) => products.forEach(v => wadahAplikasi.appendChild(utils.renderSingleKartu(v)))
-
-wadahAplikasi.appendChild(renderBanyakKartu(db.myProduct))
+utils.renderBanyakKartu(wadahAplikasi,db.myProduct)
