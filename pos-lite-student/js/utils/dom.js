@@ -7,6 +7,7 @@
  * 2. props    : Properti/Atribut (misal: { id: 'judul', className: 'teks-biru' })
  * 3. ...children : Isi elemen (bisa teks, bisa elemen lain) -> Ditangkap jadi Array
  */
+
 export function buatElemen(tag, props = {}, ...children) {
     // 1. Buat elemen kosong dulu
     const elemen = document.createElement(tag);
