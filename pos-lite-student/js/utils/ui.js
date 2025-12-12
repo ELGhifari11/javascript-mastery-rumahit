@@ -26,3 +26,5 @@ export const renderSingleKartu = (db = {}) => {
 );
 return kartu
 }
+
+export const renderBanyakKartu = (elemen,products) => products.forEach(v => elemen.appendChild(renderSingleKartu(v)))
