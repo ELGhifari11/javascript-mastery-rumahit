@@ -82,11 +82,12 @@ const ubahKeHurufBesar = () => {
 }
 
 // STUDY CASE DENGAN (Object.assign())
-const salinObject = (paste, ...copy) => Object.assign(paste,...copy)
+const salinObject = (paste = {}, ...copy) => Object.assign(paste,...copy)
 
 // STUDYCASE DENGAN (Object.entries())
 const objToArray = (obj) => Object.entries(obj)
 
+// 
 
 
 // =====================================================================================================================================================
@@ -103,14 +104,15 @@ const objToArray = (obj) => Object.entries(obj)
 const buatTag = (tag) => document.createElement(tag)
 /////////////////////////////////////////////////////////////////
 
+
 // STEP (Khusus Untuk Create Node)
 const buatNode = (node) => document.createTextNode(node)
 /////////////////////////////////////////////////////////////////
 
 
 // STEP (Khusus Untuk Add Event Listener)
-const pasangEventListn = (elemen, namEvent, handler) => {
-    elemen.addEventListener(namEvent, handler)
+const pasangEventListn = (elemen, namaEvent, handler) => {
+    elemen.addEventListener(namaEvent, handler)
 }
 /////////////////////////////////////////////////////////////////
 
@@ -146,10 +148,19 @@ const buatSatuAttribute = (tag, key, value) => {
 }
 /////////////////////////////////////////////////////////////////
 
-
 // STEP (Set Khusus Banyak Attribute)
+/**
+ * @function tanganiBanyakAttribute
+ * @description Menetapkan semua properti dari objek atribut pada Node DOM target.
+ *
+ * @param {Node} tag - Elemen DOM (Node) yang akan dimodifikasi.
+ * @param {Object<string, (string|Function)>} [att={}] - Objek pasangan kunci-nilai atribut. 
+ * Kunci adalah nama atribut (misalnya 'id', 'class', 'onClick'), dan nilainya adalah nilai atribut.
+ * @returns {void}
+ */
 const tanganiBanyakAttribute = (tag, att = {}) => objToArray(att).forEach(([key, value]) => buatSatuAttribute(tag, key, value))
 /////////////////////////////////////////////////////////////////
+
 
 // STEP (Set Khusus Untuk pasang Class)
 const pasangClass = (tag, className) => tag.className = className
@@ -209,7 +220,6 @@ const buatElemen = (tag,atributs = {}, ...children) => {
 /////////////////////////////////////////////////////
 
 
-
 //////////////////////////////////////////////////////////////////////////////////////
 // RUANG EKSKUSI PEMANGGILAN BERBAGAI FUNCTION YANG SUDAH DI BUAT
 //////////////////////////////////////////////////////////////////////////////////////
@@ -242,8 +252,6 @@ const tanyaMauBikinButtonBerapa = () => {
 buatElemen('div', { id: "1", class: 'neon-glow-btn',style: 'margin:15px',dataset:{id:'001',nama:"Nutrisari",price:'1000',category:'Minuman'}},'SAMPLE DATA SET')
 let id1 = document.getElementById('1')
 
-console.log(id1.dataset);
-
 buatElemen('button',{class: 'neon-glow-btn',style: 'margin:15px'},`Id: ${id1.dataset.id}`)
 buatElemen('button',{class: 'neon-glow-btn',style: 'margin:15px'},`Nama: ${id1.dataset.nama}`)
 buatElemen('button',{class: 'neon-glow-btn',style: 'margin:15px'},`Price: ${id1.dataset.price}`)
@@ -253,8 +261,24 @@ buatElemen('p',{id:'p1',class: 'neon-glow-btn',style: 'margin:15px'},'INI ID P1 
 let p1 = document.getElementById('p1')
 
 //// Custom Manipulasi 
-buatElemen('h1',{ id: "2"},"INI ID H1")
-let id2 = document.getElementById('2')
+// buatElemen('h1',{ id: "2"},"INI ID H1")
+// let id2 = document.getElementById('2')
+
+buatElemen('button',{class: 'neon-glow-btn',style: 'margin:15px',onclick:()=> RequestTag()})
 
 
-buatElemen('button',{class: 'neon-glow-btn',style: 'margin:15px',onclick:()=> adopsiAnak(p1,id2)},`jadikan Anak`)
+////////////////////////////////
+
+const f1 = (nama) => nama  ? `Nama: ${nama}` : 'Nama: Empty'
+
+const f2 = (alamat) =>  alamat ? `Alamat: ${alamat}`:  'Alamat: Empty'
+
+const dataSantri = (nama = '',alamat = '') => {
+    let a = f1(nama)
+    let b = f2(alamat)
+
+    return `${a} | ${b}`
+}
+
+console.log(dataSantri('Ke isi'));
+
