@@ -12,7 +12,7 @@ console.table(db.myProduct); // [{}]
 const wadahAplikasi = document.getElementById('aplikasi');
 
 // Style yang lebih rapi
-const styleContainer = 'display: flex; align-items: start; flex-wrap: wrap; gap: 20px; min-height: 100vh; padding:10px';
+const styleContainer = 'display: flex; align-items: start; flex-wrap: wrap; gap: 20px; padding:10px';
 wadahAplikasi.setAttribute('style',styleContainer)
 
 // 3. Data Bohongan (Dummy) untuk tes
@@ -21,7 +21,6 @@ const produkTest = {
     harga: 18000,
     kategori: "Minuman",
 };
-
 
 // 4. Bikin Tampilan pakai fungsi sakti 'buatElemen'
 // Perhatikan betapa bersihnya kode ini dibanding document.createElement biasa!
