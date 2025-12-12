@@ -52,3 +52,8 @@
   transform: translateY(0); /* Kembali ke posisi semula */
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Glow sedikit meredup */
 }
+
+.img{
+    width: 100px;
+    border-radius: 100px;
+}
