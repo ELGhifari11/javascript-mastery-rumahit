@@ -1,14 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>POS Lite - Hari 1</title>
+    <!-- Hubungkan CSS -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <script src="latihan1.js"></script>
-</body>
+    
+    <!-- HEADER SEDERHANA -->
+    <header style="padding: 20px; border-bottom: 2px solid #e30a0a;">
+        <h1>POS Lite 🚀</h1>
+    </header>
 
+    <!-- 
+        WADAH KOSONG (Container)
+        Di sinilah JavaScript akan menyuntikkan (inject) seluruh aplikasi kita.
+        Biarkan kosong! JS yang akan bekerja.
+    -->
+    <main id="aplikasi" style="padding: 20px;"></main>
+
+    <!-- 
+        PENTING: type="module" 
+        Wajib ada agar browser tahu kita pakai import/export modern.
+        Tanpa ini, codingan kita error "Cannot use import statement..."
+    -->
+    <script type="module" src="js/main.js"></script>
+</body>
 </html>
