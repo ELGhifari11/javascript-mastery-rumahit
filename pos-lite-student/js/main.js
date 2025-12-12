@@ -11,6 +11,10 @@ console.table(db.myProduct); // [{}]
 // 2. Ambil wadah dari index.html
 const wadahAplikasi = document.getElementById('aplikasi');
 
+// Style yang lebih rapi
+const styleContainer = 'display: flex; align-items: start; flex-wrap: wrap; gap: 20px; min-height: 100vh; padding:10px';
+wadahAplikasi.setAttribute('style',styleContainer)
+
 // 3. Data Bohongan (Dummy) untuk tes
 const produkTest = {
     nama: "Kopi Susu Gula Aren",
@@ -18,41 +22,9 @@ const produkTest = {
     kategori: "Minuman",
 };
 
+
 // 4. Bikin Tampilan pakai fungsi sakti 'buatElemen'
 // Perhatikan betapa bersihnya kode ini dibanding document.createElement biasa!
-const renderSingleKartu = (db = {}) => {
-    const kartu = utils.buatElemen('div', { className: 'kartu-produk', style: 'border: 1px solid black; padding: 20px; max-width: 300px; border-radius: 8px;' },
-    
-    // Header Kartu
-    utils.buatElemen('h2', { style: 'color: brown; margin-top: 0;' }, db.nama),
-    
-    // Badge Kategori
-    utils.buatElemen('span', { style: 'background: #eee; padding: 4px 8px; border-radius: 4px; font-size: 12px;' }, db.kategori),
-    
-    // Harga (p) - kita pakai fungsi formatKeRupiah
-    utils.buatElemen('h3', { style: 'color: green;' }, utils.ubahMataUang(db.harga)),
-    
-    // Tombol (button) dengan Event Listener onClick
-    utils.buatElemen('button', {
-        className: 'tombol-beli',
-        style: 'background: blue; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 4px; width: 100%;',
-        // Event Listener (Klik)
-        onClick: () => {
-            alert(`Kamu membeli ${db.nama} seharga ${utils.ubahMataUang(db.harga)}`);
-        }
-    }, "Beli Sekarang")
-);
-return kartu
-}
+const renderBanyakKartu = (db) => db.forEach(v => wadahAplikasi.appendChild(utils.renderSingleKartu(v)))
 
-const renderBanyakKartu = (db) => {
-    db.forEach(v => {
-        wadahAplikasi.appendChild(renderSingleKartu(v))
-    })
-}
-
-renderBanyakKartu(db.myProduct)
-
-
-// 5. Tempelkan kartu ke wadah agar muncul di layar
-// wadahAplikasi.appendChild(kartu);
+wadahAplikasi.appendChild(renderBanyakKartu(db.myProduct))
