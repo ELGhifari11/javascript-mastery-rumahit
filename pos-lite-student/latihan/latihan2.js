@@ -1,10 +1,8 @@
 
-
 // Problem Yang Belom Di pahami 
 // 1. Looping // STUDYCASE : 10 
 // 2. Manipulasi function // STUDYCASE : 3
 // 3. DOM // STUDYCASE : 2
-
 
 // LOOPING +  ARRAY + OBJECT + TEMPLATE LITERAL + INTERPOLASI VARIABEL 
 let BanyakData1 = [
