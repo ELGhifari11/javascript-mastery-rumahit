@@ -118,4 +118,3 @@ console.log(hasil);
 
 localStorage.setItem('kunci1','INI ISI DARI KUNCI SATU')
 localStorage.setItem('kunci2','INI ISI DARI KUNCI DUA')
-//
