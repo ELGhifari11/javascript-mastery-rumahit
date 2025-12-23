@@ -4,7 +4,6 @@
  * Berisi konfigurasi Kunci dan fungsi Low-Level.
  */
 
-
 // Konstanta Kunci Penyimpanan
 // Kita pakai awalan 'pos_' biar tidak bentrok dengan aplikasi lain di localhost.
 export const KUNCI_PENYIMPANAN = {
