@@ -50,7 +50,6 @@ let err2 = json.substring(190)
 
 // console.log(err2);
 
-
 // ubahKeJs(err2) // 
 // console.log("INI KODE LAIN HARUS JALAN MAU NGGK MAU");
 
@@ -117,8 +116,5 @@ console.log(hasil);
 
 // --------------------------
 
-
 localStorage.setItem('kunci1','INI ISI DARI KUNCI SATU')
 localStorage.setItem('kunci2','INI ISI DARI KUNCI DUA')
-
-///
