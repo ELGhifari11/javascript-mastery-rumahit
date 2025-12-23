@@ -112,9 +112,39 @@ const islam = (nama) => {
 }
 
 let hasil = islam("Abdul Mujib")
-console.log(hasil);
+// console.log(hasil);
 
 // --------------------------
 
-localStorage.setItem('kunci1','INI ISI DARI KUNCI SATU')
-localStorage.setItem('kunci2','INI ISI DARI KUNCI DUA')
+// localStorage.setItem('kunci1','INI ISI DARI KUNCI SATU')
+// localStorage.setItem('kunci2','INI ISI DARI KUNCI DUA')
+
+// --------------------------
+
+const KUNCI_PENYIMPANAN = {
+    STATE_POS: 'pos_state', 
+    PENGGUNA_SAAT_INI: 'pos_pengguna_saat_ini',
+    DEV_LOG: "pos_developer_logging" 
+};
+
+const data = {
+    nama: "Bambang",
+    kelas: "1",
+    alamat : "bekasi"
+}
+
+// console.log(data.nama); // Bambang
+// console.log(data.alamat); // Bekasi
+
+
+localStorage.setItem(KUNCI_PENYIMPANAN.STATE_POS,"INI TEST SIMPAN DATA")
+// localStorage.setItem('pos_state',"INI TEST SIMPAN DATA")
+localStorage.setItem(KUNCI_PENYIMPANAN.DEV_LOG,"(DEV) BERHASIL SIMPAN : INI TEST SIMPAN DATA")
+
+localStorage.setItem(KUNCI_PENYIMPANAN.PENGGUNA_SAAT_INI,"INI TEST SIMPAN DATA PENGGUNA")
+// localStorage.setItem('pos_pengguna_saat_ini' ,"INI TEST SIMPAN DATA PENGGUNA")
+
+console.log(`Data yang ada Simpan adalah: ${localStorage.getItem(KUNCI_PENYIMPANAN.STATE_POS)} `);
+// console.log(`Data yang ada Simpan adalah: ${localStorage.getItem('pos_state')} `);
+
+console.log(localStorage.getItem(KUNCI_PENYIMPANAN.DEV_LOG));

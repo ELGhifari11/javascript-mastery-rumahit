@@ -11,7 +11,6 @@ export const KUNCI_PENYIMPANAN = {
     PENGGUNA_SAAT_INI: 'pos_pengguna_saat_ini' // Sesi Login (Terpisah biar aman)
 };
 
-
 /**
  * Mengambil seluruh data POS (Produk, Transaksi, User)
  * @returns {Object} Object State lengkap
