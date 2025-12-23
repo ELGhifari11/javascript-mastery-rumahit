@@ -1,3 +1,4 @@
+
 let obj = [
     { nama: "Bambang", alamat: "Bekasi" },
     { nama: "Siti Aminah", alamat: "Jakarta" },
@@ -127,24 +128,33 @@ const KUNCI_PENYIMPANAN = {
     DEV_LOG: "pos_developer_logging" 
 };
 
-const data = {
-    nama: "Bambang",
-    kelas: "1",
-    alamat : "bekasi"
-}
-
-// console.log(data.nama); // Bambang
-// console.log(data.alamat); // Bekasi
-
-
-localStorage.setItem(KUNCI_PENYIMPANAN.STATE_POS,"INI TEST SIMPAN DATA")
+// localStorage.setItem(KUNCI_PENYIMPANAN.STATE_POS,"INI TEST SIMPAN DATA")
 // localStorage.setItem('pos_state',"INI TEST SIMPAN DATA")
-localStorage.setItem(KUNCI_PENYIMPANAN.DEV_LOG,"(DEV) BERHASIL SIMPAN : INI TEST SIMPAN DATA")
+// localStorage.setItem(KUNCI_PENYIMPANAN.DEV_LOG,"(DEV) BERHASIL SIMPAN : INI TEST SIMPAN DATA")
 
-localStorage.setItem(KUNCI_PENYIMPANAN.PENGGUNA_SAAT_INI,"INI TEST SIMPAN DATA PENGGUNA")
+// localStorage.setItem(KUNCI_PENYIMPANAN.PENGGUNA_SAAT_INI,"INI TEST SIMPAN DATA PENGGUNA")
 // localStorage.setItem('pos_pengguna_saat_ini' ,"INI TEST SIMPAN DATA PENGGUNA")
 
-console.log(`Data yang ada Simpan adalah: ${localStorage.getItem(KUNCI_PENYIMPANAN.STATE_POS)} `);
+// console.log(`Data yang ada Simpan adalah: ${localStorage.getItem(KUNCI_PENYIMPANAN.STATE_POS)} `);
 // console.log(`Data yang ada Simpan adalah: ${localStorage.getItem('pos_state')} `);
 
-console.log(localStorage.getItem(KUNCI_PENYIMPANAN.DEV_LOG));
+// console.log(localStorage.getItem(KUNCI_PENYIMPANAN.DEV_LOG));
+ 
+// --------------------------
+
+console.log(obj);
+
+const simpanStatePos = (data) => {
+    try {
+
+        const stringJson = JSON.stringify(data);
+
+        localStorage.setItem(KUNCI_PENYIMPANAN.STATE_POS,stringJson)
+
+    } catch (err) {
+        console.error(err.message);
+    }
+}
+
+simpanStatePos(obj) // Call A function
+
