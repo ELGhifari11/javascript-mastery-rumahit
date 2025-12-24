@@ -45,9 +45,10 @@ let ubahKeJs = (data = '') => {
 
 let json = ubahKeJson(obj)
 // console.log(json);
-let err1 = json += 'Test'
+// let err1 = json += 'Test'
 // console.log(err1);
-let err2 = json.substring(190)
+// let err2 = json.substring(190)
+
 
 // console.log(err2);
 
@@ -120,13 +121,26 @@ let hasil = islam("Abdul Mujib")
 // localStorage.setItem('kunci1','INI ISI DARI KUNCI SATU')
 // localStorage.setItem('kunci2','INI ISI DARI KUNCI DUA')
 
+// ---------
+
+
+
 // --------------------------
 
 const KUNCI_PENYIMPANAN = {
-    STATE_POS: 'pos_state', 
+    STATE_POS: 'pos_state',
     PENGGUNA_SAAT_INI: 'pos_pengguna_saat_ini',
     DEV_LOG: "pos_developer_logging" 
 };
+
+localStorage.setItem(KUNCI_PENYIMPANAN.STATE_POS,JSON.stringify({kunci:"Value",kunci2:"value2"}))
+
+let laciPos = JSON.parse(localStorage.getItem(KUNCI_PENYIMPANAN.STATE_POS))
+
+console.log(laciPos.kunci);
+
+
+
 
 // localStorage.setItem(KUNCI_PENYIMPANAN.STATE_POS,"INI TEST SIMPAN DATA")
 // localStorage.setItem('pos_state',"INI TEST SIMPAN DATA")
@@ -142,7 +156,7 @@ const KUNCI_PENYIMPANAN = {
  
 // --------------------------
 
-console.log(obj);
+// console.log(obj);
 
 const simpanStatePos = (data) => {
     try {
@@ -156,7 +170,31 @@ const simpanStatePos = (data) => {
     }
 }
 
-simpanStatePos(obj) // Call A function
+const ambilStatePOS = () => {
+    try {
 
-// INI TESTING PERUBAHAN
+        const dataStatePos = localStorage.getItem(KUNCI_PENYIMPANAN.STATE_POS)
+
+        if(dataStatePos) {
+            console.log("INI MUNCUL");
+            return JSON.parse(dataStatePos)
+        } else {
+            console.log('DATA KOSOSNG');
+        }
+
+    } catch (err) {
+        console.error("Database Corrupt, mereset state...", err.message);
+    }
+
+
+    return {produk: [],transaksi : [],pengguna : []}
+
+    
+}
+
+
+simpanStatePos(obj)
+
+console.log(ambilStatePOS(KUNCI_PENYIMPANAN.DEV_LOG));
+
 
