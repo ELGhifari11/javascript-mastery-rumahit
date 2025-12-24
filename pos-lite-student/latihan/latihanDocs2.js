@@ -158,3 +158,5 @@ const simpanStatePos = (data) => {
 
 simpanStatePos(obj) // Call A function
 
+// INI TESTING PERUBAHAN
+
