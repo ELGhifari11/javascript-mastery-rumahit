@@ -124,7 +124,6 @@ let hasil = islam("Abdul Mujib")
 // ---------
 
 
-
 // --------------------------
 
 const KUNCI_PENYIMPANAN = {
@@ -132,31 +131,6 @@ const KUNCI_PENYIMPANAN = {
     PENGGUNA_SAAT_INI: 'pos_pengguna_saat_ini',
     DEV_LOG: "pos_developer_logging" 
 };
-
-localStorage.setItem(KUNCI_PENYIMPANAN.STATE_POS,JSON.stringify({kunci:"Value",kunci2:"value2"}))
-
-let laciPos = JSON.parse(localStorage.getItem(KUNCI_PENYIMPANAN.STATE_POS))
-
-console.log(laciPos.kunci);
-
-
-
-
-// localStorage.setItem(KUNCI_PENYIMPANAN.STATE_POS,"INI TEST SIMPAN DATA")
-// localStorage.setItem('pos_state',"INI TEST SIMPAN DATA")
-// localStorage.setItem(KUNCI_PENYIMPANAN.DEV_LOG,"(DEV) BERHASIL SIMPAN : INI TEST SIMPAN DATA")
-
-// localStorage.setItem(KUNCI_PENYIMPANAN.PENGGUNA_SAAT_INI,"INI TEST SIMPAN DATA PENGGUNA")
-// localStorage.setItem('pos_pengguna_saat_ini' ,"INI TEST SIMPAN DATA PENGGUNA")
-
-// console.log(`Data yang ada Simpan adalah: ${localStorage.getItem(KUNCI_PENYIMPANAN.STATE_POS)} `);
-// console.log(`Data yang ada Simpan adalah: ${localStorage.getItem('pos_state')} `);
-
-// console.log(localStorage.getItem(KUNCI_PENYIMPANAN.DEV_LOG));
- 
-// --------------------------
-
-// console.log(obj);
 
 const simpanStatePos = (data) => {
     try {
@@ -187,14 +161,37 @@ const ambilStatePOS = () => {
     }
 
 
-    return {produk: [],transaksi : [],pengguna : []}
+    return { produk: [],transaksi : [],pengguna : [] }
 
     
 }
 
 
-simpanStatePos(obj)
+// --------------------------
 
-console.log(ambilStatePOS(KUNCI_PENYIMPANAN.DEV_LOG));
+const ambilBarang = () => {
+    const iniBarangnya = ambilStatePOS()
+    console.log(iniBarangnya.produk);
+    
+}
+
+let contohObj = { produk: [],transaksi : [],pengguna : []}
+
+if (contohObj.trash) {
+    console.log("Oke ada Isinya");
+} else {
+    console.log("Wah nggk ada isinya nih ya, saya tambahin propertynya cek dah ");
+    contohObj.trash = []
+    console.log(contohObj);
+}
+
+console.log(contohObj.trash);
+console.log("masih kosong nieh trash");
+contohObj.trash.unshift("GUA TAMBAHIN")
+console.log(contohObj.trash);
+contohObj.trash.unshift("GUA TAMBAHIN2")
+console.log(contohObj.trash);
+contohObj.trash.unshift("GUA TAMBAHIN3")
+console.log(contohObj.trash);
 
 
